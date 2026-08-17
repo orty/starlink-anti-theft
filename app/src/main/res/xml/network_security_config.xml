@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The dish serves gRPC over cleartext HTTP/2 with no TLS, so cleartext has to be permitted
+    for its address specifically. Everything else in the app (the user's webhook) stays under
+    the default policy, which requires HTTPS.
+-->
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">192.168.100.1</domain>
+    </domain-config>
+</network-security-config>

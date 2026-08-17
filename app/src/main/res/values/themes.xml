@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        A bare platform theme. The UI is entirely Compose Material 3, so there is no AppCompat
+        dependency and nothing here needs to describe the app's appearance.
+    -->
+    <style name="Theme.StarlinkGuard" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+</resources>

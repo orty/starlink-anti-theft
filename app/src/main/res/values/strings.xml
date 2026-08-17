@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Starlink Guard</string>
+    <string name="channel_monitor_name">Monitoring</string>
+    <string name="channel_monitor_description">Shows that the dish is being watched.</string>
+    <string name="channel_alarm_name">Theft alarm</string>
+    <string name="channel_alarm_description">Sounds when the dish is moved.</string>
+</resources>
