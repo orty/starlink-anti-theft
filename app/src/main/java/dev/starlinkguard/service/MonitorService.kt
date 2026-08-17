@@ -138,7 +138,8 @@ class MonitorService : Service() {
 
     private suspend fun pollLoop() {
         val app = application as StarlinkGuardApp
-        var lastBaselineLogged = false
+        var loggedBaselineAtMs = 0L
+        var savedSnapshot: dev.starlinkguard.core.detect.DetectorSnapshot? = null
 
         while (true) {
             val sample = pollOnce()
@@ -160,8 +161,11 @@ class MonitorService : Service() {
                 )
             }
 
-            if (result.baseline != null && !lastBaselineLogged) {
-                lastBaselineLogged = true
+            // Compared by capture time so a re-baseline after an acknowledged alarm is logged
+            // again rather than being swallowed by a one-shot flag.
+            val baseline = result.baseline
+            if (baseline != null && baseline.capturedAtMs != loggedBaselineAtMs) {
+                loggedBaselineAtMs = baseline.capturedAtMs
                 app.eventLog.append(
                     EventType.BASELINE_CAPTURED,
                     "Reference position recorded: " + describeBaseline(result),
@@ -173,7 +177,14 @@ class MonitorService : Service() {
                 raiseAlarm(result.triggers.map { it.describe() }, sample.status)
             }
 
-            app.settingsStore.saveDetectorSnapshot(detector.snapshot())
+            // Only persist when something actually changed. This loop runs every few seconds
+            // for days on end, and an unconditional write would hammer flash for nothing.
+            val snapshot = detector.snapshot()
+            if (snapshot != savedSnapshot) {
+                savedSnapshot = snapshot
+                app.settingsStore.saveDetectorSnapshot(snapshot)
+            }
+
             updateNotification(result.state, sample)
 
             delay(settings.thresholds.pollIntervalSec * 1000L)
