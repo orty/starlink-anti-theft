@@ -65,9 +65,19 @@ temporary directory and never appears in logs.
 
 ## 2. Create the app in Play Console
 
-**All apps → Create app.** App name `Starlink Guard`, English (US), **App**, **Free**.
+Go to [play.google.com/console](https://play.google.com/console) → **All apps** → **Create app**.
 
-> ⚠️ **Read the trademark note in section 6 before settling on the name.**
+| Field | Value | Notes |
+| --- | --- | --- |
+| App name | `Starlink Guard` | 30 characters max. Shown on the store and under the icon |
+| Default language | English (United States) | |
+| App or game | **App** | |
+| Free or paid | **Free** | ⚠️ **Irreversible.** A free app can never be switched to paid later. Paid → free is allowed. Pick Free |
+
+Tick the two declarations (Developer Program Policies, US export laws) and press **Create app**.
+
+> ⚠️ **Read the trademark note in section 6 before settling on the name.** The name is editable
+> later; the `applicationId` is not.
 
 ---
 
@@ -260,17 +270,103 @@ thresholds, and the alarm screen (use Test alarm) make a solid set of four.
 
 ---
 
-## 8. Ship it
+## 8. Ship it — the full walkthrough
 
-1. Push a commit — CI builds `starlink-guard-release-aab`.
-2. Download the artifact and unzip to get `app-release.aab`.
-3. Play Console → **Testing → Internal testing → Create new release**.
-4. Upload the `.aab`, add release notes, save, review, roll out.
-5. On the **Testers** tab, create an email list containing your own Google account, then copy the
-   opt-in link and open it on your phone to install through Play.
+This is the part that actually puts the app on your phone. Roughly 30 minutes end to end, most of
+it filling in forms.
 
-**Every upload needs a higher `versionCode`** than the last. Bump it in `app/build.gradle.kts`
-(`versionCode = 2`, and `versionName` when it is a meaningful change) or Play rejects the bundle.
+### 8.1 Get a signed bundle out of CI
+
+Once the four secrets from section 1 exist, push any commit. In the **Actions** tab open the
+newest **Build** run and wait for the **Release bundle** job to finish, then check its
+*Report bundle signing state* step — it must say `Signed with the upload key.` If it prints the
+`No signing secrets configured` warning instead, one of the secret names is wrong; they are
+case-sensitive and must match exactly.
+
+Download the **`starlink-guard-release-aab`** artifact. GitHub always wraps artifacts in a zip, so
+unzip it to get `app-release.aab`. That `.aab` is what you upload — **not** an APK, and not the zip.
+
+### 8.2 Set up the internal testing track and its testers
+
+Play Console → left sidebar → **Testing → Internal testing**. Do the *Testers* tab before the
+release, so the opt-in link exists the moment the release goes live.
+
+1. Open the **Testers** tab.
+2. **Create email list** → name it something like `Me`.
+3. Add the Google account email that your phone is signed in with. **This must be the exact
+   account on the device**, not an alias, or the store listing will 404 for you.
+4. **Save changes**, then tick the list so it is selected for this track.
+
+Internal testing allows up to 100 testers and has no review delay of the kind closed and open
+testing have. It is also exempt from the 12-testers-for-14-days rule that gates production on
+personal accounts.
+
+### 8.3 Create the release
+
+**Testing → Internal testing → Releases** tab → **Create new release**.
+
+**App signing.** On your very first release Play offers to enrol you in Play App Signing. Accept
+the default, *Let Google manage your app signing key*. From then on the key you generated in
+section 1 is your **upload key** — you sign with it, Google verifies it, strips it, and re-signs
+with the app signing key it holds. This is why losing your upload key is recoverable.
+
+**Upload.** Drag `app-release.aab` into the *App bundles* box. Play processes it for a few seconds,
+then shows the version, size, and the API levels and devices it supports. Sanity-check that it
+lists **target SDK 36** and `dev.starlinkguard`.
+
+**Release name.** Auto-filled as `1 (1.0)`. It is internal-only; leave it.
+
+**Release notes.** Required. The `<en-US>` tags must stay:
+
+```
+<en-US>
+First internal build. Monitors dish orientation and GPS, sounds an alarm on movement.
+</en-US>
+```
+
+**Save** → **Review release** → **Start rollout to Internal testing** → confirm.
+
+### 8.4 Clear whatever Play blocks you on
+
+Play will not let you roll out until the **Dashboard → Set up your app** checklist is complete —
+that is every item in section 3, plus a store listing with the icon, feature graphic and at least
+two screenshots. If *Start rollout* is greyed out, the release page lists the exact missing items
+at the top; work through them and come back. Errors block rollout, warnings do not.
+
+### 8.5 Install it on your phone
+
+Back on the **Testers** tab there is now a **Copy link** under *How testers join your test*. Open
+that link on the phone, signed in as the tester account:
+
+1. The page says *You're invited to test Starlink Guard* → **Accept the invite**.
+2. **Download it on Google Play** → the normal store page opens → **Install**.
+
+First propagation usually takes a few minutes and occasionally a couple of hours. If the store
+page says the item is not found, you are on the wrong Google account or the rollout has not
+finished — those are the only two causes worth checking first.
+
+### 8.6 Every build after this one
+
+**The `versionCode` must increase on every single upload.** Play rejects a bundle that reuses one,
+and this is the single most common upload failure. Edit `app/build.gradle.kts`:
+
+```kotlin
+versionCode = 2          // +1 every upload, always
+versionName = "1.0.1"    // human-facing; change when it means something
+```
+
+Then push, download the new artifact, and repeat 8.3. Updates reach installed testers through the
+normal Play update mechanism.
+
+### Failures you are most likely to hit
+
+| Message | Cause |
+| --- | --- |
+| *Upload a signed APK/bundle* / signed with debug certificate | CI secrets missing, so the bundle was unsigned. Re-check 8.1 |
+| *Version code 1 has already been used* | Bump `versionCode` |
+| *Your app targets API level X* | `targetSdk` below Play's floor — currently 36 for new apps |
+| *You need to complete the content rating questionnaire* | Section 3 is unfinished |
+| Tester link shows "item not found" | Wrong Google account on the phone, or rollout still propagating |
 
 ---
 
