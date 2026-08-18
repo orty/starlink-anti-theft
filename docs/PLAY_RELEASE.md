@@ -370,6 +370,70 @@ normal Play update mechanism.
 
 ---
 
+## 9. Automating uploads (optional)
+
+`.github/workflows/publish-play.yml` builds a signed bundle and pushes it straight to a Play
+track, replacing steps 8.1 and 8.3. It runs **only when you trigger it manually** — Actions tab →
+*Publish to Play* → **Run workflow** → pick a track and status. Publishing on every push would
+create a Play release per commit.
+
+> **The first release must still be made by hand.** The Google Play Developer API refuses to
+> touch an app that has never had a release, so section 8 has to be completed manually at least
+> once before this workflow will work at all. After that it takes over.
+
+### Setting up the service account
+
+This is a one-off, and it is the fiddly part. It takes about 15 minutes.
+
+1. **Link a Google Cloud project.** Play Console → **Setup → API access**. If no project is
+   linked, create or link one from that page.
+2. **Enable the API.** In [Google Cloud Console](https://console.cloud.google.com), with that
+   project selected: *APIs & Services → Library →* search **Google Play Android Developer API**
+   → **Enable**.
+3. **Create the service account.** *IAM & Admin → Service accounts → Create service account*.
+   Give it a name; it needs **no** Cloud IAM roles — its permissions come from Play, not GCP.
+4. **Make a key.** Open the account → *Keys → Add key → Create new key → JSON*. A `.json` file
+   downloads. Treat it like a password: it can publish to your Play account.
+5. **Grant it access in Play.** Play Console → **Users and permissions → Invite new user**, paste
+   the service account's email (`…@….iam.gserviceaccount.com`). Under *App permissions* add this
+   app, and grant **Release to testing tracks** — plus *Release to production* only if you intend
+   to publish that way. Grant the narrowest set that does the job.
+6. **Store it.** Repository → *Settings → Secrets and variables → Actions → New secret*, named
+   `PLAY_SERVICE_ACCOUNT_JSON`, with the **entire contents** of the JSON file pasted in.
+
+Permission changes on Play's side can take a few minutes to take effect. A first run that fails
+with a permission error is often just impatience.
+
+### Release notes
+
+The workflow reads `distribution/whatsnew/whatsnew-en-US`. Edit that file to change what testers
+see; add `whatsnew-<BCP47>` siblings for other languages. Play caps release notes at 500
+characters.
+
+### On picking the action
+
+The workflow uses [`r0adkll/upload-google-play`](https://github.com/r0adkll/upload-google-play)
+(~1k stars, actively maintained, v1.1.5 in April 2026). There are several similar actions on the
+Marketplace with single-digit star counts; some of them do not mention the manual-first-release
+requirement above, which makes for a confusing first failure.
+
+It is **pinned by commit SHA**, not by tag, because this step receives a credential that can
+publish to your Play account and tags can be repointed. To move to a newer version, look up the
+SHA of the tag you want:
+
+```bash
+git ls-remote https://github.com/r0adkll/upload-google-play refs/tags/v1.1.6
+```
+
+and update the `uses:` line, keeping the version in the trailing comment.
+
+Worth being clear-eyed about the trade-off: automating this hands a third-party action a
+publishing credential on every run. For a personal app going to internal testing, the manual
+upload in section 8 is perhaps two minutes of work and involves trusting nothing new. Automation
+earns its keep when you are shipping often, not when you are shipping twice.
+
+---
+
 ## Notes for later
 
 - **R8 is disabled** (`isMinifyEnabled = false`). Its failures appear at runtime, not build time,
