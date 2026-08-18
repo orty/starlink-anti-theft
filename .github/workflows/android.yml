@@ -90,6 +90,19 @@ jobs:
           printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/upload.jks"
           echo "ANDROID_KEYSTORE_FILE=$RUNNER_TEMP/upload.jks" >> "$GITHUB_ENV"
 
+      # The publish workflow relies on overriding versionCode. If that override ever stopped
+      # working it would surface as a Play rejection on the next publish, so assert it here
+      # instead: both the Gradle property and the environment variable must win over the default.
+      - name: Verify the versionCode override works
+        run: |
+          set -eo pipefail
+          by_property=$(./gradlew -q :app:printVersionCode -PappVersionCode=424242 | grep '^versionCode=')
+          by_env=$(VERSION_CODE=515151 ./gradlew -q :app:printVersionCode | grep '^versionCode=')
+          echo "property -> $by_property"
+          echo "environment -> $by_env"
+          [ "$by_property" = "versionCode=424242" ] || { echo "::error::-PappVersionCode was ignored"; exit 1; }
+          [ "$by_env" = "versionCode=515151" ] || { echo "::error::VERSION_CODE was ignored"; exit 1; }
+
       - name: Build release bundle
         run: ./gradlew :app:bundleRelease
 

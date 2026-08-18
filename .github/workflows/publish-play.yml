@@ -79,8 +79,11 @@ jobs:
           echo "VERSION_CODE=$resolved" >> "$GITHUB_ENV"
           echo "Publishing versionCode $resolved"
 
+      # Passed as a Gradle property rather than left to the environment: System.getenv() in a
+      # build script reads the Gradle *daemon's* environment, which can be stale if a daemon is
+      # reused, whereas -P is scoped to this invocation.
       - name: Build signed release bundle
-        run: ./gradlew :app:bundleRelease
+        run: ./gradlew :app:bundleRelease -PappVersionCode=${{ env.VERSION_CODE }}
 
       - name: Confirm the bundle is signed
         run: |

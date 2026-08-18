@@ -117,3 +117,10 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.extended)
     debugImplementation(libs.androidx.compose.ui.tooling)
 }
+
+// Lets CI assert that the versionCode override actually takes effect. A silent failure here
+// would only surface as a Play rejection on the first automated publish.
+tasks.register("printVersionCode") {
+    val resolved = appVersionCode
+    doLast { println("versionCode=$resolved") }
+}
