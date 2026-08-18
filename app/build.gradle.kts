@@ -1,3 +1,5 @@
+import java.io.FileInputStream
+import java.util.Properties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -7,22 +9,57 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+// Release signing is supplied either by a local, git-ignored keystore.properties or by
+// environment variables in CI. When neither is present the release build still runs and
+// simply produces an unsigned artifact, so a fork without secrets is not broken by this.
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties().apply {
+    if (keystorePropertiesFile.exists()) {
+        FileInputStream(keystorePropertiesFile).use { load(it) }
+    }
+}
+
+fun signingValue(propertyKey: String, envKey: String): String? =
+    keystoreProperties.getProperty(propertyKey) ?: System.getenv(envKey)
+
+val releaseStoreFile = signingValue("storeFile", "ANDROID_KEYSTORE_FILE")
+val hasReleaseSigning = releaseStoreFile != null && file(releaseStoreFile).exists()
+
 android {
     namespace = "dev.starlinkguard"
-    compileSdk = 35
+    // Google Play requires new apps to target Android 16 (API 36) from 31 August 2026.
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "dev.starlinkguard"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
     }
 
+    signingConfigs {
+        if (hasReleaseSigning) {
+            create("release") {
+                storeFile = file(releaseStoreFile!!)
+                storePassword = signingValue("storePassword", "ANDROID_KEYSTORE_PASSWORD")
+                keyAlias = signingValue("keyAlias", "ANDROID_KEY_ALIAS")
+                keyPassword = signingValue("keyPassword", "ANDROID_KEY_PASSWORD")
+            }
+        }
+    }
+
     buildTypes {
         release {
+            // Left off for the first release on purpose. R8 breakage shows up at runtime
+            // rather than at build time, and nothing here has been exercised on a physical
+            // device yet. proguard-rules.pro already carries the keeps this app needs, so
+            // turning this on is a one-line change once the app has been tested on hardware.
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            if (hasReleaseSigning) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
 
