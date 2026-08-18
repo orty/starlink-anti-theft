@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Starlink Guard — Privacy Policy</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    max-width: 46rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; color: #16202e; background: #fff;
+  }
+  @media (prefers-color-scheme: dark) { body { color: #e6ecf5; background: #0e1420; } code { background: #1c2739; } }
+  h1 { font-size: 1.9rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2.25rem; }
+  .updated { color: #6b7a90; margin-top: 0; }
+  code { background: #eef2f7; padding: .1em .35em; border-radius: 4px; font-size: .9em; }
+  ul { padding-left: 1.25rem; }
+</style>
+</head>
+<body>
+
+<h1>Privacy Policy — Starlink Guard</h1>
+<p class="updated">Last updated: 18 August 2026</p>
+
+<p>Starlink Guard is an anti-theft alarm for a Starlink satellite dish. It runs entirely on your
+phone and talks only to your own dish over your own local network.</p>
+
+<h2>The short version</h2>
+<p>The app collects nothing. There are no accounts, no analytics, no advertising, no tracking,
+and no crash reporting. Nothing is sent to the developer, ever. The developer has no server and
+receives no data from this app.</p>
+
+<h2>What the app reads</h2>
+<p>While monitoring, the app reads the following from the Starlink dish on your local network at
+<code>192.168.100.1</code>:</p>
+<ul>
+  <li>Orientation — boresight azimuth, elevation and mast tilt angle</li>
+  <li>Alignment and motor state, and the dish's own movement alerts</li>
+  <li>The dish hardware identifier (serial number)</li>
+  <li>GPS coordinates reported by the dish, when your dish and service plan expose them</li>
+</ul>
+<p>This information is stored on your device only: a baseline of the dish's resting position, and
+a log of alarm events. Both stay in the app's private storage and are deleted when you uninstall
+the app. None of it leaves your phone unless you explicitly turn on the webhook feature below.</p>
+
+<h2>The optional webhook</h2>
+<p>The app can send an alert to a web address of your choosing when the alarm fires. This is off
+by default. It does nothing until you enter a URL yourself.</p>
+<p>If you enable it, the app sends a small JSON message to <em>the address you entered</em>,
+containing the event type, which measurement changed, its previous and current values, the dish
+identifier, and a timestamp. That destination is chosen and controlled entirely by you — it may be
+your own server, or a third-party notification service. The developer is not a party to that
+transfer and never receives a copy. Whatever service you point it at will handle that data under
+its own privacy policy, so please review it. To stop all outbound transmission, clear the webhook
+URL.</p>
+
+<h2>Location</h2>
+<p>The app does not request access to your phone's location and cannot read it. Any coordinates
+involved come from the Starlink dish itself and are used only to detect that the dish has been
+moved from where you armed it.</p>
+
+<h2>Permissions and why they exist</h2>
+<ul>
+  <li><strong>Network and Wi-Fi state</strong> — to find the dish on the local network and keep the
+      connection bound to Wi-Fi rather than mobile data.</li>
+  <li><strong>Foreground service (connected device)</strong> — to keep monitoring the dish while the
+      app is not on screen. This is why a persistent notification is shown.</li>
+  <li><strong>Notifications and full-screen intent</strong> — to raise the alarm screen when the
+      dish moves, including over the lock screen.</li>
+  <li><strong>Do Not Disturb access</strong> — so the alarm can be heard when the phone is silenced.
+      An alarm you cannot hear is not an alarm.</li>
+  <li><strong>Wake lock and vibrate</strong> — to sound and vibrate the alarm reliably.</li>
+  <li><strong>Start on boot</strong> — to resume monitoring after the phone restarts, if it was
+      armed.</li>
+</ul>
+
+<h2>Children</h2>
+<p>The app is a utility for satellite-internet hardware and is not directed at children. It
+collects no personal information from anyone, including children.</p>
+
+<h2>Changes</h2>
+<p>If this policy changes, the revised version will be posted at this address with a new date
+above.</p>
+
+<h2>Contact</h2>
+<p>Questions about this policy: <a href="mailto:serge.aradj@gmail.com">serge.aradj@gmail.com</a></p>
+
+<hr>
+<p style="color:#6b7a90;font-size:.9em">Starlink is a trademark of Space Exploration Technologies
+Corp. This app is an independent project and is not affiliated with, endorsed by, or sponsored by
+SpaceX.</p>
+
+</body>
+</html>

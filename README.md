@@ -169,6 +169,15 @@ That flag drops the Android module from the build entirely. Repository content f
 `settings.gradle.kts` keep Google's Maven out of `:core`'s resolution path so it resolves
 purely from Maven Central.
 
+### Release builds for Google Play
+
+`./gradlew :app:bundleRelease` produces the Android App Bundle that Play accepts. Signing comes
+from a git-ignored `keystore.properties` locally, or from repository secrets in CI; without
+either, the build still succeeds and emits an unsigned bundle.
+
+See **[docs/PLAY_RELEASE.md](docs/PLAY_RELEASE.md)** for the upload key, the Play Console
+declarations this app's permissions require, store listing copy, and the graphics in `store/`.
+
 ---
 
 ## Using it
