@@ -22,6 +22,16 @@ val keystoreProperties = Properties().apply {
 fun signingValue(propertyKey: String, envKey: String): String? =
     keystoreProperties.getProperty(propertyKey) ?: System.getenv(envKey)
 
+// Play rejects any upload whose versionCode is not strictly higher than the last one, which is
+// the most common publishing failure. CI supplies one derived from the workflow run number so
+// repeat publishes cannot collide; local and unattended builds fall back to the constants.
+val appVersionCode = (findProperty("appVersionCode") as String?)?.toIntOrNull()
+    ?: System.getenv("VERSION_CODE")?.toIntOrNull()
+    ?: 1
+val appVersionName = (findProperty("appVersionName") as String?)
+    ?: System.getenv("VERSION_NAME")
+    ?: "1.0"
+
 val releaseStoreFile = signingValue("storeFile", "ANDROID_KEYSTORE_FILE")
 val hasReleaseSigning = releaseStoreFile != null && file(releaseStoreFile).exists()
 
@@ -34,8 +44,8 @@ android {
         applicationId = "dev.starlinkguard"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = appVersionCode
+        versionName = appVersionName
     }
 
     signingConfigs {

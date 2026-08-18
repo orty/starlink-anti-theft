@@ -15,6 +15,10 @@ on:
         type: choice
         options: [completed, draft]
         default: completed
+      versionCode:
+        description: "versionCode to publish. Leave blank to use 100 + this run's number."
+        type: string
+        required: false
 
 jobs:
   publish:
@@ -60,6 +64,21 @@ jobs:
           printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/upload.jks"
           echo "ANDROID_KEYSTORE_FILE=$RUNNER_TEMP/upload.jks" >> "$GITHUB_ENV"
 
+      # Play needs a strictly increasing versionCode. Deriving it from the run number means
+      # repeat publishes cannot collide, and the offset keeps it clear of the low numbers used
+      # by the first, manually uploaded release.
+      - name: Resolve versionCode
+        run: |
+          set -eo pipefail
+          requested="${{ inputs.versionCode }}"
+          if [ -n "$requested" ]; then
+            resolved="$requested"
+          else
+            resolved=$(( 100 + ${{ github.run_number }} ))
+          fi
+          echo "VERSION_CODE=$resolved" >> "$GITHUB_ENV"
+          echo "Publishing versionCode $resolved"
+
       - name: Build signed release bundle
         run: ./gradlew :app:bundleRelease
 
@@ -69,7 +88,7 @@ jobs:
           aab=$(find app/build/outputs/bundle/release -name '*.aab' | head -1)
           echo "AAB: $aab ($(du -h "$aab" | cut -f1))"
           # An unsigned bundle is rejected by Play with a confusing error; catch it here.
-          if ! unzip -l "$aab" | grep -q 'META-INF/.*\.RSA\|META-INF/.*\.EC'; then
+          if ! unzip -l "$aab" | grep -qE 'META-INF/.*\.(RSA|DSA|EC)'; then
             echo "::error::Bundle is not signed - check the keystore secrets."
             exit 1
           fi

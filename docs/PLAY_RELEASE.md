@@ -347,16 +347,25 @@ finished — those are the only two causes worth checking first.
 
 ### 8.6 Every build after this one
 
-**The `versionCode` must increase on every single upload.** Play rejects a bundle that reuses one,
-and this is the single most common upload failure. Edit `app/build.gradle.kts`:
+**The `versionCode` must increase on every single upload.** Play rejects a bundle that reuses
+one, and this is the most common upload failure by a wide margin.
+
+If you use the automated workflow in section 9 this is handled for you — it passes a
+`versionCode` derived from the run number. For a manual upload, either edit
+`app/build.gradle.kts`:
 
 ```kotlin
 versionCode = 2          // +1 every upload, always
 versionName = "1.0.1"    // human-facing; change when it means something
 ```
 
-Then push, download the new artifact, and repeat 8.3. Updates reach installed testers through the
-normal Play update mechanism.
+or override it at build time without touching the file:
+
+```bash
+./gradlew :app:bundleRelease -PappVersionCode=2 -PappVersionName=1.0.1
+```
+
+Then repeat 8.3. Updates reach installed testers through the normal Play update mechanism.
 
 ### Failures you are most likely to hit
 
@@ -403,6 +412,17 @@ This is a one-off, and it is the fiddly part. It takes about 15 minutes.
 
 Permission changes on Play's side can take a few minutes to take effect. A first run that fails
 with a permission error is often just impatience.
+
+### Version codes are handled for you
+
+The workflow computes `versionCode` as `100 + <this workflow's run number>` and passes it to the
+build, so every automated publish gets a fresh, strictly increasing number without editing
+`app/build.gradle.kts`. The offset keeps automated releases clear of the low numbers used by the
+first release you upload by hand.
+
+If you need a specific number — say you uploaded something manually at a higher code and need to
+get back above it — put it in the **versionCode** field when starting the workflow and it is used
+verbatim.
 
 ### Release notes
 
