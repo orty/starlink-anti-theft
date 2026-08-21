@@ -19,8 +19,18 @@ keytool -genkeypair -v \
   -alias starlink-guard
 ```
 
-It prompts for a store password, your name/organisation, and a key password. Use a real password
-manager entry for these.
+It prompts for a password (twice, to confirm) and then your name and organisation details. Put
+that password in a password manager now.
+
+**You are asked for one password, not two.** PKCS12 keystores do not support a separate key
+password — that was a feature of the older JKS format. keytool is explicit about it if you try:
+
+```
+Warning: Different store and key passwords not supported for PKCS12 KeyStores.
+         Ignoring user-specified -keypass value.
+```
+
+So wherever the config below asks for a *key* password, use the same value as the store password.
 
 **Back the `.jks` file up somewhere safe.** With Play App Signing (on by default for new apps)
 Google holds the actual app signing key and you can request an upload-key reset if you lose this
@@ -32,10 +42,13 @@ Create `keystore.properties` in the repository root — it is git-ignored:
 
 ```properties
 storeFile=/absolute/path/to/upload-keystore.jks
-storePassword=…
+storePassword=your-password
 keyAlias=starlink-guard
-keyPassword=…
+keyPassword=your-password
 ```
+
+`storePassword` and `keyPassword` are the same value for a PKCS12 keystore. Android's signing
+config still expects both fields, so both are set.
 
 Then `./gradlew :app:bundleRelease` produces a signed
 `app/build/outputs/bundle/release/app-release.aab`.
@@ -53,9 +66,9 @@ base64 -i upload-keystore.jks | tr -d '\n'   # macOS
 | Secret | Value |
 | --- | --- |
 | `ANDROID_KEYSTORE_BASE64` | the base64 blob printed above |
-| `ANDROID_KEYSTORE_PASSWORD` | store password |
+| `ANDROID_KEYSTORE_PASSWORD` | the keystore password |
 | `ANDROID_KEY_ALIAS` | `starlink-guard` |
-| `ANDROID_KEY_PASSWORD` | key password |
+| `ANDROID_KEY_PASSWORD` | **the same password again** — see the PKCS12 note above |
 
 The `bundle` job picks these up automatically. Without them it still builds, but prints a warning
 and produces an **unsigned** bundle that Play will reject. The keystore is written to the runner's
