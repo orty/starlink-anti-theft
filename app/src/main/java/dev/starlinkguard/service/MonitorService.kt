@@ -239,7 +239,14 @@ class MonitorService : Service() {
             MonitorRepository.update { it.copy(lastError = null) }
         }
 
-        return Sample(atMs = now, status = status, location = location)
+        return Sample(
+            atMs = now,
+            status = status,
+            location = location,
+            // Without Wi-Fi an unanswered poll says nothing about the dish, only about
+            // where the phone is. The detector needs to be able to tell those apart.
+            dishNetworkAvailable = networkProvider.wifiNetwork != null,
+        )
     }
 
     private fun raiseAlarm(reasons: List<String>, status: DishStatus?) {

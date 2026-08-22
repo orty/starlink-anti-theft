@@ -159,6 +159,25 @@ fun SettingsScreen(
                 helper = "Also alarm when the dish itself reports an unexpected location or a " +
                     "non-vertical mast. Useful when GPS is unavailable, but can fire for benign reasons.",
             ) { value -> onUpdateThresholds { it.copy(useDishMovedAlerts = value) } }
+
+            SwitchRow(
+                label = "Alarm if the dish goes silent",
+                checked = thresholds.offlineEnabled,
+                helper = "Unplugging the cable or driving off with the dish stops it answering " +
+                    "immediately, so this is often the earliest warning there is. Only judged " +
+                    "while the phone is on Wi-Fi — leaving home never counts as an outage.",
+            ) { value -> onUpdateThresholds { it.copy(offlineEnabled = value) } }
+
+            if (thresholds.offlineEnabled) {
+                SliderRow(
+                    label = "Silent for",
+                    value = thresholds.offlineGraceSec.toFloat(),
+                    range = 30f..900f,
+                    format = { "%.0f s".format(it) },
+                    helper = "How long the dish must stay unreachable before it counts. A Starlink " +
+                        "reboot takes a minute or two, so anything shorter will fire on firmware updates.",
+                ) { value -> onUpdateThresholds { it.copy(offlineGraceSec = value.roundToInt()) } }
+            }
         }
 
         SettingsSection("Alarm") {

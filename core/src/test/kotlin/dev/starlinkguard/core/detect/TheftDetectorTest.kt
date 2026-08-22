@@ -426,4 +426,124 @@ class TheftDetectorTest {
         assertTrue(text, text.contains("Azimuth"))
         assertTrue(text, text.contains("40.0°"))
     }
+
+    // --- Offline / lost-signal trigger --------------------------------------------------
+
+    private val offline = Thresholds(offlineEnabled = true, offlineGraceSec = 180)
+
+    @Test
+    fun `an unreachable dish does not alarm when the offline trigger is off`() {
+        val (detector, t0) = armed()
+        var result = detector.onSample(Sample(t0 + 10_000, status = null))
+        result = detector.onSample(Sample(t0 + 3_600_000, status = null))
+        assertTrue(result.triggers.isEmpty())
+        assertEquals(SuppressionReason.DISH_UNREACHABLE, result.suppression)
+        assertEquals(MonitorState.STALE, result.state)
+    }
+
+    @Test
+    fun `an unreachable dish alarms once the outage outlasts the grace period`() {
+        val (detector, t0) = armed(offline)
+
+        val duringGrace = detector.onSample(Sample(t0 + 10_000, status = null))
+        assertTrue(duringGrace.triggers.isEmpty())
+        assertEquals(MonitorState.STALE, duringGrace.state)
+
+        val justBefore = detector.onSample(Sample(t0 + 10_000 + 179_000, status = null))
+        assertTrue("179s of outage is still inside the grace period", justBefore.triggers.isEmpty())
+
+        val past = detector.onSample(Sample(t0 + 10_000 + 181_000, status = null))
+        assertEquals(MonitorState.ALARMING, past.state)
+        assertEquals(1, past.triggers.size)
+        assertEquals(TriggerAxis.CONNECTION, past.triggers[0].axis)
+        assertEquals(TriggerKind.OFFLINE, past.triggers[0].kind)
+    }
+
+    @Test
+    fun `a brief outage does not alarm and the clock restarts when the dish returns`() {
+        val (detector, t0) = armed(offline)
+
+        detector.onSample(Sample(t0 + 10_000, status = null))
+        detector.onSample(Sample(t0 + 100_000, status = null))
+        // Dish comes back before the grace period expires.
+        val back = detector.onSample(Sample(t0 + 120_000, status()))
+        assertTrue(back.triggers.isEmpty())
+
+        // A second outage must be timed from scratch, not from the first one.
+        detector.onSample(Sample(t0 + 130_000, status = null))
+        val result = detector.onSample(Sample(t0 + 130_000 + 179_000, status = null))
+        assertTrue("the outage clock should have restarted", result.triggers.isEmpty())
+    }
+
+    @Test
+    fun `losing wifi never alarms, however long it lasts`() {
+        val (detector, t0) = armed(offline)
+
+        var result = detector.onSample(
+            Sample(t0 + 10_000, status = null, dishNetworkAvailable = false),
+        )
+        assertEquals(SuppressionReason.NO_DISH_NETWORK, result.suppression)
+
+        // The owner is away for an hour. This must never be read as a theft.
+        result = detector.onSample(
+            Sample(t0 + 3_600_000, status = null, dishNetworkAvailable = false),
+        )
+        assertTrue(result.triggers.isEmpty())
+        assertEquals(SuppressionReason.NO_DISH_NETWORK, result.suppression)
+    }
+
+    @Test
+    fun `an outage is timed from the return of wifi, not from when it was lost`() {
+        val (detector, t0) = armed(offline)
+
+        // Off-network for an hour...
+        detector.onSample(Sample(t0 + 10_000, status = null, dishNetworkAvailable = false))
+        detector.onSample(Sample(t0 + 3_600_000, status = null, dishNetworkAvailable = false))
+
+        // ...then back on Wi-Fi with the dish still silent. The hour away must not count.
+        val justBack = detector.onSample(Sample(t0 + 3_610_000, status = null))
+        assertTrue(justBack.triggers.isEmpty())
+
+        val later = detector.onSample(Sample(t0 + 3_610_000 + 181_000, status = null))
+        assertEquals(MonitorState.ALARMING, later.state)
+    }
+
+    @Test
+    fun `acknowledging an offline alarm restarts the outage clock`() {
+        val (detector, t0) = armed(offline)
+        detector.onSample(Sample(t0 + 10_000, status = null))
+        val alarm = detector.onSample(Sample(t0 + 200_000, status = null))
+        assertEquals(MonitorState.ALARMING, alarm.state)
+
+        detector.acknowledgeAlarm(t0 + 210_000)
+
+        // Still offline, but the alarm must not immediately fire again.
+        val after = detector.onSample(Sample(t0 + 220_000, status = null))
+        assertTrue(after.triggers.isEmpty())
+        assertEquals(MonitorState.STALE, after.state)
+    }
+
+    @Test
+    fun `a restored detector does not count downtime it never observed`() {
+        val (detector, t0) = armed(offline)
+        detector.onSample(Sample(t0 + 10_000, status = null))
+        val snapshot = detector.snapshot()
+
+        val revived = TheftDetector(offline)
+        revived.restore(snapshot)
+
+        // Process was dead for a day; that is not evidence of a theft.
+        val result = revived.onSample(Sample(t0 + 86_400_000, status = null))
+        assertTrue(result.triggers.isEmpty())
+    }
+
+    @Test
+    fun `offlineGraceSec cannot be negative`() {
+        try {
+            Thresholds(offlineGraceSec = -1)
+            throw AssertionError("expected an IllegalArgumentException")
+        } catch (expected: IllegalArgumentException) {
+            // as intended
+        }
+    }
 }

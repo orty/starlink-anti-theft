@@ -62,11 +62,33 @@ data class Thresholds(
      * on installations where the dish refuses to report GPS coordinates.
      */
     val useDishMovedAlerts: Boolean = false,
+
+    /**
+     * Treat a dish that stops answering as a theft.
+     *
+     * Cutting the cable or driving off with the dish silences it instantly, so this is often
+     * the earliest signal there is. It is off by default because it is also the noisiest:
+     * reboots, firmware updates and router restarts all look identical from here, which is
+     * what [offlineGraceSec] is for.
+     *
+     * It can only be judged while the phone is on Wi-Fi. With no Wi-Fi at all the phone has
+     * most likely left the property, and an outage it cannot observe is never counted.
+     */
+    val offlineEnabled: Boolean = false,
+
+    /**
+     * How long the dish must stay silent before that counts as a theft, in seconds.
+     *
+     * A Starlink reboot takes a minute or two, so anything below about that will fire on
+     * ordinary firmware updates.
+     */
+    val offlineGraceSec: Int = 180,
 ) {
     init {
         require(pollIntervalSec > 0) { "pollIntervalSec must be positive" }
         require(confirmSamples >= 1) { "confirmSamples must be at least 1" }
         require(armingGraceSec >= 0) { "armingGraceSec cannot be negative" }
+        require(offlineGraceSec >= 0) { "offlineGraceSec cannot be negative" }
         require(suddenWindowSec >= pollIntervalSec) {
             "suddenWindowSec ($suddenWindowSec) must be at least one poll interval ($pollIntervalSec)"
         }

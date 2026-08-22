@@ -45,6 +45,8 @@ class SettingsStore(private val context: Context) {
         val REQUIRE_CONVERGED = booleanPreferencesKey("require_converged_attitude")
         val GPS_ENABLED = booleanPreferencesKey("gps_enabled")
         val DISH_ALERTS = booleanPreferencesKey("use_dish_moved_alerts")
+        val OFFLINE_ENABLED = booleanPreferencesKey("offline_enabled")
+        val OFFLINE_GRACE = intPreferencesKey("offline_grace_sec")
 
         val ARMED = booleanPreferencesKey("armed")
         val WEBHOOK_ENABLED = booleanPreferencesKey("webhook_enabled")
@@ -72,6 +74,8 @@ class SettingsStore(private val context: Context) {
                 requireConvergedAttitude = prefs[Keys.REQUIRE_CONVERGED] ?: defaults.requireConvergedAttitude,
                 gpsEnabled = prefs[Keys.GPS_ENABLED] ?: defaults.gpsEnabled,
                 useDishMovedAlerts = prefs[Keys.DISH_ALERTS] ?: defaults.useDishMovedAlerts,
+                offlineEnabled = prefs[Keys.OFFLINE_ENABLED] ?: defaults.offlineEnabled,
+                offlineGraceSec = prefs[Keys.OFFLINE_GRACE] ?: defaults.offlineGraceSec,
             ),
             armed = prefs[Keys.ARMED] ?: false,
             webhookEnabled = prefs[Keys.WEBHOOK_ENABLED] ?: false,
@@ -98,6 +102,8 @@ class SettingsStore(private val context: Context) {
                 requireConvergedAttitude = prefs[Keys.REQUIRE_CONVERGED] ?: defaults.requireConvergedAttitude,
                 gpsEnabled = prefs[Keys.GPS_ENABLED] ?: defaults.gpsEnabled,
                 useDishMovedAlerts = prefs[Keys.DISH_ALERTS] ?: defaults.useDishMovedAlerts,
+                offlineEnabled = prefs[Keys.OFFLINE_ENABLED] ?: defaults.offlineEnabled,
+                offlineGraceSec = prefs[Keys.OFFLINE_GRACE] ?: defaults.offlineGraceSec,
             )
             // Thresholds validates itself in its constructor; an invalid edit is dropped
             // rather than being persisted and breaking the next launch.
@@ -115,6 +121,8 @@ class SettingsStore(private val context: Context) {
             prefs[Keys.REQUIRE_CONVERGED] = updated.requireConvergedAttitude
             prefs[Keys.GPS_ENABLED] = updated.gpsEnabled
             prefs[Keys.DISH_ALERTS] = updated.useDishMovedAlerts
+            prefs[Keys.OFFLINE_ENABLED] = updated.offlineEnabled
+            prefs[Keys.OFFLINE_GRACE] = updated.offlineGraceSec
         }
     }
 

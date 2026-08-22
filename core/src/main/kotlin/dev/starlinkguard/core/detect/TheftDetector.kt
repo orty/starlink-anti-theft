@@ -26,7 +26,7 @@ enum class MonitorState {
 }
 
 /** Which measurement moved. */
-enum class TriggerAxis { AZIMUTH, ELEVATION, TILT, POSITION, DISH_ALERT }
+enum class TriggerAxis { AZIMUTH, ELEVATION, TILT, POSITION, DISH_ALERT, CONNECTION }
 
 /** How the movement was spotted. */
 enum class TriggerKind {
@@ -38,6 +38,9 @@ enum class TriggerKind {
 
     /** The dish raised its own movement alert. */
     ALERT,
+
+    /** The dish stopped answering altogether. */
+    OFFLINE,
 }
 
 /** Why a poll was not evaluated. */
@@ -46,6 +49,9 @@ enum class SuppressionReason {
     DISARMED,
     GRACE_PERIOD,
     DISH_UNREACHABLE,
+
+    /** The phone is not on Wi-Fi, so nothing can be concluded about the dish. */
+    NO_DISH_NETWORK,
     NO_ORIENTATION_DATA,
     ATTITUDE_UNCONVERGED,
     ACTUATORS_MOVING,
@@ -63,6 +69,8 @@ data class Trigger(
 ) {
     fun describe(): String = when (axis) {
         TriggerAxis.DISH_ALERT -> "Dish reported it has been moved"
+        TriggerAxis.CONNECTION ->
+            "Dish stopped answering for %.0f %s (limit %.0f %s)".format(delta, unit, threshold, unit)
         TriggerAxis.POSITION ->
             "Position moved %.0f %s (limit %.0f %s)".format(delta, unit, threshold, unit)
         else -> {
@@ -90,6 +98,13 @@ data class Sample(
     val atMs: Long,
     val status: DishStatus?,
     val location: DishLocation? = null,
+    /**
+     * Whether the phone was on a Wi-Fi network able to carry this poll.
+     *
+     * Without it an unreachable dish is ambiguous: the owner walking out of range looks
+     * exactly like the cable being cut.
+     */
+    val dishNetworkAvailable: Boolean = true,
 ) {
     val reachable: Boolean get() = status != null
 }
@@ -144,6 +159,9 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
     private var lastReachable = true
     private var lastSampleAtMs = 0L
 
+    /** When the current run of unanswered polls began, or null if the dish is answering. */
+    private var unreachableSinceMs: Long? = null
+
     /** Trusted orientation samples, oldest first, used for the "sudden change" comparison. */
     private val history = ArrayDeque<HistoryEntry>()
 
@@ -158,8 +176,10 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         get() = when {
             !armed -> MonitorState.DISARMED
             alarming -> MonitorState.ALARMING
-            baseline == null -> MonitorState.ARMING
+            // Checked ahead of the baseline: a dish that is not answering is why there is no
+            // baseline yet, and reporting "settling" would hide the more useful fact.
             !lastReachable -> MonitorState.STALE
+            baseline == null -> MonitorState.ARMING
             consecutiveBreaches > 0 -> MonitorState.SUSPECT
             else -> MonitorState.ARMED
         }
@@ -174,6 +194,7 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         consecutiveBreaches = 0
         lastReachable = true
         graceUntilMs = nowMs + thresholds.armingGraceSec * 1000L
+        unreachableSinceMs = null
         history.clear()
     }
 
@@ -182,6 +203,7 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         alarming = false
         baseline = null
         consecutiveBreaches = 0
+        unreachableSinceMs = null
         history.clear()
     }
 
@@ -197,6 +219,7 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         baseline = null
         consecutiveBreaches = 0
         graceUntilMs = nowMs + thresholds.armingGraceSec * 1000L
+        unreachableSinceMs = null
         history.clear()
     }
 
@@ -210,6 +233,9 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         graceUntilMs = snapshot.graceUntilMs
         consecutiveBreaches = snapshot.consecutiveBreaches
         lastReachable = true
+        // The outage clock deliberately starts fresh: the process may have been dead for
+        // hours, and counting that as dish downtime would alarm on the next poll.
+        unreachableSinceMs = null
         history.clear()
     }
 
@@ -223,12 +249,12 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         val status = sample.status
         if (status == null) {
             lastReachable = false
-            // The user did not ask for an offline alarm, so an unreachable dish is reported
-            // but never sounds the siren. Breach counting pauses rather than resetting: a
-            // dropped poll in the middle of a theft should not undo the evidence so far.
-            return result(SuppressionReason.DISH_UNREACHABLE)
+            // Breach counting pauses rather than resetting: a dropped poll in the middle of a
+            // theft should not undo the evidence gathered so far.
+            return onUnreachable(sample)
         }
         lastReachable = true
+        unreachableSinceMs = null
 
         if (alarming) {
             // Latched until the user acknowledges.
@@ -304,6 +330,52 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
             state = MonitorState.SUSPECT,
             triggers = triggers,
             suppression = SuppressionReason.NONE,
+            baseline = baseline,
+            consecutiveBreaches = consecutiveBreaches,
+        )
+    }
+
+    /**
+     * Decides what an unanswered poll means.
+     *
+     * The dish being silent is only evidence of anything if the phone could have reached it.
+     * With no Wi-Fi the clock is reset rather than paused, because an outage that began while
+     * the owner was away is not an outage this app ever observed.
+     */
+    private fun onUnreachable(sample: Sample): DetectorResult {
+        if (alarming) return result(SuppressionReason.NONE)
+
+        if (!sample.dishNetworkAvailable) {
+            unreachableSinceMs = null
+            return result(SuppressionReason.NO_DISH_NETWORK)
+        }
+
+        if (!thresholds.offlineEnabled) return result(SuppressionReason.DISH_UNREACHABLE)
+
+        val since = unreachableSinceMs ?: sample.atMs.also { unreachableSinceMs = it }
+
+        if (sample.atMs < graceUntilMs) return result(SuppressionReason.GRACE_PERIOD)
+
+        val outageMs = sample.atMs - since
+        if (outageMs < thresholds.offlineGraceSec * 1000L) {
+            return result(SuppressionReason.DISH_UNREACHABLE)
+        }
+
+        alarming = true
+        val outageSec = outageMs / 1000.0
+        return DetectorResult(
+            state = MonitorState.ALARMING,
+            triggers = listOf(
+                Trigger(
+                    axis = TriggerAxis.CONNECTION,
+                    kind = TriggerKind.OFFLINE,
+                    referenceValue = 0.0,
+                    currentValue = outageSec,
+                    delta = outageSec,
+                    threshold = thresholds.offlineGraceSec.toDouble(),
+                    unit = "s",
+                ),
+            ),
             baseline = baseline,
             consecutiveBreaches = consecutiveBreaches,
         )

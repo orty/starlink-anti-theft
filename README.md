@@ -82,6 +82,20 @@ All adjustable in the Settings tab.
 
 ---
 
+### Losing contact with the dish
+
+Off by default, enabled under Settings → Triggers. Unplugging the cable or driving off with the
+dish stops it answering immediately, which is often the earliest warning available — but
+reboots, firmware updates and router restarts look identical from the phone, so the dish has to
+stay silent for a configurable window (three minutes by default) before it counts.
+
+The awkward case is the phone leaving the property: the dish then looks unreachable when
+nothing has happened to it. So an outage is only counted while the phone is on Wi-Fi, and the
+clock resets rather than pauses when Wi-Fi goes away — an outage that began while nobody was
+watching is not evidence. The trade-off is a real blind spot: if the whole installation loses
+power, the phone drops off that Wi-Fi too and the outage cannot be judged. Orientation and GPS
+are unaffected.
+
 ## Alarm behaviour
 
 - Plays an alarm ringtone on a loop with `USAGE_ALARM`, at maximum alarm volume, and takes
