@@ -89,24 +89,30 @@ dish stops it answering immediately, which is often the earliest warning availab
 reboots, firmware updates and router restarts look identical from the phone, so the dish has to
 stay silent for a configurable window (three minutes by default) before it counts.
 
-This works because the Starlink **router is a separate indoor unit**. Unplug or carry off the
-dish and the router keeps serving Wi-Fi, so the phone stays connected while `192.168.100.1`
-goes silent — which is exactly the signature the trigger looks for.
+**What the Wi-Fi disappearing means depends on your hardware**, and the app cannot work that
+out for itself:
 
-Two cases have to be excluded, or the alarm would cry wolf constantly:
+- **Gen2 / Gen3** — the router is a separate indoor unit. Steal the dish and the router keeps
+  serving Wi-Fi, so the phone stays connected while `192.168.100.1` goes silent. That is the
+  signature the defaults look for.
+- **Starlink Mini** — the router is inside the dish. Unplug it from AC and the Wi-Fi goes with
+  it, so the network vanishing *is* the theft signal rather than a distraction from it.
 
-- **Wi-Fi turned off, or out of range.** Nothing can be concluded about the dish, so the outage
-  clock resets rather than pauses. An outage that began while nobody was watching is not
-  evidence.
-- **A different Wi-Fi.** At a café the network is up and the dish is silent, and the two facts
-  are unrelated. An outage is therefore only counted on the network where the dish was last
-  answering, identified by `Network.getNetworkHandle()` — deliberately not by SSID, which would
-  drag in `ACCESS_FINE_LOCATION` for no benefit. The same rule means an outage is never judged
-  before the dish has answered at least once since arming.
+By default an outage is only counted on the network where the dish was last answering,
+identified by `Network.getNetworkHandle()` — deliberately not by SSID, which would drag in
+`ACCESS_FINE_LOCATION` for no benefit. Two switches relax that for Mini owners:
 
-The trade-off is one honest blind spot: if the whole installation loses power, the router dies
-too, the phone drops that Wi-Fi, and the outage cannot be judged. Orientation and GPS are
-unaffected.
+| Setting | Counts an outage when | Cost |
+| --- | --- | --- |
+| *…even if the Wi-Fi disappears* | the phone has no Wi-Fi at all | walking out of range sets off the alarm |
+| *…even on a different Wi-Fi* | the phone has joined another network | connecting anywhere else sets off the alarm |
+
+Both are off by default, which is the Gen2/Gen3 setup. Turn both on for a Mini and accept that
+leaving with your phone looks the same as the dish being unplugged.
+
+Independently of all of this, an outage is never judged before the dish has answered at least
+once since arming, and time spent where the dish could not have been reached resets the clock
+rather than pausing it — an outage nobody could observe is not evidence.
 
 ## Alarm behaviour
 

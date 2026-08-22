@@ -47,6 +47,8 @@ class SettingsStore(private val context: Context) {
         val DISH_ALERTS = booleanPreferencesKey("use_dish_moved_alerts")
         val OFFLINE_ENABLED = booleanPreferencesKey("offline_enabled")
         val OFFLINE_GRACE = intPreferencesKey("offline_grace_sec")
+        val OFFLINE_WIFI_LOST = booleanPreferencesKey("offline_when_wifi_lost")
+        val OFFLINE_NET_CHANGED = booleanPreferencesKey("offline_when_network_changed")
 
         val ARMED = booleanPreferencesKey("armed")
         val WEBHOOK_ENABLED = booleanPreferencesKey("webhook_enabled")
@@ -76,6 +78,8 @@ class SettingsStore(private val context: Context) {
                 useDishMovedAlerts = prefs[Keys.DISH_ALERTS] ?: defaults.useDishMovedAlerts,
                 offlineEnabled = prefs[Keys.OFFLINE_ENABLED] ?: defaults.offlineEnabled,
                 offlineGraceSec = prefs[Keys.OFFLINE_GRACE] ?: defaults.offlineGraceSec,
+                offlineWhenWifiLost = prefs[Keys.OFFLINE_WIFI_LOST] ?: defaults.offlineWhenWifiLost,
+                offlineWhenNetworkChanged = prefs[Keys.OFFLINE_NET_CHANGED] ?: defaults.offlineWhenNetworkChanged,
             ),
             armed = prefs[Keys.ARMED] ?: false,
             webhookEnabled = prefs[Keys.WEBHOOK_ENABLED] ?: false,
@@ -104,6 +108,8 @@ class SettingsStore(private val context: Context) {
                 useDishMovedAlerts = prefs[Keys.DISH_ALERTS] ?: defaults.useDishMovedAlerts,
                 offlineEnabled = prefs[Keys.OFFLINE_ENABLED] ?: defaults.offlineEnabled,
                 offlineGraceSec = prefs[Keys.OFFLINE_GRACE] ?: defaults.offlineGraceSec,
+                offlineWhenWifiLost = prefs[Keys.OFFLINE_WIFI_LOST] ?: defaults.offlineWhenWifiLost,
+                offlineWhenNetworkChanged = prefs[Keys.OFFLINE_NET_CHANGED] ?: defaults.offlineWhenNetworkChanged,
             )
             // Thresholds validates itself in its constructor; an invalid edit is dropped
             // rather than being persisted and breaking the next launch.
@@ -123,6 +129,8 @@ class SettingsStore(private val context: Context) {
             prefs[Keys.DISH_ALERTS] = updated.useDishMovedAlerts
             prefs[Keys.OFFLINE_ENABLED] = updated.offlineEnabled
             prefs[Keys.OFFLINE_GRACE] = updated.offlineGraceSec
+            prefs[Keys.OFFLINE_WIFI_LOST] = updated.offlineWhenWifiLost
+            prefs[Keys.OFFLINE_NET_CHANGED] = updated.offlineWhenNetworkChanged
         }
     }
 

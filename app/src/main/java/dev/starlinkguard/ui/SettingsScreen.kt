@@ -164,8 +164,9 @@ fun SettingsScreen(
                 label = "Alarm if the dish goes silent",
                 checked = thresholds.offlineEnabled,
                 helper = "Unplugging the cable or driving off with the dish stops it answering " +
-                    "immediately, so this is often the earliest warning there is. Only judged " +
-                    "while the phone is on Wi-Fi — leaving home never counts as an outage.",
+                    "immediately, so this is often the earliest warning there is. By default it " +
+                    "is only judged on the Wi-Fi the dish answers on, so leaving home does not " +
+                    "count — the two options below relax that.",
             ) { value -> onUpdateThresholds { it.copy(offlineEnabled = value) } }
 
             if (thresholds.offlineEnabled) {
@@ -177,6 +178,23 @@ fun SettingsScreen(
                     helper = "How long the dish must stay unreachable before it counts. A Starlink " +
                         "reboot takes a minute or two, so anything shorter will fire on firmware updates.",
                 ) { value -> onUpdateThresholds { it.copy(offlineGraceSec = value.roundToInt()) } }
+
+                SwitchRow(
+                    label = "…even if the Wi-Fi disappears",
+                    checked = thresholds.offlineWhenWifiLost,
+                    helper = "Turn this on for a Starlink Mini, where the router is built into the " +
+                        "dish and unplugging it takes the Wi-Fi with it. On a Gen2/Gen3 setup the " +
+                        "router keeps running without the dish, so leave it off. Be aware it also " +
+                        "means walking out of Wi-Fi range will set off the alarm.",
+                ) { value -> onUpdateThresholds { it.copy(offlineWhenWifiLost = value) } }
+
+                SwitchRow(
+                    label = "…even on a different Wi-Fi",
+                    checked = thresholds.offlineWhenNetworkChanged,
+                    helper = "Also for a Mini: when its network dies the phone usually falls back to " +
+                        "another one rather than to nothing. With this off, joining any other network " +
+                        "is treated as telling you nothing about the dish.",
+                ) { value -> onUpdateThresholds { it.copy(offlineWhenNetworkChanged = value) } }
             }
         }
 

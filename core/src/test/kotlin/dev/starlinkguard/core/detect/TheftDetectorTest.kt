@@ -633,6 +633,96 @@ class TheftDetectorTest {
         assertTrue(after.triggers.isEmpty())
     }
 
+    // --- Router-in-dish hardware (Starlink Mini) -----------------------------------------
+
+    private val mini = Thresholds(
+        offlineEnabled = true,
+        offlineGraceSec = 180,
+        offlineWhenWifiLost = true,
+        offlineWhenNetworkChanged = true,
+    )
+
+    private fun armedOn(thresholds: Thresholds, networkId: String?): Pair<TheftDetector, Long> {
+        val detector = TheftDetector(thresholds)
+        detector.arm(start)
+        var t = start
+        detector.onSample(Sample(t, status(), networkId = networkId))
+        t += Thresholds().armingGraceSec * 1000L + 1_000L
+        detector.onSample(Sample(t, status(), networkId = networkId))
+        return detector to t
+    }
+
+    @Test
+    fun `losing the wifi alarms when the dish is the router`() {
+        val (detector, t0) = armedOn(mini, HOME)
+
+        // The Mini is unplugged, so its network disappears with it.
+        detector.onSample(Sample(t0 + 10_000, status = null, dishNetworkAvailable = false))
+        val result = detector.onSample(
+            Sample(t0 + 10_000 + 181_000, status = null, dishNetworkAvailable = false),
+        )
+        assertEquals(MonitorState.ALARMING, result.state)
+        assertEquals(TriggerKind.OFFLINE, result.triggers.single().kind)
+    }
+
+    @Test
+    fun `falling back to another wifi alarms when the dish is the router`() {
+        val (detector, t0) = armedOn(mini, HOME)
+
+        // The Mini dies and the phone drops onto household broadband instead.
+        detector.onSample(Sample(t0 + 10_000, status = null, networkId = CAFE))
+        val result = detector.onSample(Sample(t0 + 10_000 + 181_000, status = null, networkId = CAFE))
+        assertEquals(MonitorState.ALARMING, result.state)
+    }
+
+    @Test
+    fun `the same events stay quiet on a separate-router setup`() {
+        val separateRouter = Thresholds(offlineEnabled = true, offlineGraceSec = 180)
+        val (a, ta) = armedOn(separateRouter, HOME)
+        a.onSample(Sample(ta + 10_000, status = null, dishNetworkAvailable = false))
+        assertTrue(
+            a.onSample(Sample(ta + 3_600_000, status = null, dishNetworkAvailable = false)).triggers.isEmpty(),
+        )
+
+        val (b, tb) = armedOn(separateRouter, HOME)
+        b.onSample(Sample(tb + 10_000, status = null, networkId = CAFE))
+        assertTrue(b.onSample(Sample(tb + 3_600_000, status = null, networkId = CAFE)).triggers.isEmpty())
+    }
+
+    @Test
+    fun `each relaxation is independent of the other`() {
+        val wifiLossOnly = Thresholds(
+            offlineEnabled = true,
+            offlineGraceSec = 180,
+            offlineWhenWifiLost = true,
+        )
+        val (detector, t0) = armedOn(wifiLossOnly, HOME)
+
+        // Another Wi-Fi is still not grounds to alarm...
+        detector.onSample(Sample(t0 + 10_000, status = null, networkId = CAFE))
+        val other = detector.onSample(Sample(t0 + 3_600_000, status = null, networkId = CAFE))
+        assertEquals(SuppressionReason.UNFAMILIAR_NETWORK, other.suppression)
+        assertTrue(other.triggers.isEmpty())
+
+        // ...but losing Wi-Fi entirely is.
+        detector.onSample(Sample(t0 + 3_610_000, status = null, dishNetworkAvailable = false))
+        val lost = detector.onSample(
+            Sample(t0 + 3_610_000 + 181_000, status = null, dishNetworkAvailable = false),
+        )
+        assertEquals(MonitorState.ALARMING, lost.state)
+    }
+
+    @Test
+    fun `a dish that never answered is never judged, even in mini mode`() {
+        val detector = TheftDetector(mini)
+        detector.arm(start)
+        val t = start + Thresholds().armingGraceSec * 1000L + 1_000L
+
+        detector.onSample(Sample(t, status = null, dishNetworkAvailable = false))
+        val result = detector.onSample(Sample(t + 3_600_000, status = null, dishNetworkAvailable = false))
+        assertTrue("nothing to compare against without a first contact", result.triggers.isEmpty())
+    }
+
     private companion object {
         const val HOME = "wifi-home"
         const val CAFE = "wifi-cafe"

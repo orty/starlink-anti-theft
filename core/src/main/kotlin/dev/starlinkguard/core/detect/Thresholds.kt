@@ -83,6 +83,28 @@ data class Thresholds(
      * ordinary firmware updates.
      */
     val offlineGraceSec: Int = 180,
+
+    /**
+     * Count an outage even when the phone has no Wi-Fi at all.
+     *
+     * Needed for hardware where the router lives inside the dish — a Starlink Mini unplugged
+     * from AC takes its Wi-Fi with it, so the network vanishing *is* the theft signal rather
+     * than a distraction from it. On a Gen2/Gen3 setup, where the router is a separate indoor
+     * unit that survives losing the dish, leave this off.
+     *
+     * The cost is real and unavoidable: with this on, walking out of Wi-Fi range looks
+     * identical to the dish being unplugged, and will set off the alarm.
+     */
+    val offlineWhenWifiLost: Boolean = false,
+
+    /**
+     * Count an outage even when the phone has joined a different Wi-Fi.
+     *
+     * Also aimed at a router-in-dish setup, where a phone that loses the dish's network
+     * typically falls back to household broadband rather than to nothing. Off by default,
+     * because otherwise simply connecting to another network sounds the alarm.
+     */
+    val offlineWhenNetworkChanged: Boolean = false,
 ) {
     init {
         require(pollIntervalSec > 0) { "pollIntervalSec must be positive" }

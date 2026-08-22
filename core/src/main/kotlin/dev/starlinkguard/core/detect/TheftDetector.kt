@@ -175,6 +175,9 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
     /** The network the dish was last successfully reached on, during this armed session. */
     private var dishSeenOnNetworkId: String? = null
 
+    /** Whether the dish has answered at all since arming. Nothing is judged before it has. */
+    private var hasContactedDish = false
+
     /** Trusted orientation samples, oldest first, used for the "sudden change" comparison. */
     private val history = ArrayDeque<HistoryEntry>()
 
@@ -209,6 +212,7 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         graceUntilMs = nowMs + thresholds.armingGraceSec * 1000L
         unreachableSinceMs = null
         dishSeenOnNetworkId = null
+        hasContactedDish = false
         history.clear()
     }
 
@@ -219,6 +223,7 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         consecutiveBreaches = 0
         unreachableSinceMs = null
         dishSeenOnNetworkId = null
+        hasContactedDish = false
         history.clear()
     }
 
@@ -255,6 +260,7 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         // hours, and counting that as dish downtime would alarm on the next poll.
         unreachableSinceMs = null
         dishSeenOnNetworkId = null
+        hasContactedDish = false
         history.clear()
     }
 
@@ -275,6 +281,7 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         lastReachable = true
         unreachableSinceMs = null
         dishSeenOnNetworkId = sample.networkId
+        hasContactedDish = true
 
         if (alarming) {
             // Latched until the user acknowledges.
@@ -362,23 +369,46 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
      * With no Wi-Fi the clock is reset rather than paused, because an outage that began while
      * the owner was away is not an outage this app ever observed.
      */
+    /** Where the phone was when a poll went unanswered. */
+    private enum class OutageContext { DISH_NETWORK, OTHER_WIFI, NO_WIFI }
+
+    /**
+     * Decides what an unanswered poll means.
+     *
+     * Whether the dish's silence is evidence of anything depends on where the phone is, and on
+     * a hardware fact the app cannot detect: on a Gen2/Gen3 setup the router is a separate
+     * indoor unit that keeps serving Wi-Fi after the dish is gone, whereas a Starlink Mini has
+     * the router inside the dish, so unplugging it takes the network with it. The two
+     * `offlineWhen*` settings are how the user tells the app which of those they own.
+     */
     private fun onUnreachable(sample: Sample): DetectorResult {
         if (alarming) return result(SuppressionReason.NONE)
 
-        if (!sample.dishNetworkAvailable) {
-            unreachableSinceMs = null
-            return result(SuppressionReason.NO_DISH_NETWORK)
+        val context = when {
+            !sample.dishNetworkAvailable -> OutageContext.NO_WIFI
+            sample.networkId != dishSeenOnNetworkId -> OutageContext.OTHER_WIFI
+            else -> OutageContext.DISH_NETWORK
         }
 
-        // An outage only counts on the network where the dish was last answering. Anywhere else
-        // — a café's Wi-Fi, or before the dish has answered even once since arming — its
-        // silence is not evidence of anything, so the clock is reset rather than paused.
-        if (sample.networkId != dishSeenOnNetworkId) {
-            unreachableSinceMs = null
-            return result(SuppressionReason.UNFAMILIAR_NETWORK)
+        // Nothing is judged until the dish has answered once: otherwise arming while already
+        // away from home would alarm on an outage that was never observed to begin.
+        val judged = thresholds.offlineEnabled && hasContactedDish && when (context) {
+            OutageContext.DISH_NETWORK -> true
+            OutageContext.OTHER_WIFI -> thresholds.offlineWhenNetworkChanged
+            OutageContext.NO_WIFI -> thresholds.offlineWhenWifiLost
         }
 
-        if (!thresholds.offlineEnabled) return result(SuppressionReason.DISH_UNREACHABLE)
+        if (!judged) {
+            // Reset rather than pause: an outage nobody could observe is not evidence.
+            unreachableSinceMs = null
+            return result(
+                when (context) {
+                    OutageContext.NO_WIFI -> SuppressionReason.NO_DISH_NETWORK
+                    OutageContext.OTHER_WIFI -> SuppressionReason.UNFAMILIAR_NETWORK
+                    OutageContext.DISH_NETWORK -> SuppressionReason.DISH_UNREACHABLE
+                },
+            )
+        }
 
         val since = unreachableSinceMs ?: sample.atMs.also { unreachableSinceMs = it }
 
