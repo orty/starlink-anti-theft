@@ -1,3 +1,10 @@
-Monitors your Starlink dish's orientation and position, and sounds an alarm if it is moved.
+First release.
 
-Keep this under 500 characters - Play rejects longer release notes.
+Watches your Starlink dish over its local Wi-Fi connection and sounds a loud alarm if it is moved or unplugged.
+
+- Triggers on orientation change, GPS movement, or loss of contact with the dish
+- Plays on the alarm stream, so silent mode does not mute it
+- Home-screen widget to arm, disarm and silence
+- Pick your own alarm sound
+- Optional webhook when an alarm fires
+- Event log of what tripped it and when

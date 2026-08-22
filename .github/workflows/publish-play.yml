@@ -96,6 +96,21 @@ jobs:
             exit 1
           fi
 
+      # Release notes are published verbatim, so a note left in one of these files goes out to
+      # testers. Play caps them at 500 characters and rejects the upload past that, which wastes
+      # a versionCode. Both are cheaper to catch here.
+      - name: Check the release notes
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          notes=(distribution/whatsnew/whatsnew-*)
+          [ ${#notes[@]} -gt 0 ] || { echo "::error::no release notes found"; exit 1; }
+          for f in "${notes[@]}"; do
+            n=$(wc -m < "$f")
+            echo "$f: $n characters"
+            [ "$n" -le 500 ] || { echo "::error::$f is $n characters; Play allows 500"; exit 1; }
+          done
+
       # Pinned to the commit behind v1.1.5. This action receives a credential that can publish
       # to your Play account, so it is pinned by SHA rather than by a mutable tag.
       - name: Upload to Google Play
