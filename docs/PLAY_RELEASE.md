@@ -173,18 +173,20 @@ limitation.
 
 ## 5. Host the privacy policy
 
-`docs/privacy-policy.html` is ready to publish. It needs a public URL.
+`docs/privacy-policy.html` is published. The repository is public and GitHub Pages serves the
+`docs/` folder from the default branch, which puts the policy at:
 
-**This repository is private**, and GitHub Pages on a private repository requires a paid plan, so
-the simplest options are:
+```
+https://orty.github.io/starlink-anti-theft/privacy-policy.html
+```
 
-1. **Make this repository public** and enable Pages (Settings → Pages → Deploy from branch → `docs/`
-   folder). The URL becomes `https://orty.github.io/starlink-anti-theft/privacy-policy.html`.
-2. **Create a small public repository** just for the policy and enable Pages on it.
-3. **Any static host** — Netlify, Cloudflare Pages, your own domain.
+That is the URL to paste into Play Console → App content → Privacy policy.
 
-Check the contact email in the policy is one you actually read; it is currently
-`serge.aradj@gmail.com`.
+Two things to keep an eye on. Pages serves from the repository's **default branch**, so if the
+default ever moves, re-check the Pages source or the URL will start 404ing — and a dead privacy
+policy URL is grounds for Play to pull the listing. And the contact address in the policy is
+`serge.aradj@gmail.com`; make sure that is one you actually read, because it is the address users
+are told to write to.
 
 ---
 
