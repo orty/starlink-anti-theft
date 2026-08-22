@@ -1,0 +1,93 @@
+{
+  "_comment": "Search surface for the Reddit sweep. Edit freely - the crawler reads this at runtime.",
+
+  "queries": [
+    "starlink stolen",
+    "stolen starlink",
+    "starlink theft",
+    "someone stole my starlink",
+    "starlink dish stolen",
+    "dishy stolen",
+    "starlink mini stolen",
+    "starlink stolen rv",
+    "starlink stolen truck",
+    "starlink stolen job site",
+    "starlink stolen farm",
+    "starlink got stolen overnight",
+    "starlink anti theft",
+    "secure starlink from theft",
+    "prevent starlink theft",
+    "lock down starlink dish",
+    "starlink gps tracker",
+    "track stolen starlink",
+    "starlink serial number stolen",
+    "report stolen starlink",
+    "starlink stolen police report",
+    "airtag starlink dish",
+    "starlink security mount"
+  ],
+
+  "subreddits": [
+    {"name": "Starlink",        "note": "Primary. Highest volume of theft posts. Read rules on self-promo before commenting."},
+    {"name": "StarlinkMini",    "note": "Mini is the most-stolen unit - portable, unbolted, visible."},
+    {"name": "RVLiving",        "note": "Theft from parked rigs, boondocking."},
+    {"name": "GoRVing",         "note": "Same audience, lower volume."},
+    {"name": "RVing",           "note": "Same audience."},
+    {"name": "vandwellers",     "note": "Van break-ins, roof-mounted units."},
+    {"name": "overlanding",     "note": "Remote camps, unattended vehicles."},
+    {"name": "Truckers",        "note": "Truck-mounted dishes ripped off at stops."},
+    {"name": "offgrid",         "note": "Remote cabins, nobody on site for weeks."},
+    {"name": "homestead",       "note": "Rural property, long driveways, no neighbours."},
+    {"name": "Ranching",        "note": "Field-mounted units on pasture/pivot."},
+    {"name": "farming",         "note": "Same - equipment theft crossover."},
+    {"name": "Construction",    "note": "Job-site connectivity, high theft rate."},
+    {"name": "boating",         "note": "Marina theft, dock-side units."},
+    {"name": "sailing",         "note": "Same."},
+    {"name": "preppers",        "note": "Security-minded, receptive to hardening tools."},
+    {"name": "homesecurity",    "note": "Prevention intent, but strict promo rules."},
+    {"name": "HomeNetworking",  "note": "Occasional 'dish disappeared' posts."},
+    {"name": "southafrica",     "note": "High real-world Starlink theft volume."},
+    {"name": "Kenya",           "note": "Same."},
+    {"name": "Nigeria",         "note": "Same."},
+    {"name": "Zimbabwe",        "note": "Same."},
+    {"name": "brasil",          "note": "Rural theft, Portuguese-language posts."},
+    {"name": "mexico",          "note": "Same, Spanish-language posts."},
+    {"name": "philippines",     "note": "Same."},
+    {"name": "alaska",          "note": "Remote installs, seasonal cabins."}
+  ],
+
+  "signals": {
+    "theft_event": [
+      "stolen", "stole", "theft", "thief", "thieves", "ripped off", "ripped it off",
+      "took my dish", "gone missing", "went missing", "disappeared", "broke in",
+      "break in", "break-in", "robbed", "burglar", "cut the cable", "cut my cable"
+    ],
+    "prevention_intent": [
+      "anti theft", "anti-theft", "prevent", "protect", "secure", "security",
+      "deter", "lock", "locking", "bolt", "cage", "tamper", "how do i stop",
+      "keep it from being stolen", "worried about theft", "peace of mind",
+      "leaving it unattended", "unattended"
+    ],
+    "recovery_intent": [
+      "recover", "recovered", "get it back", "track", "tracking", "tracker",
+      "gps", "airtag", "air tag", "serial number", "serial", "police report",
+      "brick it", "bricked", "disable it", "blacklist", "report stolen",
+      "find my", "geofence", "alert"
+    ],
+    "noise": [
+      "stolen valor", "stole the show", "stolen base", "megathread"
+    ]
+  },
+
+  "scoring": {
+    "theft_event": 3,
+    "prevention_intent": 5,
+    "recovery_intent": 4,
+    "title_bonus": 2,
+    "question_bonus": 3,
+    "self_post_bonus": 2,
+    "noise_penalty": -8,
+    "min_score_to_report": 6,
+    "recency_half_life_days": 120
+  }
+}
