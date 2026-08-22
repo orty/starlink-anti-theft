@@ -27,7 +27,7 @@ fun signingValue(propertyKey: String, envKey: String): String? =
 // repeat publishes cannot collide; local and unattended builds fall back to the constants.
 val appVersionCode = (findProperty("appVersionCode") as String?)?.toIntOrNull()
     ?: System.getenv("VERSION_CODE")?.toIntOrNull()
-    ?: 1
+    ?: 2
 val appVersionName = (findProperty("appVersionName") as String?)
     ?: System.getenv("VERSION_NAME")
     ?: "1.0"
