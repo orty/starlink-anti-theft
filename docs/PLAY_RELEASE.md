@@ -346,7 +346,7 @@ fixes an app entry's package name permanently, so the build has to match it, not
 round. The `Verify the app identity Play expects` step in the build workflow asserts the built APK
 carries `orty.starlink_guard`, so a mismatch fails CI rather than a release.
 
-**Release name.** Auto-filled from the bundle, currently `2 (1.0)`. It is internal-only; leave it.
+**Release name.** Auto-filled from the bundle, currently `3 (1.0)`. It is internal-only; leave it.
 
 **Release notes.** Required. The `<en-US>` tags must stay:
 
