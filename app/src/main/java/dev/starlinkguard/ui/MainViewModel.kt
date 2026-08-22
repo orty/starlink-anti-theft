@@ -53,6 +53,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch { app.settingsStore.setAlarmMaxDuration(seconds) }
     }
 
+    fun setAlarmSound(uri: String) {
+        viewModelScope.launch { app.settingsStore.setAlarmSound(uri) }
+    }
+
     fun setVibrate(enabled: Boolean) {
         viewModelScope.launch { app.settingsStore.setVibrate(enabled) }
     }

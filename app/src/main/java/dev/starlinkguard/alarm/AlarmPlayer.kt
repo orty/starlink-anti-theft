@@ -6,7 +6,6 @@ import android.media.AudioAttributes
 import android.media.AudioFocusRequest
 import android.media.AudioManager
 import android.media.MediaPlayer
-import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.os.VibrationEffect
@@ -32,38 +31,45 @@ class AlarmPlayer(private val context: Context) {
     private var focusRequest: AudioFocusRequest? = null
     private var previousAlarmVolume: Int? = null
     private var previousInterruptionFilter: Int? = null
+    private var active = false
 
-    val isPlaying: Boolean get() = player != null
+    /**
+     * Whether the alarm is currently raised.
+     *
+     * Deliberately tracks the alarm state rather than the existence of a [MediaPlayer]: if every
+     * candidate sound fails the phone still vibrates and the alarm is still going, and the
+     * service must not treat that as "not started" and try to raise it again on the next poll.
+     */
+    val isPlaying: Boolean get() = active
 
     private val attributes = AudioAttributes.Builder()
         .setUsage(AudioAttributes.USAGE_ALARM)
         .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
         .build()
 
-    fun start(vibrate: Boolean) {
+    /**
+     * @param soundUri the user's chosen sound, or null for the system default. It is only the
+     *   first thing tried — see [AlarmSound] for why the alarm never depends on it working.
+     */
+    fun start(vibrate: Boolean, soundUri: Uri? = null) {
         if (isPlaying) return
+        active = true
 
         applyDndBypass()
         raiseAlarmVolume()
         requestAudioFocus()
 
-        val uri = alarmUri()
-        player = runCatching {
-            MediaPlayer().apply {
-                setAudioAttributes(attributes)
-                setDataSource(context, uri)
-                isLooping = true
-                prepare()
-                start()
-            }
-        }.onFailure {
-            Log.e(TAG, "could not start the alarm sound", it)
-        }.getOrNull()
+        player = openFirstPlayable(AlarmSound.candidates(soundUri))
+        if (player == null) {
+            // Vibration below is now the only signal, but the alarm is still considered raised.
+            Log.e(TAG, "no alarm sound could be played")
+        }
 
         if (vibrate) startVibration()
     }
 
     fun stop() {
+        active = false
         runCatching {
             player?.apply {
                 if (isPlaying) stop()
@@ -79,15 +85,27 @@ class AlarmPlayer(private val context: Context) {
     }
 
     /**
-     * Picks a sound that is guaranteed to exist.
-     *
-     * The default alarm can be unset on some devices, in which case the ringtone and then the
-     * notification sound are used instead. An alarm with nothing to play is worthless.
+     * Plays the first candidate that works, so a missing or unreadable custom sound degrades to
+     * the system alarm instead of to silence.
      */
-    private fun alarmUri(): Uri =
-        RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-            ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
-            ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+    private fun openFirstPlayable(candidates: List<Uri>): MediaPlayer? {
+        for (uri in candidates) {
+            val candidate = MediaPlayer()
+            val started = runCatching {
+                candidate.setAudioAttributes(attributes)
+                candidate.setDataSource(context, uri)
+                candidate.isLooping = true
+                candidate.prepare()
+                candidate.start()
+            }.onFailure {
+                Log.w(TAG, "alarm sound $uri could not be played, falling back", it)
+            }.isSuccess
+
+            if (started) return candidate
+            runCatching { candidate.release() }
+        }
+        return null
+    }
 
     private fun raiseAlarmVolume() {
         // Some devices run a fixed-volume policy where this is a no-op; do not fight it.

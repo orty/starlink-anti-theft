@@ -14,6 +14,7 @@ import androidx.core.app.ServiceCompat
 import dev.starlinkguard.StarlinkGuardApp
 import dev.starlinkguard.alarm.AlarmNotifications
 import dev.starlinkguard.alarm.AlarmPlayer
+import dev.starlinkguard.alarm.AlarmSound
 import dev.starlinkguard.alert.WebhookSender
 import dev.starlinkguard.core.alert.EventType
 import dev.starlinkguard.core.alert.TheftEvent
@@ -245,7 +246,7 @@ class MonitorService : Service() {
         val app = application as StarlinkGuardApp
         val summary = reasons.joinToString("; ").ifBlank { "The dish moved unexpectedly" }
 
-        alarmPlayer.start(settings.vibrateOnAlarm)
+        alarmPlayer.start(settings.vibrateOnAlarm, AlarmSound.parse(settings.alarmSoundUri))
 
         val notificationManager = NotificationManagerCompat.from(this)
         runCatching {
@@ -321,7 +322,7 @@ class MonitorService : Service() {
             // The service may have been started purely to run this test, in which case the
             // settings have not been read yet.
             settings = (application as StarlinkGuardApp).settingsStore.settings.first()
-            alarmPlayer.start(settings.vibrateOnAlarm)
+            alarmPlayer.start(settings.vibrateOnAlarm, AlarmSound.parse(settings.alarmSoundUri))
             MonitorRepository.update { it.copy(alarmSounding = true) }
 
             alarmTimeoutJob?.cancel()

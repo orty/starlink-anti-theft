@@ -1,6 +1,10 @@
 package dev.starlinkguard.ui
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -26,7 +30,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.IntentCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
+import dev.starlinkguard.alarm.AlarmSound
 import dev.starlinkguard.ui.theme.StarlinkGuardTheme
 
 class MainActivity : ComponentActivity() {
@@ -55,6 +62,42 @@ private fun AppRoot(viewModel: MainViewModel = viewModel()) {
     val notificationPermission = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission(),
     ) { /* The dashboard shows what is still missing either way. */ }
+
+    val context = LocalContext.current
+
+    // The system ringtone picker returns no URI when "Default" is chosen, which is stored as an
+    // empty string rather than as an explicit URI so the alarm follows the device default if the
+    // user later changes it.
+    val ringtonePicker = rememberLauncherForActivityResult(
+        ActivityResultContracts.StartActivityForResult(),
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val picked = result.data?.let { data ->
+                IntentCompat.getParcelableExtra(
+                    data,
+                    RingtoneManager.EXTRA_RINGTONE_PICKED_URI,
+                    Uri::class.java,
+                )
+            }
+            viewModel.setAlarmSound(picked?.toString().orEmpty())
+        }
+    }
+
+    // OpenDocument rather than GetContent: only the former yields a URI whose read access can be
+    // persisted, and the alarm has to still reach the file weeks later after a reboot.
+    val soundFilePicker = rememberLauncherForActivityResult(
+        ActivityResultContracts.OpenDocument(),
+    ) { uri ->
+        if (uri != null) {
+            runCatching {
+                context.contentResolver.takePersistableUriPermission(
+                    uri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION,
+                )
+            }
+            viewModel.setAlarmSound(uri.toString())
+        }
+    }
 
     LaunchedEffect(Unit) {
         // Without this the foreground-service notification is invisible, which makes the app
@@ -106,6 +149,13 @@ private fun AppRoot(viewModel: MainViewModel = viewModel()) {
                 onSetWebhook = viewModel::setWebhook,
                 onSetAlarmMaxDuration = viewModel::setAlarmMaxDuration,
                 onSetVibrate = viewModel::setVibrate,
+                onSetAlarmSound = viewModel::setAlarmSound,
+                onPickAlarmSound = {
+                    ringtonePicker.launch(
+                        AlarmSound.ringtonePickerIntent(AlarmSound.parse(settings.alarmSoundUri)),
+                    )
+                },
+                onPickAlarmSoundFile = { soundFilePicker.launch(AlarmSound.AUDIO_MIME_TYPES) },
                 onTestAlarm = viewModel::testAlarm,
                 alarmSounding = monitorState.alarmSounding,
                 modifier = Modifier.padding(padding),

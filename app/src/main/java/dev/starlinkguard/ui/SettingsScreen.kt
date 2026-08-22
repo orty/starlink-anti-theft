@@ -17,14 +17,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import dev.starlinkguard.alarm.AlarmSound
 import dev.starlinkguard.core.detect.Thresholds
 import dev.starlinkguard.data.AppSettings
 import kotlin.math.roundToInt
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Composable
 fun SettingsScreen(
@@ -33,6 +38,9 @@ fun SettingsScreen(
     onSetWebhook: (Boolean, String) -> Unit,
     onSetAlarmMaxDuration: (Int) -> Unit,
     onSetVibrate: (Boolean) -> Unit,
+    onSetAlarmSound: (String) -> Unit,
+    onPickAlarmSound: () -> Unit,
+    onPickAlarmSoundFile: () -> Unit,
     onTestAlarm: () -> Unit,
     alarmSounding: Boolean,
     modifier: Modifier = Modifier,
@@ -154,6 +162,13 @@ fun SettingsScreen(
         }
 
         SettingsSection("Alarm") {
+            AlarmSoundRow(
+                uriValue = settings.alarmSoundUri,
+                onPickRingtone = onPickAlarmSound,
+                onPickFile = onPickAlarmSoundFile,
+                onUseDefault = { onSetAlarmSound("") },
+            )
+
             SwitchRow(
                 label = "Vibrate",
                 checked = settings.vibrateOnAlarm,
@@ -179,6 +194,78 @@ fun SettingsScreen(
         }
 
         WebhookSection(settings, onSetWebhook)
+    }
+}
+
+/** What the chosen sound resolves to right now. */
+private sealed interface SoundState {
+    data object Loading : SoundState
+    data object Default : SoundState
+    data class Named(val name: String) : SoundState
+    data object Unavailable : SoundState
+}
+
+@Composable
+private fun AlarmSoundRow(
+    uriValue: String,
+    onPickRingtone: () -> Unit,
+    onPickFile: () -> Unit,
+    onUseDefault: () -> Unit,
+) {
+    val context = LocalContext.current
+    val custom = remember(uriValue) { AlarmSound.parse(uriValue) }
+
+    // Resolving a name and checking readability both hit the content resolver, so this is kept
+    // off the main thread. Re-runs whenever the stored choice changes.
+    val state by produceState<SoundState>(SoundState.Loading, custom) {
+        value = withContext(Dispatchers.IO) {
+            when {
+                custom == null -> SoundState.Default
+                !AlarmSound.isReadable(context, custom) -> SoundState.Unavailable
+                else -> SoundState.Named(AlarmSound.label(context, custom))
+            }
+        }
+    }
+
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Text("Sound", style = MaterialTheme.typography.bodyLarge)
+
+        when (val current = state) {
+            SoundState.Loading -> Text("…", style = MaterialTheme.typography.bodyMedium)
+            SoundState.Default -> Text(
+                "Default alarm sound",
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            is SoundState.Named -> Text(
+                current.name,
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            // Surfaced rather than silently corrected: the user should know their choice is
+            // gone, even though the alarm itself will still sound.
+            SoundState.Unavailable -> Text(
+                "That sound is no longer available — the default alarm will be used.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.error,
+            )
+        }
+
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
+            OutlinedButton(onClick = onPickRingtone, modifier = Modifier.weight(1f)) {
+                Text("Choose")
+            }
+            OutlinedButton(onClick = onPickFile, modifier = Modifier.weight(1f)) {
+                Text("From file")
+            }
+        }
+        if (custom != null) {
+            OutlinedButton(onClick = onUseDefault, modifier = Modifier.fillMaxWidth()) {
+                Text("Use default")
+            }
+        }
+        Text(
+            "Plays on the alarm channel whichever sound you pick, so silent mode does not mute it.",
+            style = MaterialTheme.typography.bodySmall,
+        )
     }
 }
 

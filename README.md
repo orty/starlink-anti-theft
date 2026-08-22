@@ -84,8 +84,14 @@ All adjustable in the Settings tab.
 
 ## Alarm behaviour
 
-- Plays the default alarm ringtone on a loop with `USAGE_ALARM`, at maximum alarm volume, and
-  takes audio focus so music cannot duck it. The previous volume is restored afterwards.
+- Plays an alarm ringtone on a loop with `USAGE_ALARM`, at maximum alarm volume, and takes
+  audio focus so music cannot duck it. The previous volume is restored afterwards.
+- **The sound is configurable** — pick any system alarm tone, or an audio file of your own,
+  under Settings → Alarm. Whatever you choose still plays on the alarm channel, so it keeps
+  the silent-mode behaviour below. A chosen sound can never silence the alarm: it is the first
+  candidate tried, and if it has been deleted or its permission revoked the player falls back
+  to the system alarm, then the ringtone, then the notification sound. Settings shows when a
+  choice has gone missing rather than quietly substituting one.
 - **Silent and vibrate mode do not affect it.** Do Not Disturb is the real obstacle: grant the
   app notification-policy access from the dashboard and it will lift DND while the alarm runs
   and put it back afterwards.

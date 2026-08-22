@@ -24,6 +24,8 @@ data class AppSettings(
     val webhookUrl: String = "",
     val alarmMaxDurationSec: Int = 300,
     val vibrateOnAlarm: Boolean = true,
+    /** Chosen alarm sound as a URI string. Empty means the system default. */
+    val alarmSoundUri: String = "",
 )
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -49,6 +51,7 @@ class SettingsStore(private val context: Context) {
         val WEBHOOK_URL = stringPreferencesKey("webhook_url")
         val ALARM_MAX_DURATION = intPreferencesKey("alarm_max_duration_sec")
         val VIBRATE = booleanPreferencesKey("vibrate_on_alarm")
+        val ALARM_SOUND_URI = stringPreferencesKey("alarm_sound_uri")
 
         val DETECTOR_SNAPSHOT = stringPreferencesKey("detector_snapshot")
     }
@@ -75,6 +78,7 @@ class SettingsStore(private val context: Context) {
             webhookUrl = prefs[Keys.WEBHOOK_URL].orEmpty(),
             alarmMaxDurationSec = prefs[Keys.ALARM_MAX_DURATION] ?: 300,
             vibrateOnAlarm = prefs[Keys.VIBRATE] ?: true,
+            alarmSoundUri = prefs[Keys.ALARM_SOUND_URI].orEmpty(),
         )
     }
 
@@ -131,6 +135,11 @@ class SettingsStore(private val context: Context) {
 
     suspend fun setVibrate(enabled: Boolean) {
         context.dataStore.edit { it[Keys.VIBRATE] = enabled }
+    }
+
+    /** Pass an empty string to go back to the system default alarm sound. */
+    suspend fun setAlarmSound(uri: String) {
+        context.dataStore.edit { it[Keys.ALARM_SOUND_URI] = uri }
     }
 
     suspend fun saveDetectorSnapshot(snapshot: DetectorSnapshot?) {
