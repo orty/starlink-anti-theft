@@ -35,6 +35,13 @@ val appVersionName = (findProperty("appVersionName") as String?)
 val releaseStoreFile = signingValue("storeFile", "ANDROID_KEYSTORE_FILE")
 val hasReleaseSigning = releaseStoreFile != null && file(releaseStoreFile).exists()
 
+// Names the build outputs, so they arrive as orty.starlink_guard-release.aab rather than the
+// default app-release.aab. CI trims the variant suffix off the two shipping artifacts; it is
+// kept locally because a debug and a release build sharing one filename is a trap.
+base {
+    archivesName.set("orty.starlink_guard")
+}
+
 android {
     namespace = "dev.starlinkguard"
     // Google Play requires new apps to target Android 16 (API 36) from 31 August 2026.

@@ -51,7 +51,12 @@ keyPassword=your-password
 config still expects both fields, so both are set.
 
 Then `./gradlew :app:bundleRelease` produces a signed
-`app/build/outputs/bundle/release/app-release.aab`.
+`app/build/outputs/bundle/release/orty.starlink_guard-release.aab`.
+
+Build outputs are named from `archivesName` in `app/build.gradle.kts`. CI trims the
+variant suffix off the two shipping artifacts, so what you download is exactly
+`orty.starlink_guard.aab` and `orty.starlink_guard.apk`; local builds keep the suffix so a
+debug and a release APK cannot quietly overwrite one another.
 
 ### Build in CI with it
 
@@ -297,7 +302,7 @@ newest **Build** run and wait for the **Release bundle** job to finish, then che
 case-sensitive and must match exactly.
 
 Download the **`starlink-guard-release-aab`** artifact. GitHub always wraps artifacts in a zip, so
-unzip it to get `app-release.aab`. That `.aab` is what you upload — **not** an APK, and not the zip.
+unzip it to get `orty.starlink_guard.aab`. That `.aab` is what you upload — **not** an APK, and not the zip.
 
 ### 8.2 Set up the internal testing track and its testers
 
@@ -323,7 +328,7 @@ the default, *Let Google manage your app signing key*. From then on the key you 
 section 1 is your **upload key** — you sign with it, Google verifies it, strips it, and re-signs
 with the app signing key it holds. This is why losing your upload key is recoverable.
 
-**Upload.** Drag `app-release.aab` into the *App bundles* box. Play processes it for a few seconds,
+**Upload.** Drag `orty.starlink_guard.aab` into the *App bundles* box. Play processes it for a few seconds,
 then shows the version, size, and the API levels and devices it supports. Sanity-check that it
 lists **target SDK 36** and `dev.starlinkguard`.
 

@@ -230,7 +230,7 @@ Requires JDK 17 and the Android SDK (Android Studio Ladybug or newer):
 
 ```bash
 ./gradlew :app:assembleDebug
-# app/build/outputs/apk/debug/app-debug.apk
+# app/build/outputs/apk/debug/orty.starlink_guard-debug.apk
 ```
 
 ### Running the tests without the Android SDK

@@ -108,6 +108,17 @@ jobs:
       - name: Build release bundle and APK
         run: ./gradlew :app:bundleRelease :app:assembleRelease
 
+      # Trim the "-release" suffix so the files handed to Play are exactly
+      # orty.starlink_guard.aab and orty.starlink_guard.apk.
+      - name: Name the shipping artifacts
+        run: |
+          set -euo pipefail
+          aab=$(find app/build/outputs/bundle/release -name '*.aab' | head -1)
+          apk=$(find app/build/outputs/apk/release -name '*.apk' | head -1)
+          mv "$aab" "$(dirname "$aab")/orty.starlink_guard.aab"
+          mv "$apk" "$(dirname "$apk")/orty.starlink_guard.apk"
+          ls -1 app/build/outputs/bundle/release app/build/outputs/apk/release
+
       - name: Report bundle signing state
         run: |
           set -euo pipefail
