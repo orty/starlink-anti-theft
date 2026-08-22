@@ -211,27 +211,30 @@ Starlink Guard turns your phone into a theft alarm for your satellite dish.
 
 Your dish already knows which way it is pointing. Starlink Guard connects to it over your own
 Wi-Fi, reads that orientation several times a minute, and raises a loud alarm the moment the dish
-is turned, tilted or carried away.
+is turned, tilted, carried away or unplugged.
 
 HOW IT WORKS
 
 Press Arm and the app records where the dish is resting: its azimuth, its elevation, the tilt of
-the mast, and its GPS position where available. From then on it watches for two things - a sudden
-change, and a slow drift away from that resting position. Either one past your chosen threshold
-sets off the alarm.
+the mast, and its GPS position where available. From then on it watches for three things - a
+sudden change, a slow drift away from that resting position, and the dish going silent
+altogether. Any of them past your chosen threshold sets off the alarm.
 
 AN ALARM YOU CAN ACTUALLY HEAR
 
 The alarm plays on the alarm channel at full volume, so a phone left on silent or vibrate still
 sounds. With Do Not Disturb access granted it cuts through that too, and the alarm screen appears
-over the lock screen.
+over the lock screen. It ships with its own siren, and you can swap in any ringtone or audio file
+you prefer.
 
 BUILT TO AVOID FALSE ALARMS
 
 Motorised dishes re-aim themselves, which naively looks exactly like theft. Starlink Guard only
 judges orientation while the dish's motors are idle and its attitude estimate has settled, and a
 reading must break the threshold twice in a row before anything sounds. There is a grace period
-after arming so a dish that is still settling does not wake you up.
+after arming so a dish that is still settling does not wake you up. Losing contact only counts as
+evidence on the network where the dish was last answering, so walking out of the house with your
+phone does not set it off.
 
 EVERYTHING STAYS ON YOUR PHONE
 
@@ -243,7 +246,10 @@ FEATURES
 
 - Live view of azimuth, elevation, mast tilt and GPS
 - Separate thresholds per axis, plus a distance threshold in metres
+- Alarm on losing contact with the dish, over a window you set
 - Loud alarm that survives silent mode, with a test button
+- Choose your own alarm sound
+- Home-screen widget to arm, disarm and silence
 - Full-screen alert over the lock screen
 - History of every alarm and dish event
 - Optional JSON webhook to your own endpoint
