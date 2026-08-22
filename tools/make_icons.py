@@ -54,8 +54,9 @@ def punch(layer, mask):
     layer.putalpha(ImageChops.subtract(layer.getchannel("A"), mask))
 
 
-def draw_mark(colour_dish=DISH_FACE, colour_arc=AMBER, colour_mast=MAST, colour_lock=AMBER):
-    """The dish-with-alert-waves-and-padlock mark, cropped to its content box."""
+def draw_mark(colour_dish=DISH_FACE, colour_arc=AMBER, colour_mast=MAST, colour_lock=AMBER,
+              with_lock=True):
+    """The dish-with-alert-waves mark, with or without the padlock, cropped to its content."""
     k = S / 1000.0
     img = Image.new("RGBA", (S, S), (0, 0, 0, 0))
     d = ImageDraw.Draw(img)
@@ -89,7 +90,11 @@ def draw_mark(colour_dish=DISH_FACE, colour_arc=AMBER, colour_mast=MAST, colour_
         ]
         d.arc(box, start=-86, end=-24, fill=colour_arc, width=int(44 * k))
 
-    # Padlock badge, sitting over the lower-right of the dish.
+    # Padlock badge, sitting over the lower-right of the dish. Dropped for the status-bar
+    # icon, where it is displayed at 24dp and the two shapes would merge into a blob.
+    if not with_lock:
+        return img.crop(img.getbbox())
+
     lock_x, lock_y, lock_h = 726 * k, 706 * k, 392 * k
 
     # Cut a padlock-shaped gap out of everything behind it. In the colour icons the gap shows
@@ -235,11 +240,28 @@ def main():
     # Saved without an alpha channel: Play's feature graphic guidance disallows transparency.
     save(fg.convert("RGB"), f"{REPO}/store/feature-graphic-1024x500.png")
 
+    # --- Status bar / notification icon: white silhouette, no padlock ------------
+    # Android masks these by alpha and tints them, so only the shape matters.
+    print("notification icon:")
+    dish_only = draw_mark(colour_dish=white, colour_arc=white, colour_mast=white, with_lock=False)
+    for name, px in {"mdpi": 24, "hdpi": 36, "xhdpi": 48, "xxhdpi": 72, "xxxhdpi": 96}.items():
+        icon = Image.new("RGBA", (px, px), (0, 0, 0, 0))
+        place(dish_only, icon, 0.92)
+        save(icon, f"{REPO}/app/src/main/res/drawable-{name}/ic_notification.png")
+
     # A large preview so the mark can be eyeballed on its own.
     prev = Image.new("RGBA", (600, 600), (0, 0, 0, 0))
     prev.alpha_composite(vertical_gradient((600, 600), NAVY_LIGHT, NAVY_DARK))
     place(mark, prev, 0.66)
     save(prev, f"{OUT}/preview.png")
+
+    # And the status-bar shape at its real size, next to a 3x blow-up.
+    probe = Image.new("RGBA", (200, 90), (60, 70, 90, 255))
+    small = Image.new("RGBA", (24, 24), (0, 0, 0, 0))
+    place(dish_only, small, 0.92)
+    probe.alpha_composite(small, (16, 30))
+    probe.alpha_composite(small.resize((72, 72), Image.NEAREST), (70, 10))
+    save(probe, f"{OUT}/notification_probe.png")
 
 
 def find_font(names, size):

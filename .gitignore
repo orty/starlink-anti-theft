@@ -15,3 +15,7 @@ captures/
 # Release signing (never commit)
 keystore.properties
 *.jks
+
+# Scratch renders from tools/make_icons.py
+tools/*.png
+__pycache__/

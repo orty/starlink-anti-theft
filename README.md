@@ -150,8 +150,9 @@ persists, rather than keeping a second copy of the state that could drift out of
 
 - Plays an alarm ringtone on a loop with `USAGE_ALARM`, at maximum alarm volume, and takes
   audio focus so music cannot duck it. The previous volume is restored afterwards.
-- **Ships with its own siren**, used by default: a harsh two-tone warble around 2.2–2.7 kHz,
-  the band the ear is most sensitive to. A device's stock alarm tone is designed to wake
+- **Ships with its own siren**, used by default: a two-tone warble alternating 800 Hz and
+  570 Hz five times a second. The fundamentals sit low enough not to be shrill, while the
+  odd harmonics above them carry the sound across a room. A device's stock alarm tone is designed to wake
   someone gently, which is the opposite of what this app wants. It is synthesised rather than
   sampled — see `tools/make_alarm_sound.py` — so there is no licence to honour, and the two
   tones are whole numbers of hertz sounded for exactly one second each, which makes the
