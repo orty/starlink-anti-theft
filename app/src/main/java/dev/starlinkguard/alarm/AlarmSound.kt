@@ -1,5 +1,6 @@
 package dev.starlinkguard.alarm
 
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
@@ -32,8 +33,11 @@ object AlarmSound {
      * harsh two-tone warble in the band the ear is most sensitive to, which is what a break-in
      * alarm should sound like. It is also the only sound guaranteed to exist on every device.
      */
-    fun builtIn(context: Context): Uri =
-        Uri.parse("android.resource://${'$'}{context.packageName}/${'$'}{R.raw.alarm_siren}")
+    fun builtIn(context: Context): Uri = Uri.Builder()
+        .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+        .authority(context.packageName)
+        .appendPath(R.raw.alarm_siren.toString())
+        .build()
 
     /** Turns the stored setting into the sound to try first. */
     fun chosen(context: Context, value: String?): Uri? = when {
