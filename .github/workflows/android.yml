@@ -103,8 +103,10 @@ jobs:
           [ "$by_property" = "versionCode=424242" ] || { echo "::error::-PappVersionCode was ignored"; exit 1; }
           [ "$by_env" = "versionCode=515151" ] || { echo "::error::VERSION_CODE was ignored"; exit 1; }
 
-      - name: Build release bundle
-        run: ./gradlew :app:bundleRelease
+      # The bundle is what Play takes, but an .aab cannot be sideloaded. A release APK is the
+      # only way to test the actual shipping build on a device before publishing it.
+      - name: Build release bundle and APK
+        run: ./gradlew :app:bundleRelease :app:assembleRelease
 
       - name: Report bundle signing state
         run: |
@@ -117,9 +119,28 @@ jobs:
             echo "::warning::No signing secrets configured - this bundle is UNSIGNED and Play will reject it."
           fi
 
+      - name: Report release APK signing state
+        run: |
+          set -euo pipefail
+          apk=$(find app/build/outputs/apk/release -name '*.apk' | head -1)
+          echo "APK: $apk ($(du -h "$apk" | cut -f1))"
+          apksigner=$(ls -d "$ANDROID_HOME"/build-tools/*/apksigner | sort -V | tail -1)
+          if "$apksigner" verify --print-certs "$apk" 2>/dev/null; then
+            echo "Release APK is signed and installable."
+          else
+            echo "::warning::Release APK is UNSIGNED and will not install. Add the signing secrets."
+          fi
+
       - name: Upload release bundle
         uses: actions/upload-artifact@v4
         with:
           name: starlink-guard-release-aab
           path: app/build/outputs/bundle/release/*.aab
+          if-no-files-found: error
+
+      - name: Upload release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: starlink-guard-release-apk
+          path: app/build/outputs/apk/release/*.apk
           if-no-files-found: error
