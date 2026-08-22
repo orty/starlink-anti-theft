@@ -173,10 +173,14 @@ fun SettingsScreen(
                 SliderRow(
                     label = "Silent for",
                     value = thresholds.offlineGraceSec.toFloat(),
-                    range = 30f..900f,
+                    range = 5f..300f,
                     format = { "%.0f s".format(it) },
-                    helper = "How long the dish must stay unreachable before it counts. A Starlink " +
-                        "reboot takes a minute or two, so anything shorter will fire on firmware updates.",
+                    // 5-second stops: the useful settings are all at the short end.
+                    steps = 58,
+                    helper = "How long the dish must stay unreachable before it counts. Short is " +
+                        "good — a thief is gone in under a minute. The cost is that a dish reboot " +
+                        "or firmware update, which take a minute or two, will also sound the alarm. " +
+                        "Cannot react faster than the poll interval.",
                 ) { value -> onUpdateThresholds { it.copy(offlineGraceSec = value.roundToInt()) } }
 
                 SwitchRow(
@@ -351,6 +355,8 @@ private fun SliderRow(
     range: ClosedFloatingPointRange<Float>,
     format: (Float) -> String,
     helper: String?,
+    /** Intermediate stops, so a slider spanning a wide range can still land on round values. */
+    steps: Int = 0,
     onChange: (Float) -> Unit,
 ) {
     // Track the drag locally so the slider stays smooth while the store round-trips.
@@ -366,6 +372,7 @@ private fun SliderRow(
             onValueChange = { local = it },
             onValueChangeFinished = { onChange(local) },
             valueRange = range,
+            steps = steps,
         )
         helper?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
     }

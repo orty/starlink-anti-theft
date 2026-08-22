@@ -169,8 +169,16 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
     private var lastReachable = true
     private var lastSampleAtMs = 0L
 
-    /** When the current run of unanswered polls began, or null if the dish is answering. */
-    private var unreachableSinceMs: Long? = null
+    /**
+     * When the dish was last known to be alive, or last observable.
+     *
+     * The outage is measured from here rather than from the first failed poll, so "silent for
+     * 15 seconds" means fifteen seconds of actual silence rather than fifteen on top of however
+     * long the poll interval is. It is pushed forward on every sample that is not a judged
+     * failure — including suppressed ones — which is what stops an hour spent away from the
+     * dish's network from counting as an hour of downtime.
+     */
+    private var outageStartMs = 0L
 
     /** The network the dish was last successfully reached on, during this armed session. */
     private var dishSeenOnNetworkId: String? = null
@@ -210,7 +218,7 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         consecutiveBreaches = 0
         lastReachable = true
         graceUntilMs = nowMs + thresholds.armingGraceSec * 1000L
-        unreachableSinceMs = null
+        outageStartMs = nowMs
         dishSeenOnNetworkId = null
         hasContactedDish = false
         history.clear()
@@ -221,7 +229,9 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         alarming = false
         baseline = null
         consecutiveBreaches = 0
-        unreachableSinceMs = null
+        // No timestamp here, but none is needed: hasContactedDish gates every judgement, and
+        // the first successful poll sets the clock before anything can be measured against it.
+        outageStartMs = 0L
         dishSeenOnNetworkId = null
         hasContactedDish = false
         history.clear()
@@ -239,7 +249,7 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         baseline = null
         consecutiveBreaches = 0
         graceUntilMs = nowMs + thresholds.armingGraceSec * 1000L
-        unreachableSinceMs = null
+        outageStartMs = nowMs
         // The remembered network is deliberately kept: the dish is still known to live here,
         // and forgetting it would make the dashboard claim this is an unfamiliar network while
         // the user is standing at home.
@@ -256,9 +266,9 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         graceUntilMs = snapshot.graceUntilMs
         consecutiveBreaches = snapshot.consecutiveBreaches
         lastReachable = true
-        // The outage clock deliberately starts fresh: the process may have been dead for
-        // hours, and counting that as dish downtime would alarm on the next poll.
-        unreachableSinceMs = null
+        // Nothing is judged until the dish answers again: the process may have been dead for
+        // hours, and counting that as dish downtime would alarm on the very next poll.
+        outageStartMs = 0L
         dishSeenOnNetworkId = null
         hasContactedDish = false
         history.clear()
@@ -279,7 +289,7 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
             return onUnreachable(sample)
         }
         lastReachable = true
-        unreachableSinceMs = null
+        outageStartMs = sample.atMs
         dishSeenOnNetworkId = sample.networkId
         hasContactedDish = true
 
@@ -399,8 +409,9 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         }
 
         if (!judged) {
-            // Reset rather than pause: an outage nobody could observe is not evidence.
-            unreachableSinceMs = null
+            // Push the clock forward rather than pausing it: an outage nobody could observe is
+            // not evidence, so the countdown restarts when observation becomes possible again.
+            outageStartMs = sample.atMs
             return result(
                 when (context) {
                     OutageContext.NO_WIFI -> SuppressionReason.NO_DISH_NETWORK
@@ -410,11 +421,9 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
             )
         }
 
-        val since = unreachableSinceMs ?: sample.atMs.also { unreachableSinceMs = it }
-
         if (sample.atMs < graceUntilMs) return result(SuppressionReason.GRACE_PERIOD)
 
-        val outageMs = sample.atMs - since
+        val outageMs = sample.atMs - outageStartMs
         if (outageMs < thresholds.offlineGraceSec * 1000L) {
             return result(SuppressionReason.DISH_UNREACHABLE)
         }

@@ -79,10 +79,16 @@ data class Thresholds(
     /**
      * How long the dish must stay silent before that counts as a theft, in seconds.
      *
-     * A Starlink reboot takes a minute or two, so anything below about that will fire on
-     * ordinary firmware updates.
+     * The default is deliberately short. Someone unplugging a dish is gone in under a minute,
+     * so waiting several of them to be certain defeats the point of the alarm; a theft alarm
+     * is one of the few places where a false positive is much cheaper than a miss.
+     *
+     * The cost of a short window is that a dish reboot or a firmware update — a minute or two
+     * of silence — will sound the alarm. Raise this if that trade is the wrong way round for
+     * you. It can never be finer-grained than [pollIntervalSec], since the dish is only known
+     * to be silent once a poll has failed.
      */
-    val offlineGraceSec: Int = 180,
+    val offlineGraceSec: Int = 15,
 
     /**
      * Count an outage even when the phone has no Wi-Fi at all.

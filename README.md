@@ -85,9 +85,19 @@ All adjustable in the Settings tab.
 ### Losing contact with the dish
 
 Off by default, enabled under Settings → Triggers. Unplugging the cable or driving off with the
-dish stops it answering immediately, which is often the earliest warning available — but
-reboots, firmware updates and router restarts look identical from the phone, so the dish has to
-stay silent for a configurable window (three minutes by default) before it counts.
+dish stops it answering immediately, which is often the earliest warning available. The dish has
+to stay silent for a configurable window — **15 seconds by default**, adjustable from 5 seconds
+to 5 minutes.
+
+That default is deliberately aggressive. Someone unplugging a dish is gone in well under a
+minute, so waiting several of them to be sure defeats the point; this is one of the few places
+where a false alarm is far cheaper than a miss. The cost is that a dish reboot or firmware
+update — a minute or two of silence — will also sound the alarm. Raise the window if that trade
+is the wrong way round for you.
+
+Silence is measured from the **last successful poll**, not from the first failed one, so the
+number means what it says. It can never react faster than the poll interval: at the default 10
+second polling, a 15 second window fires about 20 seconds after the dish goes quiet.
 
 **What the Wi-Fi disappearing means depends on your hardware**, and the app cannot work that
 out for itself:

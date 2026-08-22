@@ -449,10 +449,11 @@ class TheftDetectorTest {
         assertTrue(duringGrace.triggers.isEmpty())
         assertEquals(MonitorState.STALE, duringGrace.state)
 
-        val justBefore = detector.onSample(Sample(t0 + 10_000 + 179_000, status = null))
-        assertTrue("179s of outage is still inside the grace period", justBefore.triggers.isEmpty())
+        // Silence is measured from the last successful contact, which was at t0.
+        val justBefore = detector.onSample(Sample(t0 + 179_000, status = null))
+        assertTrue("179s of silence is still inside the grace period", justBefore.triggers.isEmpty())
 
-        val past = detector.onSample(Sample(t0 + 10_000 + 181_000, status = null))
+        val past = detector.onSample(Sample(t0 + 181_000, status = null))
         assertEquals(MonitorState.ALARMING, past.state)
         assertEquals(1, past.triggers.size)
         assertEquals(TriggerAxis.CONNECTION, past.triggers[0].axis)
@@ -469,9 +470,9 @@ class TheftDetectorTest {
         val back = detector.onSample(Sample(t0 + 120_000, status()))
         assertTrue(back.triggers.isEmpty())
 
-        // A second outage must be timed from scratch, not from the first one.
+        // A second outage is timed from that successful poll, not from the first outage.
         detector.onSample(Sample(t0 + 130_000, status = null))
-        val result = detector.onSample(Sample(t0 + 130_000 + 179_000, status = null))
+        val result = detector.onSample(Sample(t0 + 120_000 + 179_000, status = null))
         assertTrue("the outage clock should have restarted", result.triggers.isEmpty())
     }
 
@@ -631,6 +632,23 @@ class TheftDetectorTest {
         )
         assertEquals(SuppressionReason.DISH_UNREACHABLE, after.suppression)
         assertTrue(after.triggers.isEmpty())
+    }
+
+    @Test
+    fun `the default window reacts within seconds, not minutes`() {
+        val quick = Thresholds(offlineEnabled = true)
+        assertEquals("the default is meant to be short", 15, quick.offlineGraceSec)
+
+        val (detector, t0) = armedOn(quick, HOME)
+
+        // Default polling is every 10s, so the first failure cannot yet clear a 15s window.
+        val first = detector.onSample(Sample(t0 + 10_000, status = null, networkId = HOME))
+        assertTrue(first.triggers.isEmpty())
+
+        // Twenty seconds of silence, and the alarm is up.
+        val second = detector.onSample(Sample(t0 + 20_000, status = null, networkId = HOME))
+        assertEquals(MonitorState.ALARMING, second.state)
+        assertEquals(TriggerKind.OFFLINE, second.triggers.single().kind)
     }
 
     // --- Router-in-dish hardware (Starlink Mini) -----------------------------------------
