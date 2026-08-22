@@ -124,6 +124,28 @@ Independently of all of this, an outage is never judged before the dish has answ
 once since arming, and time spent where the dish could not have been reached resets the clock
 rather than pausing it — an outage nobody could observe is not evidence.
 
+## Home-screen widget
+
+A single square button, one cell wide. Its colour and icon are the status, and one tap does the
+obvious thing:
+
+| Looks like | Meaning | A tap does |
+| --- | --- | --- |
+| Grey, open padlock, *OFF* | not watching | arms |
+| Amber, *SETTLING* | armed, recording the reference position | disarms |
+| Green, closed padlock, *ARMED* | watching, dish where you left it | disarms |
+| Amber, *CHECKING* / *NO LINK* | possible movement / dish not answering | disarms |
+| Red, exclamation, *SILENCE* | alarm sounding | silences it |
+
+Silencing deliberately outranks disarming: reaching for the widget mid-siren is overwhelmingly a
+request for quiet, and quietly disarming as a side effect would leave the dish unwatched without
+the user realising.
+
+Tapping a widget is one of the documented exemptions from the Android 12+ ban on starting a
+foreground service from the background, so arming from the home screen works with the app
+closed. A widget redrawn in a cold process falls back to the armed flag the service already
+persists, rather than keeping a second copy of the state that could drift out of step.
+
 ## Alarm behaviour
 
 - Plays an alarm ringtone on a loop with `USAGE_ALARM`, at maximum alarm volume, and takes

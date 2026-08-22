@@ -29,6 +29,7 @@ import dev.starlinkguard.core.model.DishLocation
 import dev.starlinkguard.core.model.DishStatus
 import dev.starlinkguard.data.AppSettings
 import dev.starlinkguard.data.MonitorRepository
+import dev.starlinkguard.widget.GuardWidget
 import dev.starlinkguard.net.NetworkProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -54,6 +55,7 @@ class MonitorService : Service() {
     private var alarmTimeoutJob: Job? = null
 
     private lateinit var networkProvider: NetworkProvider
+    private var lastWidgetFace: Pair<MonitorState, Boolean>? = null
     private lateinit var alarmPlayer: AlarmPlayer
     private lateinit var webhookSender: WebhookSender
 
@@ -187,9 +189,25 @@ class MonitorService : Service() {
             }
 
             updateNotification(result.state, sample)
+            publishWidget(result.state, alarmPlayer.isPlaying)
 
             delay(settings.thresholds.pollIntervalSec * 1000L)
         }
+    }
+
+    /**
+     * Redraws the home-screen widget, but only when its appearance would actually change.
+     *
+     * This runs on every poll for days on end, so an unconditional redraw would be pure waste.
+     * Nothing is persisted here: a widget redrawn in a cold process reads the armed flag the
+     * service already stores, which keeps one source of truth rather than two that can drift.
+     */
+    private fun publishWidget(state: MonitorState, alarmSounding: Boolean) {
+        val next = state to alarmSounding
+        if (next == lastWidgetFace) return
+        lastWidgetFace = next
+        runCatching { GuardWidget.refresh(this, state, alarmSounding) }
+            .onFailure { Log.w(TAG, "could not refresh the widget", it) }
     }
 
     private fun describeBaseline(result: DetectorResult): String {
@@ -313,6 +331,7 @@ class MonitorService : Service() {
         MonitorRepository.update {
             it.copy(alarmSounding = false, state = detector.state, activeTriggers = emptyList())
         }
+        publishWidget(detector.state, alarmSounding = false)
         stopIfIdle()
     }
 
@@ -369,6 +388,7 @@ class MonitorService : Service() {
         }
 
         MonitorRepository.reset()
+        publishWidget(MonitorState.DISARMED, alarmSounding = false)
         NotificationManagerCompat.from(this).cancel(AlarmNotifications.NOTIFICATION_ALARM)
         ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
         stopSelf()

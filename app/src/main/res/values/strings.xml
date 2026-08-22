@@ -5,4 +5,6 @@
     <string name="channel_monitor_description">Shows that the dish is being watched.</string>
     <string name="channel_alarm_name">Theft alarm</string>
     <string name="channel_alarm_description">Sounds when the dish is moved.</string>
+    <string name="widget_description">Arm or disarm the dish watch, and silence a sounding alarm.</string>
+    <string name="widget_state_off">OFF</string>
 </resources>

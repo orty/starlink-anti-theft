@@ -83,6 +83,19 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
+
+        <!-- Home-screen arm/disarm button. Also silences a sounding alarm. -->
+        <receiver
+            android:name=".widget.GuardWidgetProvider"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="dev.starlinkguard.widget.TAP" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/guard_widget_info" />
+        </receiver>
     </application>
 
 </manifest>
