@@ -150,12 +150,18 @@ persists, rather than keeping a second copy of the state that could drift out of
 
 - Plays an alarm ringtone on a loop with `USAGE_ALARM`, at maximum alarm volume, and takes
   audio focus so music cannot duck it. The previous volume is restored afterwards.
-- **The sound is configurable** — pick any system alarm tone, or an audio file of your own,
-  under Settings → Alarm. Whatever you choose still plays on the alarm channel, so it keeps
-  the silent-mode behaviour below. A chosen sound can never silence the alarm: it is the first
-  candidate tried, and if it has been deleted or its permission revoked the player falls back
-  to the system alarm, then the ringtone, then the notification sound. Settings shows when a
-  choice has gone missing rather than quietly substituting one.
+- **Ships with its own siren**, used by default: a harsh two-tone warble around 2.2–2.7 kHz,
+  the band the ear is most sensitive to. A device's stock alarm tone is designed to wake
+  someone gently, which is the opposite of what this app wants. It is synthesised rather than
+  sampled — see `tools/make_alarm_sound.py` — so there is no licence to honour, and the two
+  tones are whole numbers of hertz sounded for exactly one second each, which makes the
+  two-second loop close on an exact whole number of cycles and repeat without a click.
+- **The sound is configurable** — keep the built-in siren, pick any system alarm tone, or use
+  an audio file of your own, under Settings → Alarm. Whatever you choose still plays on the
+  alarm channel, so it keeps the silent-mode behaviour below. A chosen sound can never silence
+  the alarm: it is the first candidate tried, and the built-in siren sits directly behind it,
+  since unlike a media-store file it cannot be deleted, unmounted, or have its permission
+  revoked. Settings says when a choice has gone missing rather than quietly substituting one.
 - **Silent and vibrate mode do not affect it.** Do Not Disturb is the real obstacle: grant the
   app notification-policy access from the dashboard and it will lift DND while the alarm runs
   and put it back afterwards.

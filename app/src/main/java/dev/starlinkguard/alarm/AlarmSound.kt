@@ -5,6 +5,7 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.net.Uri
 import android.provider.OpenableColumns
+import dev.starlinkguard.R
 
 /**
  * Resolving which sound the alarm should play.
@@ -16,16 +17,41 @@ import android.provider.OpenableColumns
  */
 object AlarmSound {
 
-    /** An empty or unparseable stored value means "use the system default". */
-    fun parse(value: String?): Uri? =
-        value?.takeIf { it.isNotBlank() }?.let { runCatching { Uri.parse(it) }.getOrNull() }
+    /**
+     * Stored when the user picks "Default" in the ringtone picker.
+     *
+     * A sentinel rather than the resolved URI, so the alarm keeps following whatever the device
+     * default is later changed to instead of pinning today's.
+     */
+    const val SYSTEM_DEFAULT = "system-default"
 
     /**
-     * Sounds to try, best first. The default alarm can itself be unset on some devices, hence
-     * the ringtone and notification fallbacks behind it.
+     * The siren shipped with the app, and the default when nothing has been chosen.
+     *
+     * A device's stock alarm tone is designed to wake someone gently. This one is not: it is a
+     * harsh two-tone warble in the band the ear is most sensitive to, which is what a break-in
+     * alarm should sound like. It is also the only sound guaranteed to exist on every device.
      */
-    fun candidates(custom: Uri?): List<Uri> = listOfNotNull(
+    fun builtIn(context: Context): Uri =
+        Uri.parse("android.resource://${'$'}{context.packageName}/${'$'}{R.raw.alarm_siren}")
+
+    /** Turns the stored setting into the sound to try first. */
+    fun chosen(context: Context, value: String?): Uri? = when {
+        value.isNullOrBlank() -> builtIn(context)
+        value == SYSTEM_DEFAULT -> RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+        else -> runCatching { Uri.parse(value) }.getOrNull()
+    }
+
+    /**
+     * Sounds to try, best first.
+     *
+     * The built-in siren sits directly behind the user's choice: it ships inside the APK, so
+     * unlike anything from the media store it cannot be deleted, unmounted, or have its
+     * permission revoked. The system tones behind it cover the case of a corrupt install.
+     */
+    fun candidates(context: Context, custom: Uri?): List<Uri> = listOfNotNull(
         custom,
+        builtIn(context),
         RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM),
         RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE),
         RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION),

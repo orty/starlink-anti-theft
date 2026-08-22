@@ -241,7 +241,8 @@ fun SettingsScreen(
 /** What the chosen sound resolves to right now. */
 private sealed interface SoundState {
     data object Loading : SoundState
-    data object Default : SoundState
+    data object BuiltIn : SoundState
+    data object SystemDefault : SoundState
     data class Named(val name: String) : SoundState
     data object Unavailable : SoundState
 }
@@ -254,16 +255,17 @@ private fun AlarmSoundRow(
     onUseDefault: () -> Unit,
 ) {
     val context = LocalContext.current
-    val custom = remember(uriValue) { AlarmSound.parse(uriValue) }
 
     // Resolving a name and checking readability both hit the content resolver, so this is kept
     // off the main thread. Re-runs whenever the stored choice changes.
-    val state by produceState<SoundState>(SoundState.Loading, custom) {
+    val state by produceState<SoundState>(SoundState.Loading, uriValue) {
         value = withContext(Dispatchers.IO) {
+            val resolved = AlarmSound.chosen(context, uriValue)
             when {
-                custom == null -> SoundState.Default
-                !AlarmSound.isReadable(context, custom) -> SoundState.Unavailable
-                else -> SoundState.Named(AlarmSound.label(context, custom))
+                uriValue.isBlank() -> SoundState.BuiltIn
+                uriValue == AlarmSound.SYSTEM_DEFAULT -> SoundState.SystemDefault
+                resolved == null || !AlarmSound.isReadable(context, resolved) -> SoundState.Unavailable
+                else -> SoundState.Named(AlarmSound.label(context, resolved))
             }
         }
     }
@@ -273,8 +275,12 @@ private fun AlarmSoundRow(
 
         when (val current = state) {
             SoundState.Loading -> Text("…", style = MaterialTheme.typography.bodyMedium)
-            SoundState.Default -> Text(
-                "Default alarm sound",
+            SoundState.BuiltIn -> Text(
+                "Built-in siren",
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            SoundState.SystemDefault -> Text(
+                "This device's default alarm",
                 style = MaterialTheme.typography.bodyMedium,
             )
             is SoundState.Named -> Text(
@@ -298,13 +304,14 @@ private fun AlarmSoundRow(
                 Text("From file")
             }
         }
-        if (custom != null) {
+        if (state != SoundState.BuiltIn) {
             OutlinedButton(onClick = onUseDefault, modifier = Modifier.fillMaxWidth()) {
-                Text("Use default")
+                Text("Back to the built-in siren")
             }
         }
         Text(
-            "Plays on the alarm channel whichever sound you pick, so silent mode does not mute it.",
+            "Plays on the alarm channel whichever sound you pick, so silent mode does not mute it. " +
+                "The built-in siren ships inside the app, so unlike a chosen file it cannot go missing.",
             style = MaterialTheme.typography.bodySmall,
         )
     }

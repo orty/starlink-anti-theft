@@ -79,7 +79,9 @@ private fun AppRoot(viewModel: MainViewModel = viewModel()) {
                     Uri::class.java,
                 )
             }
-            viewModel.setAlarmSound(picked?.toString().orEmpty())
+            // No URI means the picker's "Default" entry; an empty string would instead
+            // mean the built-in siren, so the sentinel keeps the two apart.
+            viewModel.setAlarmSound(picked?.toString() ?: AlarmSound.SYSTEM_DEFAULT)
         }
     }
 
@@ -152,7 +154,7 @@ private fun AppRoot(viewModel: MainViewModel = viewModel()) {
                 onSetAlarmSound = viewModel::setAlarmSound,
                 onPickAlarmSound = {
                     ringtonePicker.launch(
-                        AlarmSound.ringtonePickerIntent(AlarmSound.parse(settings.alarmSoundUri)),
+                        AlarmSound.ringtonePickerIntent(AlarmSound.chosen(context, settings.alarmSoundUri)),
                     )
                 },
                 onPickAlarmSoundFile = { soundFilePicker.launch(AlarmSound.AUDIO_MIME_TYPES) },

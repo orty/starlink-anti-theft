@@ -59,7 +59,7 @@ class AlarmPlayer(private val context: Context) {
         raiseAlarmVolume()
         requestAudioFocus()
 
-        player = openFirstPlayable(AlarmSound.candidates(soundUri))
+        player = openFirstPlayable(AlarmSound.candidates(context, soundUri))
         if (player == null) {
             // Vibration below is now the only signal, but the alarm is still considered raised.
             Log.e(TAG, "no alarm sound could be played")
