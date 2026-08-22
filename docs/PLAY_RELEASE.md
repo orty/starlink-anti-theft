@@ -271,8 +271,8 @@ For internal testing this is essentially no risk — the listing is not public. 
 public, consider a name that describes the function instead of the brand, for example **Dish
 Guard**, **Dish Sentry** or **Mast Watch**, with "works with Starlink dishes" in the description
 where nominative use is on much safer ground. Changing the name later is a store-listing edit, not
-a code change; the `applicationId` (`dev.starlinkguard`) is permanent once published, but is never
-shown to users.
+a code change; the `applicationId` (`orty.starlink_guard`) is permanent once published, but is
+never shown to users.
 
 ---
 
@@ -332,7 +332,13 @@ with the app signing key it holds. This is why losing your upload key is recover
 
 **Upload.** Drag `orty.starlink_guard.aab` into the *App bundles* box. Play processes it for a few seconds,
 then shows the version, size, and the API levels and devices it supports. Sanity-check that it
-lists **target SDK 36** and `dev.starlinkguard`.
+lists **target SDK 36** and `orty.starlink_guard`.
+
+If Play answers *"Your APK or Android App Bundle must have the package name …"*, the `applicationId`
+in `app/build.gradle.kts` disagrees with the package name this Play Console entry is bound to. Play
+fixes an app entry's package name permanently, so the build has to match it, not the other way
+round. The `Verify the app identity Play expects` step in the build workflow asserts the built APK
+carries `orty.starlink_guard`, so a mismatch fails CI rather than a release.
 
 **Release name.** Auto-filled as `1 (1.0)`. It is internal-only; leave it.
 

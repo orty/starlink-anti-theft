@@ -119,6 +119,28 @@ jobs:
           mv "$apk" "$(dirname "$apk")/orty.starlink_guard.apk"
           ls -1 app/build/outputs/bundle/release app/build/outputs/apk/release
 
+      # Play binds an app entry to one package name forever and rejects any upload that does not
+      # match, which is a wasted release cycle to discover by hand. Two things are asserted here.
+      # The package name is the applicationId. The launchable activity proves the manifest's
+      # relative component names still resolved against the namespace, which differs from the
+      # applicationId - if that ever broke, the app would install and then crash on launch rather
+      # than fail the build. The bundle is built from this same merged manifest.
+      - name: Verify the app identity Play expects
+        run: |
+          set -euo pipefail
+          apk=app/build/outputs/apk/release/orty.starlink_guard.apk
+          aapt2=$(ls -d "$ANDROID_HOME"/build-tools/*/aapt2 | sort -V | tail -1)
+          badging=$("$aapt2" dump badging "$apk")
+          echo "$badging" | grep -E "^(package|launchable-activity):"
+          echo "$badging" | grep -q "^package: name='orty.starlink_guard'" || {
+            echo "::error::applicationId is not orty.starlink_guard - Play will reject this upload"
+            exit 1
+          }
+          echo "$badging" | grep -q "^launchable-activity: name='dev.starlinkguard.ui.MainActivity'" || {
+            echo "::error::launcher activity did not resolve against the namespace"
+            exit 1
+          }
+
       - name: Report bundle signing state
         run: |
           set -euo pipefail

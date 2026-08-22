@@ -43,12 +43,21 @@ base {
 }
 
 android {
+    // Deliberately different from applicationId below. The namespace is only the compile-time
+    // package for the generated R class and for resolving the manifest's relative component
+    // names (".ui.MainActivity" -> "dev.starlinkguard.ui.MainActivity"); AGP then stamps the
+    // applicationId into the merged manifest as the package. Keeping it means the Kotlin
+    // sources did not have to move when the published identity changed.
     namespace = "dev.starlinkguard"
     // Google Play requires new apps to target Android 16 (API 36) from 31 August 2026.
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "dev.starlinkguard"
+        // This is the app's permanent identity on Google Play, fixed by the Play Console entry
+        // that the first release was created under. It is not free to change: Play rejects any
+        // upload whose package name differs, and to Android a different applicationId is a
+        // different app, so changing it again would orphan every install and its stored state.
+        applicationId = "orty.starlink_guard"
         minSdk = 26
         targetSdk = 36
         versionCode = appVersionCode

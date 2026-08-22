@@ -102,7 +102,9 @@ jobs:
         uses: r0adkll/upload-google-play@e738b9dd8f2476ea806d921b64aacd24f34515a5 # v1.1.5
         with:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
-          packageName: dev.starlinkguard
+          # Must match app/build.gradle.kts applicationId and the Play Console entry, or the
+          # upload is rejected. The build job above asserts the built APK carries this name.
+          packageName: orty.starlink_guard
           releaseFiles: app/build/outputs/bundle/release/*.aab
           track: ${{ inputs.track }}
           status: ${{ inputs.status }}
