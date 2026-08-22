@@ -89,12 +89,24 @@ dish stops it answering immediately, which is often the earliest warning availab
 reboots, firmware updates and router restarts look identical from the phone, so the dish has to
 stay silent for a configurable window (three minutes by default) before it counts.
 
-The awkward case is the phone leaving the property: the dish then looks unreachable when
-nothing has happened to it. So an outage is only counted while the phone is on Wi-Fi, and the
-clock resets rather than pauses when Wi-Fi goes away — an outage that began while nobody was
-watching is not evidence. The trade-off is a real blind spot: if the whole installation loses
-power, the phone drops off that Wi-Fi too and the outage cannot be judged. Orientation and GPS
-are unaffected.
+This works because the Starlink **router is a separate indoor unit**. Unplug or carry off the
+dish and the router keeps serving Wi-Fi, so the phone stays connected while `192.168.100.1`
+goes silent — which is exactly the signature the trigger looks for.
+
+Two cases have to be excluded, or the alarm would cry wolf constantly:
+
+- **Wi-Fi turned off, or out of range.** Nothing can be concluded about the dish, so the outage
+  clock resets rather than pauses. An outage that began while nobody was watching is not
+  evidence.
+- **A different Wi-Fi.** At a café the network is up and the dish is silent, and the two facts
+  are unrelated. An outage is therefore only counted on the network where the dish was last
+  answering, identified by `Network.getNetworkHandle()` — deliberately not by SSID, which would
+  drag in `ACCESS_FINE_LOCATION` for no benefit. The same rule means an outage is never judged
+  before the dish has answered at least once since arming.
+
+The trade-off is one honest blind spot: if the whole installation loses power, the router dies
+too, the phone drops that Wi-Fi, and the outage cannot be judged. Orientation and GPS are
+unaffected.
 
 ## Alarm behaviour
 

@@ -52,6 +52,9 @@ enum class SuppressionReason {
 
     /** The phone is not on Wi-Fi, so nothing can be concluded about the dish. */
     NO_DISH_NETWORK,
+
+    /** The phone is on some other Wi-Fi, where the dish was never reachable to begin with. */
+    UNFAMILIAR_NETWORK,
     NO_ORIENTATION_DATA,
     ATTITUDE_UNCONVERGED,
     ACTUATORS_MOVING,
@@ -105,6 +108,13 @@ data class Sample(
      * exactly like the cable being cut.
      */
     val dishNetworkAvailable: Boolean = true,
+    /**
+     * Identity of the Wi-Fi this poll went out on.
+     *
+     * An outage only means something on the network where the dish was last answering. On any
+     * other Wi-Fi the dish was never reachable, so its silence is not evidence of anything.
+     */
+    val networkId: String? = null,
 ) {
     val reachable: Boolean get() = status != null
 }
@@ -162,6 +172,9 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
     /** When the current run of unanswered polls began, or null if the dish is answering. */
     private var unreachableSinceMs: Long? = null
 
+    /** The network the dish was last successfully reached on, during this armed session. */
+    private var dishSeenOnNetworkId: String? = null
+
     /** Trusted orientation samples, oldest first, used for the "sudden change" comparison. */
     private val history = ArrayDeque<HistoryEntry>()
 
@@ -195,6 +208,7 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         lastReachable = true
         graceUntilMs = nowMs + thresholds.armingGraceSec * 1000L
         unreachableSinceMs = null
+        dishSeenOnNetworkId = null
         history.clear()
     }
 
@@ -204,6 +218,7 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         baseline = null
         consecutiveBreaches = 0
         unreachableSinceMs = null
+        dishSeenOnNetworkId = null
         history.clear()
     }
 
@@ -220,6 +235,9 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         consecutiveBreaches = 0
         graceUntilMs = nowMs + thresholds.armingGraceSec * 1000L
         unreachableSinceMs = null
+        // The remembered network is deliberately kept: the dish is still known to live here,
+        // and forgetting it would make the dashboard claim this is an unfamiliar network while
+        // the user is standing at home.
         history.clear()
     }
 
@@ -236,6 +254,7 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         // The outage clock deliberately starts fresh: the process may have been dead for
         // hours, and counting that as dish downtime would alarm on the next poll.
         unreachableSinceMs = null
+        dishSeenOnNetworkId = null
         history.clear()
     }
 
@@ -255,6 +274,7 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         }
         lastReachable = true
         unreachableSinceMs = null
+        dishSeenOnNetworkId = sample.networkId
 
         if (alarming) {
             // Latched until the user acknowledges.
@@ -348,6 +368,14 @@ class TheftDetector(thresholds: Thresholds = Thresholds()) {
         if (!sample.dishNetworkAvailable) {
             unreachableSinceMs = null
             return result(SuppressionReason.NO_DISH_NETWORK)
+        }
+
+        // An outage only counts on the network where the dish was last answering. Anywhere else
+        // — a café's Wi-Fi, or before the dish has answered even once since arming — its
+        // silence is not evidence of anything, so the clock is reset rather than paused.
+        if (sample.networkId != dishSeenOnNetworkId) {
+            unreachableSinceMs = null
+            return result(SuppressionReason.UNFAMILIAR_NETWORK)
         }
 
         if (!thresholds.offlineEnabled) return result(SuppressionReason.DISH_UNREACHABLE)

@@ -246,6 +246,7 @@ class MonitorService : Service() {
             // Without Wi-Fi an unanswered poll says nothing about the dish, only about
             // where the phone is. The detector needs to be able to tell those apart.
             dishNetworkAvailable = networkProvider.wifiNetwork != null,
+            networkId = networkProvider.wifiNetworkId,
         )
     }
 

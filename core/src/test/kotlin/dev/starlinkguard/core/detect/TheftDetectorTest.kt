@@ -546,4 +546,95 @@ class TheftDetectorTest {
             // as intended
         }
     }
+
+    // --- Which network the outage happened on -------------------------------------------
+
+    /** Arms, then establishes that the dish lives on network "home". */
+    private fun armedOnHome(): Pair<TheftDetector, Long> {
+        val detector = TheftDetector(offline)
+        detector.arm(start)
+        var t = start
+        detector.onSample(Sample(t, status(), networkId = HOME))
+        t += Thresholds().armingGraceSec * 1000L + 1_000L
+        detector.onSample(Sample(t, status(), networkId = HOME))
+        return detector to t
+    }
+
+    @Test
+    fun `a silent dish on the network it lives on alarms`() {
+        val (detector, t0) = armedOnHome()
+        detector.onSample(Sample(t0 + 10_000, status = null, networkId = HOME))
+        val result = detector.onSample(Sample(t0 + 10_000 + 181_000, status = null, networkId = HOME))
+        assertEquals(MonitorState.ALARMING, result.state)
+        assertEquals(TriggerAxis.CONNECTION, result.triggers.single().axis)
+    }
+
+    @Test
+    fun `another wifi never alarms, because the dish was never reachable there`() {
+        val (detector, t0) = armedOnHome()
+
+        // The owner is at a cafe. Wi-Fi is up, the dish is silent, and neither fact is related.
+        var result = detector.onSample(Sample(t0 + 10_000, status = null, networkId = CAFE))
+        assertEquals(SuppressionReason.UNFAMILIAR_NETWORK, result.suppression)
+
+        result = detector.onSample(Sample(t0 + 3_600_000, status = null, networkId = CAFE))
+        assertTrue(result.triggers.isEmpty())
+        assertEquals(SuppressionReason.UNFAMILIAR_NETWORK, result.suppression)
+    }
+
+    @Test
+    fun `time spent on another wifi does not count towards the outage`() {
+        val (detector, t0) = armedOnHome()
+
+        detector.onSample(Sample(t0 + 10_000, status = null, networkId = CAFE))
+        detector.onSample(Sample(t0 + 3_600_000, status = null, networkId = CAFE))
+
+        // Home again, dish still silent: the hour away must not count.
+        val justBack = detector.onSample(Sample(t0 + 3_610_000, status = null, networkId = HOME))
+        assertTrue(justBack.triggers.isEmpty())
+
+        val later = detector.onSample(Sample(t0 + 3_610_000 + 181_000, status = null, networkId = HOME))
+        assertEquals(MonitorState.ALARMING, later.state)
+    }
+
+    @Test
+    fun `an outage seen before the dish ever answered is not judged`() {
+        // Armed while already away from home: the dish has never been reached on this network.
+        val detector = TheftDetector(offline)
+        detector.arm(start)
+        val t = start + Thresholds().armingGraceSec * 1000L + 1_000L
+
+        detector.onSample(Sample(t, status = null, networkId = CAFE))
+        val result = detector.onSample(Sample(t + 3_600_000, status = null, networkId = CAFE))
+        assertTrue(result.triggers.isEmpty())
+    }
+
+    @Test
+    fun `acknowledging keeps the dish's home network, so the dashboard stays truthful`() {
+        val (detector, t0) = armedOnHome()
+        detector.onSample(Sample(t0 + 10_000, status = null, networkId = HOME))
+        assertEquals(
+            MonitorState.ALARMING,
+            detector.onSample(Sample(t0 + 200_000, status = null, networkId = HOME)).state,
+        )
+
+        detector.acknowledgeAlarm(t0 + 210_000)
+
+        // Acknowledging opens a fresh settling window first.
+        val settling = detector.onSample(Sample(t0 + 220_000, status = null, networkId = HOME))
+        assertEquals(SuppressionReason.GRACE_PERIOD, settling.suppression)
+
+        // Past it, the dish is still known to live on this network — so this reads as a plain
+        // outage rather than as an unfamiliar network, and it has not re-alarmed.
+        val after = detector.onSample(
+            Sample(t0 + 210_000 + Thresholds().armingGraceSec * 1000L + 1_000L, status = null, networkId = HOME),
+        )
+        assertEquals(SuppressionReason.DISH_UNREACHABLE, after.suppression)
+        assertTrue(after.triggers.isEmpty())
+    }
+
+    private companion object {
+        const val HOME = "wifi-home"
+        const val CAFE = "wifi-cafe"
+    }
 }

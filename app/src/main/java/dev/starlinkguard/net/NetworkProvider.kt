@@ -33,6 +33,17 @@ class NetworkProvider(context: Context) {
     var internetNetwork: Network? = null
         private set
 
+    /**
+     * A stable identifier for the Wi-Fi the phone is on, or null when it is on none.
+     *
+     * Uses the network handle rather than the SSID on purpose: reading an SSID requires
+     * ACCESS_FINE_LOCATION, and this only needs to answer "is this the same network as
+     * before", which the handle does without asking the user for anything. A reconnect yields
+     * a new handle, which errs towards forgetting rather than towards a false alarm.
+     */
+    val wifiNetworkId: String?
+        get() = wifiNetwork?.networkHandle?.toString()
+
     private val wifiCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
             wifiNetwork = network

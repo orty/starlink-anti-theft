@@ -133,6 +133,8 @@ private fun suppressionMessage(reason: SuppressionReason): String? = when (reaso
     SuppressionReason.DISH_UNREACHABLE -> "Waiting for the dish to answer. Check you are on the Starlink Wi-Fi."
     SuppressionReason.NO_DISH_NETWORK ->
         "No Wi-Fi, so the dish cannot be checked from here. Nothing will trigger until it is back."
+    SuppressionReason.UNFAMILIAR_NETWORK ->
+        "The dish has not answered on this Wi-Fi, so its silence is not evidence of anything here."
     SuppressionReason.NO_ORIENTATION_DATA -> "This dish is not reporting orientation."
     SuppressionReason.ATTITUDE_UNCONVERGED -> "The dish is still working out which way it points; orientation is not being judged."
     SuppressionReason.ACTUATORS_MOVING -> "The dish is re-aiming itself, so orientation checks are paused."
