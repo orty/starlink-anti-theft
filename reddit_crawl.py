@@ -187,7 +187,7 @@ class ArcticShift:
         self.verbose = verbose
         self.ok_requests = 0
         self.timeouts = 0
-        self.empty_subs: set[str] = set()
+        self.sub_hits: dict[str, int] = {}
 
     def search_sub(self, subreddit: str, field: str, term: str,
                    after: float | None = None, limit: int = 100) -> list[dict]:
@@ -207,8 +207,7 @@ class ArcticShift:
                 self.ok_requests += 1
                 time.sleep(self.pause)
                 data = resp.json().get("data") or []
-                if not data:
-                    self.empty_subs.add(subreddit)
+                self.sub_hits[subreddit] = self.sub_hits.get(subreddit, 0) + len(data)
                 return data
 
             # 422 is a server-side query timeout, not a quota: roughly one
@@ -242,9 +241,23 @@ class ArcticShift:
 # --------------------------------------------------------------------------- #
 VICTIM_RE = re.compile(
     r"(stole (my|our)|someone stole|thieves took|"
-    r"\b(my|our)\b[^.!?\n]{0,60}\b(was|were|got|has been|have been)\s+(stolen|taken|ripped off)|"
+    r"\b(was|were|got|has been|have been|had been)\s+(stolen|taken|ripped off)\b|"
     r"had\s+(my|our)\b[^.!?\n]{0,40}\bstolen|"
-    r"(my|our)\s+(starlink|dish|dishy)[^.!?\n]{0,40}\b(gone|missing|disappeared))"
+    r"filed a police report|police report (for|about)|"
+    r"reported (it|the theft|this) to (starlink|support|the police)|"
+    r"(my|our)\s+(starlink|dish|dishy|mini)[^.!?\n]{0,40}\b(gone|missing|disappeared))"
+)
+
+# "what would you do if yours was stolen" is a hypothetical, not a theft. It
+# trips the past-tense pattern above, so it gets vetoed unless the post also
+# carries a concrete aftermath signal (a police report, a support ticket).
+HYPOTHETICAL_RE = re.compile(
+    r"\b(if|what if|in case|suppose|should)\b[^.!?\n]{0,50}\b(was|were|is|are|gets?|got)\s+"
+    r"(stolen|taken)\b"
+)
+CONCRETE_RE = re.compile(
+    r"(filed a police report|police report|contacted (starlink )?support|"
+    r"reached out to support|reported (it|the theft|this) to)"
 )
 
 
@@ -294,6 +307,8 @@ def score_post(post: dict, cfg: dict) -> dict:
     # having lost anything, so a victim is identified by first-person phrasing
     # rather than by the presence of the word "stolen".
     victim = bool(VICTIM_RE.search(blob))
+    if victim and HYPOTHETICAL_RE.search(blob) and not CONCRETE_RE.search(blob):
+        victim = False
 
     if hits["noise"] and not victim:
         bucket = "peripheral"
@@ -344,6 +359,10 @@ def absorb(seen: dict, posts: list[dict], source: str, cfg: dict, cutoff: float)
             continue
         verdict = score_post(post, cfg)
         seen[pid] = {
+            "_raw": {k: post.get(k) for k in
+                     ("title", "selftext", "subreddit", "permalink", "created_utc",
+                      "score", "num_comments", "author", "locked", "archived",
+                      "over_18", "id")},
             "id": pid,
             "title": post.get("title", ""),
             "subreddit": post.get("subreddit", ""),
@@ -520,9 +539,10 @@ def main() -> int:
     else:
         client = ArcticShift(pause=args.pause, attempts=args.attempts, verbose=args.verbose)
         rows = crawl_arctic(client, cfg, args)
-        if client.empty_subs:
-            print(f"[note] no results from: {', '.join(sorted(client.empty_subs))} "
-                  f"(check the subreddit names)", file=sys.stderr)
+        dead = sorted(s for s, n in client.sub_hits.items() if n == 0)
+        if dead:
+            print(f"[note] every query came back empty for: {', '.join(dead)} "
+                  f"(check those subreddit names)", file=sys.stderr)
 
     if client.ok_requests == 0:
         print(
@@ -542,6 +562,8 @@ def main() -> int:
 
     args.out.mkdir(parents=True, exist_ok=True)
     day = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    (args.out / f"raw-{day}.json").write_text(
+        json.dumps([r.pop("_raw") for r in rows], indent=2))
     (args.out / f"threads-{day}.json").write_text(json.dumps(rows, indent=2))
     report = args.out / f"threads-{day}.md"
     report.write_text(render_markdown(rows, cfg, args))
