@@ -111,8 +111,8 @@ Each thread is then bucketed by what kind of reply it needs:
 
 Prevention vocabulary is split in two. An explicit anti-theft ask (`anti-theft`,
 `theft-proof`, `security screws`, `from being stolen`, `cage`, `conceal`) scores
-7; generic security words (`secure`, `lock`, `safe`, `protect`) score 2 and only
-imply prevention alongside an actual theft signal. Without that split, "safe to
+7; generic security words (`secure`, `lock`, `safe`, `protect`) score 2 and never
+imply prevention on their own. Without that split, "safe to
 buy on marketplace?" and "account banned for fraud" rank as prevention leads.
 
 Use `--buckets shopping_for_prevention` to report only the people shopping for
@@ -129,6 +129,21 @@ Victim classification keys off first-person phrasing (`someone stole my…`,
 
 Locked and archived threads are separated out at the end of the report: you
 can't comment on them, but they're evidence of demand.
+
+## Drafting replies
+
+`outreach/draft_replies.py` turns a report into a paste-ready worksheet:
+
+```bash
+python outreach/draft_replies.py --report reports/threads-2026-08-23.json \
+    --buckets shopping_for_prevention --max-age-days 120
+```
+
+Each section carries the thread link, the question being asked, the
+subreddit's promotion rules, and a draft to rewrite. Posting is manual: at a
+few comments a month, pasting one yourself keeps a human eye on every reply,
+and bulk near-identical comments are what gets an account and its links banned
+sitewide.
 
 ## Replying
 

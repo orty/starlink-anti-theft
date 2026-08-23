@@ -10,7 +10,12 @@ most country subs have explicit self-promotion rules; several require mod
 permission or a flair. When a sub bans promotion outright, still answer the
 question — leave the app out and let your profile carry it.
 
-Replace `APP_NAME` / `APP_URL` before use.
+Replace `APP_NAME` with Starlink Guard and `APP_URL` with the Play Store link
+before use.
+
+Posting is manual by design. Open the thread, rewrite the draft so it answers
+that person's actual question, and paste it yourself - never the same text
+twice.
 
 ---
 

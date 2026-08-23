@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-"""Turn a sweep report into per-thread reply drafts for review.
+"""Turn a sweep report into paste-ready reply drafts.
 
 Reads the JSON a crawl run produced, picks the threads worth a comment, and
-writes one draft per thread to a review file. Nothing is posted here - drafts
-land with status "needs_review" and stay that way until you edit the text and
-flip them to "approved" yourself.
+writes a worksheet: one section per thread with the link, the question being
+asked, the subreddit's promotion rules, and a draft to rewrite and paste.
+
+Posting is manual and deliberately so. At a few comments a month, pasting one
+yourself keeps a human eye on every reply, and near-identical comments posted
+in bulk are what gets an account and its links banned sitewide.
 
   python outreach/draft_replies.py --report reports/threads-2026-08-23.json \
       --buckets shopping_for_prevention --max-age-days 120
@@ -19,7 +22,8 @@ import sys
 import time
 
 APP_NAME = "Starlink Guard"
-APP_URL = "https://play.google.com/store/apps/details?id=YOUR.PACKAGE.ID"
+APP_PLACEHOLDER = "YOUR.PACKAGE.ID"
+APP_URL = f"https://play.google.com/store/apps/details?id={APP_PLACEHOLDER}"
 
 # Subreddits that ban or tightly restrict self-promotion. Not exhaustive, and
 # rules change - it flags what to check, it does not clear anything.
@@ -82,7 +86,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--report", type=pathlib.Path, required=True)
-    ap.add_argument("--out", type=pathlib.Path, default=pathlib.Path("outreach/drafts.json"))
+    ap.add_argument("--out", type=pathlib.Path, default=pathlib.Path("outreach/drafts.md"))
     ap.add_argument("--buckets", nargs="*", default=["shopping_for_prevention"])
     ap.add_argument("--min-score", type=float, default=8.0)
     ap.add_argument("--max-age-days", type=int, default=120,
@@ -98,38 +102,58 @@ def main() -> int:
               and not r["locked"] and not r["archived"]]
     picked.sort(key=lambda r: r["score"], reverse=True)
 
-    drafts = []
+    sections = []
     now = time.time()
+    stale_count = 0
     for row in picked[:args.limit]:
         age = (now - row["created_utc"]) / 86400
         warnings = []
         if age > args.max_age_days:
-            warnings.append(f"STALE: {age:.0f} days old - the author is long gone. "
-                            f"Only worth it for the search-traffic value.")
+            stale_count += 1
+            warnings.append(f"**Stale** - {age:.0f} days old. The author has moved on; "
+                            f"only worth a comment for the search-traffic value.")
         if row["subreddit"] in STRICT_SUBS:
-            warnings.append(f"RULES: {STRICT_SUBS[row['subreddit']]}")
-        drafts.append({
-            "status": "needs_review",
-            "url": row["url"],
-            "subreddit": row["subreddit"],
-            "title": row["title"],
-            "bucket": row["bucket"],
-            "posted_days_ago": round(age),
-            "their_post": row["excerpt"],
-            "warnings": warnings,
-            "draft": build_draft(row),
-        })
+            warnings.append(f"**Rules** - {STRICT_SUBS[row['subreddit']]}")
+
+        block = [
+            f"## [{row['title']}]({row['url']})",
+            "",
+            f"r/{row['subreddit']} | {age:.0f} days old | {row['num_comments']} comments "
+            f"| fit {row['score']}",
+            "",
+        ]
+        block += [f"- {w}" for w in warnings]
+        if warnings:
+            block.append("")
+        if row["excerpt"]:
+            block += ["**They asked:**", "", f"> {row['excerpt']}", ""]
+        block += ["**Draft** - rewrite this to answer their actual question before "
+                  "pasting it:", "", "```", build_draft(row), "```", ""]
+        sections.append("\n".join(block))
+
+    header = [
+        f"# Reply worksheet - {APP_NAME}",
+        "",
+        f"{len(sections)} threads, {stale_count} of them stale. Posting is manual: "
+        "open the link, rewrite the draft to fit the thread, paste it yourself.",
+        "",
+        "Two rules that decide whether this works at all. Answer the question first "
+        "and disclose that you built the app - most of these subs remove anything "
+        "that reads as an advert. And never paste the same text twice: near-identical "
+        "comments across threads is the exact pattern that gets an account and its "
+        "links banned.",
+        "",
+        f"Replace `{APP_PLACEHOLDER}` with the real Play Store link before sending "
+        "anything.",
+        "",
+        "---",
+        "",
+    ]
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(json.dumps(drafts, indent=2))
-
-    stale = sum(1 for d in drafts if any(w.startswith("STALE") for w in d["warnings"]))
-    print(f"[drafts] {len(drafts)} written to {args.out}", file=sys.stderr)
-    print(f"[drafts] {stale} are stale; {len(drafts) - stale} are live threads", file=sys.stderr)
-    print("\nEvery draft is generic on purpose. Rewrite each one to answer the actual\n"
-          "question in 'their_post' - a comment that reads as a template is the one\n"
-          "that gets removed. Then set status to \"approved\" on the ones you want sent.",
-          file=sys.stderr)
+    args.out.write_text("\n".join(header) + "\n---\n\n".join(sections))
+    print(f"[drafts] {len(sections)} threads written to {args.out} "
+          f"({stale_count} stale, {len(sections) - stale_count} live)", file=sys.stderr)
     return 0
 
 

@@ -332,7 +332,7 @@ def score_post(post: dict, cfg: dict) -> dict:
         bucket = "victim_seeking_answers"
     elif victim:
         bucket = "theft_report"
-    elif hits["prevention_ask"] or (hits["prevention_intent"] and hits["theft_event"]):
+    elif hits["prevention_ask"]:
         # An explicit anti-theft ask, or generic security words in a post that is
         # at least about theft. Generic words alone are how "safe to buy on
         # marketplace?" and "account banned for fraud" got in here.
