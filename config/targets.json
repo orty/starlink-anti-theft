@@ -1,6 +1,5 @@
 {
   "_comment": "Search surface for the Reddit sweep. Edit freely - the crawler reads this at runtime.",
-
   "queries": [
     "starlink stolen",
     "stolen starlink",
@@ -26,59 +25,186 @@
     "airtag starlink dish",
     "starlink security mount"
   ],
-
   "subreddits": [
-    {"name": "Starlink",        "note": "Primary. Highest volume of theft posts. Read rules on self-promo before commenting."},
-    {"name": "StarlinkMini",    "note": "Mini is the most-stolen unit - portable, unbolted, visible."},
-    {"name": "RVLiving",        "note": "Theft from parked rigs, boondocking."},
-    {"name": "GoRVing",         "note": "Same audience, lower volume."},
-    {"name": "RVing",           "note": "Same audience."},
-    {"name": "vandwellers",     "note": "Van break-ins, roof-mounted units."},
-    {"name": "overlanding",     "note": "Remote camps, unattended vehicles."},
-    {"name": "Truckers",        "note": "Truck-mounted dishes ripped off at stops."},
-    {"name": "offgrid",         "note": "Remote cabins, nobody on site for weeks."},
-    {"name": "homestead",       "note": "Rural property, long driveways, no neighbours."},
-    {"name": "Ranching",        "note": "Field-mounted units on pasture/pivot."},
-    {"name": "farming",         "note": "Same - equipment theft crossover."},
-    {"name": "Construction",    "note": "Job-site connectivity, high theft rate."},
-    {"name": "boating",         "note": "Marina theft, dock-side units."},
-    {"name": "sailing",         "note": "Same."},
-    {"name": "preppers",        "note": "Security-minded, receptive to hardening tools."},
-    {"name": "homesecurity",    "note": "Prevention intent, but strict promo rules."},
-    {"name": "HomeNetworking",  "note": "Occasional 'dish disappeared' posts."},
-    {"name": "southafrica",     "note": "High real-world Starlink theft volume."},
-    {"name": "Kenya",           "note": "Same."},
-    {"name": "Nigeria",         "note": "Same."},
-    {"name": "Zimbabwe",        "note": "Same."},
-    {"name": "brasil",          "note": "Rural theft, Portuguese-language posts."},
-    {"name": "mexico",          "note": "Same, Spanish-language posts."},
-    {"name": "philippines",     "note": "Same."},
-    {"name": "alaska",          "note": "Remote installs, seasonal cabins."}
+    {
+      "name": "Starlink",
+      "note": "Primary. Highest volume of theft posts. Read rules on self-promo before commenting."
+    },
+    {
+      "name": "StarlinkMini",
+      "note": "Mini is the most-stolen unit - portable, unbolted, visible."
+    },
+    {
+      "name": "Starlink_Support",
+      "note": "Support sub - theft/serial questions land here too."
+    },
+    {
+      "name": "RVLiving",
+      "note": "Theft from parked rigs, boondocking."
+    },
+    {
+      "name": "GoRVing",
+      "note": "Same audience, lower volume."
+    },
+    {
+      "name": "RVing",
+      "note": "Same audience."
+    },
+    {
+      "name": "vandwellers",
+      "note": "Van break-ins, roof-mounted units."
+    },
+    {
+      "name": "overlanding",
+      "note": "Remote camps, unattended vehicles."
+    },
+    {
+      "name": "Truckers",
+      "note": "Truck-mounted dishes ripped off at stops."
+    },
+    {
+      "name": "offgrid",
+      "note": "Remote cabins, nobody on site for weeks."
+    },
+    {
+      "name": "homestead",
+      "note": "Rural property, long driveways, no neighbours."
+    },
+    {
+      "name": "Ranching",
+      "note": "Field-mounted units on pasture/pivot."
+    },
+    {
+      "name": "farming",
+      "note": "Same - equipment theft crossover."
+    },
+    {
+      "name": "Construction",
+      "note": "Job-site connectivity, high theft rate."
+    },
+    {
+      "name": "boating",
+      "note": "Marina theft, dock-side units."
+    },
+    {
+      "name": "sailing",
+      "note": "Same."
+    },
+    {
+      "name": "preppers",
+      "note": "Security-minded, receptive to hardening tools."
+    },
+    {
+      "name": "homesecurity",
+      "note": "Prevention intent, but strict promo rules."
+    },
+    {
+      "name": "HomeNetworking",
+      "note": "Occasional 'dish disappeared' posts."
+    },
+    {
+      "name": "southafrica",
+      "note": "High real-world Starlink theft volume."
+    },
+    {
+      "name": "Kenya",
+      "note": "Same."
+    },
+    {
+      "name": "Nigeria",
+      "note": "Same."
+    },
+    {
+      "name": "Zimbabwe",
+      "note": "Same."
+    },
+    {
+      "name": "brasil",
+      "note": "Rural theft, Portuguese-language posts."
+    },
+    {
+      "name": "mexico",
+      "note": "Same, Spanish-language posts."
+    },
+    {
+      "name": "philippines",
+      "note": "Same."
+    },
+    {
+      "name": "alaska",
+      "note": "Remote installs, seasonal cabins."
+    }
   ],
-
   "signals": {
     "theft_event": [
-      "stolen", "stole", "theft", "thief", "thieves", "ripped off", "ripped it off",
-      "took my dish", "gone missing", "went missing", "disappeared", "broke in",
-      "break in", "break-in", "robbed", "burglar", "cut the cable", "cut my cable"
+      "stolen",
+      "stole",
+      "theft",
+      "thief",
+      "thieves",
+      "ripped off",
+      "ripped it off",
+      "took my dish",
+      "gone missing",
+      "went missing",
+      "disappeared",
+      "broke in",
+      "break in",
+      "break-in",
+      "robbed",
+      "burglar",
+      "cut the cable",
+      "cut my cable"
     ],
     "prevention_intent": [
-      "anti theft", "anti-theft", "prevent", "protect", "secure", "security",
-      "deter", "lock", "locking", "bolt", "cage", "tamper", "how do i stop",
-      "keep it from being stolen", "worried about theft", "peace of mind",
-      "leaving it unattended", "unattended"
+      "anti theft",
+      "anti-theft",
+      "prevent",
+      "protect",
+      "secure",
+      "security",
+      "deter",
+      "lock",
+      "locking",
+      "bolt",
+      "cage",
+      "tamper",
+      "how do i stop",
+      "keep it from being stolen",
+      "worried about theft",
+      "peace of mind",
+      "leaving it unattended",
+      "unattended"
     ],
     "recovery_intent": [
-      "recover", "recovered", "get it back", "track", "tracking", "tracker",
-      "gps", "airtag", "air tag", "serial number", "serial", "police report",
-      "brick it", "bricked", "disable it", "blacklist", "report stolen",
-      "find my", "geofence", "alert"
+      "recover",
+      "recovered",
+      "get it back",
+      "track",
+      "tracking",
+      "tracker",
+      "gps",
+      "airtag",
+      "air tag",
+      "serial number",
+      "serial",
+      "police report",
+      "brick it",
+      "bricked",
+      "disable it",
+      "blacklist",
+      "report stolen",
+      "find my",
+      "geofence",
+      "alert"
     ],
     "noise": [
-      "stolen valor", "stole the show", "stolen base", "megathread"
+      "stolen valor",
+      "stole the show",
+      "stolen base",
+      "megathread"
     ]
   },
-
   "scoring": {
     "theft_event": 3,
     "prevention_intent": 5,
@@ -89,5 +215,35 @@
     "noise_penalty": -8,
     "min_score_to_report": 6,
     "recency_half_life_days": 120
+  },
+  "arctic_shift": {
+    "_comment": "Arctic Shift has no site-wide search - every query names a subreddit. Terms are AND-matched within the chosen field.",
+    "starlink_native_subs": [
+      "Starlink",
+      "StarlinkMini",
+      "Starlink_Support"
+    ],
+    "title_terms_native": [
+      "stolen",
+      "theft",
+      "stole",
+      "steal",
+      "anti-theft",
+      "security"
+    ],
+    "body_terms_native": [
+      "stolen",
+      "theft"
+    ],
+    "title_terms_general": [
+      "starlink stolen",
+      "starlink theft",
+      "starlink stole",
+      "starlink security"
+    ],
+    "body_terms_general": [
+      "starlink stolen",
+      "starlink theft"
+    ]
   }
 }

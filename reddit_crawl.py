@@ -116,6 +116,15 @@ class Reddit:
             return None
         return None
 
+    def reachable(self) -> bool:
+        """Reddit serves a block page to datacenter IPs; find out before crawling."""
+        try:
+            resp = self.session.get(f"{self.base}/r/Starlink/new" + ("" if self.token else ".json"),
+                                    params={"limit": 1, "raw_json": 1}, timeout=30)
+        except requests.RequestException:
+            return False
+        return resp.status_code == 200
+
     def search(
         self, query: str, subreddit: str | None = None, sort: str = "relevance",
         time_filter: str = "all", limit: int = 100,
@@ -152,6 +161,68 @@ class Reddit:
         if not payload or "data" not in payload:
             return []
         return [c["data"] for c in payload["data"].get("children", []) if c.get("kind") == "t3"]
+
+
+# --------------------------------------------------------------------------- #
+# Arctic Shift client (fallback data source)
+# --------------------------------------------------------------------------- #
+class ArcticShift:
+    """Reads the Arctic Shift public Reddit archive.
+
+    Reddit blocks datacenter IPs outright - every reddit.com path, including
+    oauth.reddit.com, returns a block page - so from a cloud VM this is the
+    only route to the data. Two differences from the Reddit API matter: there
+    is no site-wide search (every query must name a subreddit), and the archive
+    stores each post as first captured, so scores and comment counts are lower
+    bounds rather than live values.
+    """
+
+    BASE = "https://arctic-shift.photon-reddit.com/api/posts/search"
+
+    def __init__(self, pause: float = 2.0, verbose: bool = False):
+        self.session = requests.Session()
+        self.session.headers["User-Agent"] = UA
+        self.pause = pause
+        self.verbose = verbose
+        self.ok_requests = 0
+        self.empty_subs: set[str] = set()
+
+    def search_sub(self, subreddit: str, field: str, term: str,
+                   after: float | None = None, limit: int = 100) -> list[dict]:
+        params = {"subreddit": subreddit, field: term, "limit": min(limit, 100), "sort": "desc"}
+        if after:
+            params["after"] = int(after)
+
+        for attempt in range(6):
+            try:
+                resp = self.session.get(self.BASE, params=params, timeout=90)
+            except requests.RequestException as exc:
+                print(f"[warn] {subreddit}/{field}={term}: {exc}", file=sys.stderr)
+                time.sleep(2 ** attempt)
+                continue
+
+            if resp.status_code == 200:
+                self.ok_requests += 1
+                time.sleep(self.pause)
+                data = resp.json().get("data") or []
+                if not data:
+                    self.empty_subs.add(subreddit)
+                return data
+
+            # 422 is Arctic Shift's "slow down" - back off hard, it recovers.
+            if resp.status_code in (422, 429, 500, 502, 503):
+                wait = self.pause * (2 ** attempt)
+                if self.verbose:
+                    print(f"[warn] {subreddit}/{field}={term}: HTTP {resp.status_code}, "
+                          f"waiting {wait:.0f}s", file=sys.stderr)
+                time.sleep(wait)
+                continue
+
+            print(f"[skip] {subreddit}/{field}={term}: HTTP {resp.status_code}", file=sys.stderr)
+            return []
+
+        print(f"[fail] {subreddit}/{field}={term}: gave up after retries", file=sys.stderr)
+        return []
 
 
 # --------------------------------------------------------------------------- #
@@ -250,63 +321,99 @@ ANGLES = {
 # --------------------------------------------------------------------------- #
 # Crawl
 # --------------------------------------------------------------------------- #
-def crawl(client: Reddit, cfg: dict, args) -> list[dict]:
+def absorb(seen: dict, posts: list[dict], source: str, cfg: dict, cutoff: float) -> None:
+    """Score and file each post, merging duplicates found by several queries."""
+    for post in posts:
+        pid = post.get("id")
+        if not pid or post.get("created_utc", 0) < cutoff:
+            continue
+        if pid in seen:
+            seen[pid]["sources"].add(source)
+            continue
+        verdict = score_post(post, cfg)
+        seen[pid] = {
+            "id": pid,
+            "title": post.get("title", ""),
+            "subreddit": post.get("subreddit", ""),
+            "author": post.get("author", ""),
+            "url": f"https://www.reddit.com{post.get('permalink', '')}",
+            "created_utc": post.get("created_utc", 0),
+            "created": datetime.fromtimestamp(
+                post.get("created_utc", 0), tz=timezone.utc
+            ).strftime("%Y-%m-%d"),
+            "upvotes": post.get("score", 0),
+            "num_comments": post.get("num_comments", 0),
+            "over_18": post.get("over_18", False),
+            "locked": post.get("locked", False),
+            "archived": post.get("archived", False),
+            "excerpt": " ".join((post.get("selftext") or "").split())[:400],
+            "sources": {source},
+            **verdict,
+        }
+
+
+def finalize(seen: dict) -> list[dict]:
+    for row in seen.values():
+        row["sources"] = sorted(row["sources"])
+    return sorted(seen.values(), key=lambda r: r["score"], reverse=True)
+
+
+def crawl_reddit(client: Reddit, cfg: dict, args) -> list[dict]:
     seen: dict[str, dict] = {}
     cutoff = time.time() - args.since_days * 86400
-
-    def absorb(posts: list[dict], source: str) -> None:
-        for post in posts:
-            pid = post.get("id")
-            if not pid or post.get("created_utc", 0) < cutoff:
-                continue
-            if pid in seen:
-                seen[pid]["sources"].add(source)
-                continue
-            verdict = score_post(post, cfg)
-            seen[pid] = {
-                "id": pid,
-                "title": post.get("title", ""),
-                "subreddit": post.get("subreddit", ""),
-                "author": post.get("author", ""),
-                "url": f"https://www.reddit.com{post.get('permalink', '')}",
-                "created_utc": post.get("created_utc", 0),
-                "created": datetime.fromtimestamp(
-                    post.get("created_utc", 0), tz=timezone.utc
-                ).strftime("%Y-%m-%d"),
-                "upvotes": post.get("score", 0),
-                "num_comments": post.get("num_comments", 0),
-                "over_18": post.get("over_18", False),
-                "locked": post.get("locked", False),
-                "archived": post.get("archived", False),
-                "excerpt": " ".join((post.get("selftext") or "").split())[:400],
-                "sources": {source},
-                **verdict,
-            }
-
     queries = cfg["queries"]
     subs = [s["name"] for s in cfg["subreddits"]]
 
     print(f"[crawl] {len(queries)} queries site-wide", file=sys.stderr)
     for q in queries:
-        absorb(client.search(q, sort=args.sort, time_filter=args.time_filter, limit=args.limit),
-               f"site:{q}")
+        absorb(seen, client.search(q, sort=args.sort, time_filter=args.time_filter,
+                                   limit=args.limit), f"site:{q}", cfg, cutoff)
 
     print(f"[crawl] {len(queries)} queries x {len(subs)} subreddits", file=sys.stderr)
     for sub in subs:
         for q in args.sub_queries or ["starlink stolen", "starlink theft", "starlink security"]:
-            absorb(client.search(q, subreddit=sub, sort=args.sort,
-                                 time_filter=args.time_filter, limit=args.limit),
-                   f"r/{sub}:{q}")
+            absorb(seen, client.search(q, subreddit=sub, sort=args.sort,
+                                       time_filter=args.time_filter, limit=args.limit),
+                   f"r/{sub}:{q}", cfg, cutoff)
 
     if args.scan_new:
         print(f"[crawl] scanning /new in {len(subs)} subreddits", file=sys.stderr)
         for sub in subs:
-            absorb(client.listing(sub, "new", limit=args.limit), f"r/{sub}:new")
+            absorb(seen, client.listing(sub, "new", limit=args.limit), f"r/{sub}:new", cfg, cutoff)
 
-    for row in seen.values():
-        row["sources"] = sorted(row["sources"])
+    return finalize(seen)
 
-    return sorted(seen.values(), key=lambda r: r["score"], reverse=True)
+
+def crawl_arctic(client: "ArcticShift", cfg: dict, args) -> list[dict]:
+    """Arctic Shift has no site-wide full-text search - every query is scoped to
+    a subreddit, so the sweep is subreddit x term x field instead."""
+    seen: dict[str, dict] = {}
+    cutoff = time.time() - args.since_days * 86400
+    plan = cfg["arctic_shift"]
+    native = set(plan["starlink_native_subs"])
+
+    subs = [s["name"] for s in cfg["subreddits"]]
+    total = sum(
+        len(plan["title_terms_native" if s in native else "title_terms_general"])
+        + len(plan["body_terms_native" if s in native else "body_terms_general"])
+        for s in subs
+    )
+    print(f"[crawl] arctic-shift: {total} queries across {len(subs)} subreddits", file=sys.stderr)
+
+    done = 0
+    for sub in subs:
+        kind = "native" if sub in native else "general"
+        for field, terms in (("title", plan[f"title_terms_{kind}"]),
+                             ("selftext", plan[f"body_terms_{kind}"])):
+            for term in terms:
+                posts = client.search_sub(sub, field, term, after=cutoff, limit=args.limit)
+                absorb(seen, posts, f"r/{sub}:{field}={term}", cfg, cutoff)
+                done += 1
+                if done % 20 == 0:
+                    print(f"[crawl] {done}/{total} queries, {len(seen)} unique posts",
+                          file=sys.stderr)
+
+    return finalize(seen)
 
 
 def render_markdown(rows: list[dict], cfg: dict, args) -> str:
@@ -376,6 +483,10 @@ def main() -> int:
                     help="also sweep /new in every configured subreddit")
     ap.add_argument("--state", type=pathlib.Path, default=None,
                     help="JSON file of already-seen post ids; new hits only")
+    ap.add_argument("--backend", default="auto", choices=["auto", "reddit", "arcticshift"],
+                    help="auto probes Reddit first and falls back to the archive")
+    ap.add_argument("--pause", type=float, default=2.0,
+                    help="seconds between Arctic Shift requests; it rate-limits hard")
     ap.add_argument("--verbose", action="store_true")
     args = ap.parse_args()
 
@@ -383,13 +494,26 @@ def main() -> int:
     if args.min_score is None:
         args.min_score = cfg["scoring"]["min_score_to_report"]
 
-    client = Reddit(verbose=args.verbose)
-    rows = crawl(client, cfg, args)
+    backend = args.backend
+    if backend == "auto":
+        probe = Reddit(verbose=args.verbose)
+        backend = "reddit" if probe.reachable() else "arcticshift"
+        print(f"[backend] auto-selected {backend}", file=sys.stderr)
+
+    if backend == "reddit":
+        client = Reddit(verbose=args.verbose)
+        rows = crawl_reddit(client, cfg, args)
+    else:
+        client = ArcticShift(pause=args.pause, verbose=args.verbose)
+        rows = crawl_arctic(client, cfg, args)
+        if client.empty_subs:
+            print(f"[note] no results from: {', '.join(sorted(client.empty_subs))} "
+                  f"(check the subreddit names)", file=sys.stderr)
 
     if client.ok_requests == 0:
         print(
-            "[fail] every request to Reddit failed - no report written. Check network "
-            "access, proxy settings, and whether this IP is blocked by Reddit.",
+            f"[fail] every request via {backend} failed - no report written. Check "
+            "network access and whether this IP is blocked.",
             file=sys.stderr,
         )
         return 2
