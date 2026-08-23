@@ -1,5 +1,39 @@
 [
   {
+    "id": "1vtf4pg",
+    "title": "Starlink antenna anti-theft protection for the patio?",
+    "subreddit": "Starlink",
+    "author": "Competitive-Quit4468",
+    "url": "https://www.reddit.com/r/Starlink/comments/1vtf4pg/starlink_antenna_antitheft_protection_for_the/",
+    "created_utc": 1787220007,
+    "created": "2026-08-20",
+    "upvotes": 0,
+    "num_comments": 32,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Hello, I live in Germany and rent a ground-floor flat in a residential area and have a terrace which is shielded from view on two sides by a slope but is fully visible from one side. There is also a small patch of lawn, which is enclosed by a fence about 1 metre high. The terrace is laid with concrete slabs. If someone wanted to, they could jump over the fence and onto my terrace. I have a power s",
+    "sources": [
+      "cache"
+    ],
+    "score": 24.34,
+    "raw_score": 21.0,
+    "bucket": "shopping_for_prevention",
+    "age_days": 2.9,
+    "hits": {
+      "theft_event": [
+        "theft"
+      ],
+      "prevention_intent": [
+        "protect"
+      ],
+      "prevention_ask": [
+        "anti-theft",
+        "risk of theft"
+      ]
+    }
+  },
+  {
     "id": "1vrg6q1",
     "title": "Starlink bricked my recovered dish as \u201clost/stolen.\u201d Verified I bought it, possess it, and they still will not restore service",
     "subreddit": "Starlink",
@@ -16,9 +50,9 @@
     "sources": [
       "cache"
     ],
-    "score": 19.43,
-    "raw_score": 16.0,
-    "bucket": "shopping_for_prevention",
+    "score": 16.47,
+    "raw_score": 13.0,
+    "bucket": "tracking_discussion",
     "age_days": 5.1,
     "hits": {
       "theft_event": [
@@ -39,92 +73,178 @@
     }
   },
   {
-    "id": "1vtf4pg",
-    "title": "Starlink antenna anti-theft protection for the patio?",
+    "id": "1cya5gv",
+    "title": "How to secure the 'dishy' so it doesn't go walkies?",
     "subreddit": "Starlink",
-    "author": "Competitive-Quit4468",
-    "url": "https://www.reddit.com/r/Starlink/comments/1vtf4pg/starlink_antenna_antitheft_protection_for_the/",
-    "created_utc": 1787220007,
-    "created": "2026-08-20",
-    "upvotes": 0,
-    "num_comments": 32,
+    "author": "Captain_Of_Trouble",
+    "url": "https://www.reddit.com/r/Starlink/comments/1cya5gv/how_to_secure_the_dishy_so_it_doesnt_go_walkies/",
+    "created_utc": 1716408967,
+    "created": "2024-05-22",
+    "upvotes": 1,
+    "num_comments": 8,
     "over_18": false,
     "locked": false,
     "archived": false,
-    "excerpt": "Hello, I live in Germany and rent a ground-floor flat in a residential area and have a terrace which is shielded from view on two sides by a slope but is fully visible from one side. There is also a small patch of lawn, which is enclosed by a fence about 1 metre high. The terrace is laid with concrete slabs. If someone wanted to, they could jump over the fence and onto my terrace. I have a power s",
+    "excerpt": "Is there a way to secure the dishy so that it doesn't get stolen? I have it on the roof of my canal boat and so far have been taking it inside when I leave but would like to secure it somehow so I don't have to faff about with that. Any ideas?",
     "sources": [
       "cache"
     ],
-    "score": 18.38,
-    "raw_score": 15.0,
+    "score": 16.04,
+    "raw_score": 25.0,
     "bucket": "shopping_for_prevention",
-    "age_days": 2.9,
-    "hits": {
-      "theft_event": [
-        "theft"
-      ],
-      "prevention_intent": [
-        "anti-theft",
-        "protect"
-      ]
-    }
-  },
-  {
-    "id": "1plpws8",
-    "title": "Travel internet advice",
-    "subreddit": "HomeNetworking",
-    "author": "ELECTROEMERALD2",
-    "url": "https://www.reddit.com/r/HomeNetworking/comments/1plpws8/travel_internet_advice/",
-    "created_utc": 1765644500,
-    "created": "2025-12-13",
-    "upvotes": 3,
-    "num_comments": 19,
-    "over_18": false,
-    "locked": false,
-    "archived": false,
-    "excerpt": "Hi all, I\u2019ve been doing some research and can\u2019t really come to a conclusion on what to do. For context/backstory: I travel for work, weeks at a time, often to remote areas and stay in hotels that are\u2026 less than great. Needless to say the WiFi is garbage, average around 0.5-3mbps. Not to mention whatever spyware, trackers, tracers, etc they may have installed in their network. My phone plan is thro",
-    "sources": [
-      "cache"
-    ],
-    "score": 12.81,
-    "raw_score": 15.0,
-    "bucket": "shopping_for_prevention",
-    "age_days": 252.6,
+    "age_days": 822.5,
     "hits": {
       "theft_event": [
         "stolen",
         "stole"
       ],
       "prevention_intent": [
-        "lock"
+        "secure"
       ],
-      "recovery_intent": [
-        "track",
-        "tracker"
+      "prevention_ask": [
+        "go walkies"
+      ],
+      "prevention_ask_weak": [
+        "secure it",
+        "secure the dish",
+        "how to secure"
       ]
     }
   },
   {
-    "id": "1ixn5ja",
-    "title": "Theft? What to do?",
+    "id": "1nbz18c",
+    "title": "Starlink mini camo scrim",
     "subreddit": "Starlink",
-    "author": "Mindless_Paper",
-    "url": "https://www.reddit.com/r/Starlink/comments/1ixn5ja/theft_what_to_do/",
-    "created_utc": 1740459659,
-    "created": "2025-02-25",
-    "upvotes": 0,
-    "num_comments": 17,
+    "author": "minutemenapparel",
+    "url": "https://www.reddit.com/r/Starlink/comments/1nbz18c/starlink_mini_camo_scrim/",
+    "created_utc": 1757363625,
+    "created": "2025-09-08",
+    "upvotes": 159,
+    "num_comments": 35,
     "over_18": false,
     "locked": false,
     "archived": false,
-    "excerpt": "So we had our starlink for about 2 months now but couldn't set it up on the roof bc it was slippery from ice so we set it up on the porch (we have a large porch that wraps around the house so it's not a small one) and so far it's good. Recently tho we had weird circumstances like the dish being moved/tilted but we chalked it up to it being due to the wind, The screw being loose from the mount, ect",
+    "excerpt": "This isn\u2019t for everyone, more for the tacticool Starlink mini users or campers. I made a camouflage covering for my mini. It\u2019s non-permanent and attaches using a shock cord wrapped around the dish. It has two layers to it: a breathable mesh fabric layer and a 3D camo scrim layer. Although Starlink owners know the dish basically becomes a brick when it\u2019s stolen, I see it as sort of an anti-theft de",
     "sources": [
       "cache"
     ],
-    "score": 12.57,
+    "score": 13.35,
+    "raw_score": 16.0,
+    "bucket": "shopping_for_prevention",
+    "age_days": 348.5,
+    "hits": {
+      "theft_event": [
+        "stolen",
+        "stole",
+        "theft"
+      ],
+      "prevention_ask": [
+        "anti-theft"
+      ],
+      "prevention_ask_weak": [
+        "camo"
+      ]
+    }
+  },
+  {
+    "id": "1jf8vte",
+    "title": "Need theft-proof mounting options for rural farm",
+    "subreddit": "Starlink",
+    "author": "nuusain",
+    "url": "https://www.reddit.com/r/Starlink/comments/1jf8vte/need_theftproof_mounting_options_for_rural_farm/",
+    "created_utc": 1742421087,
+    "created": "2025-03-19",
+    "upvotes": 0,
+    "num_comments": 52,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Hey r/Starlink! I've just ordered a standard Starlink kit for my farm and I'm concerned about theft. Rural security is a real issue here, and I've heard of Starlink dishes being stolen in similar areas. My main question: **Are Starlink's standard wall mounts secure enough, or should I invest in custom hardware for theft prevention?** I'll already have security cameras installed, but I need advice ",
+    "sources": [
+      "cache"
+    ],
+    "score": 13.12,
+    "raw_score": 16.0,
+    "bucket": "shopping_for_prevention",
+    "age_days": 521.5,
+    "hits": {
+      "theft_event": [
+        "stolen",
+        "stole",
+        "theft"
+      ],
+      "prevention_intent": [
+        "prevent",
+        "secure",
+        "security",
+        "bolt",
+        "tamper"
+      ],
+      "prevention_ask": [
+        "theft-proof",
+        "being stolen"
+      ]
+    }
+  },
+  {
+    "id": "1esp6rf",
+    "title": "Starlink anti theft",
+    "subreddit": "Starlink",
+    "author": "Terrible_Fix_2873",
+    "url": "https://www.reddit.com/r/Starlink/comments/1esp6rf/starlink_anti_theft/",
+    "created_utc": 1723707200,
+    "created": "2024-08-15",
+    "upvotes": 3,
+    "num_comments": 5,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "I\u2019m taking my starlink on an international trip in my truck and i want to know what the best solution for concealing it is. would it be better to leave it on top of the truck and cover it with a removable case, bolt it on or leave it in the cab and take it out when i need it. It seems to me that a motivated thief could cause extensive damage trying to remove the starlink if it\u2019s bolted in. would c",
+    "sources": [
+      "cache"
+    ],
+    "score": 12.92,
+    "raw_score": 20.0,
+    "bucket": "shopping_for_prevention",
+    "age_days": 738.1,
+    "hits": {
+      "theft_event": [
+        "theft",
+        "thief"
+      ],
+      "prevention_intent": [
+        "bolt"
+      ],
+      "prevention_ask": [
+        "anti theft"
+      ],
+      "prevention_ask_weak": [
+        "bolt it",
+        "conceal"
+      ]
+    }
+  },
+  {
+    "id": "1k3suxq",
+    "title": "Dishy theft?",
+    "subreddit": "Starlink",
+    "author": "El_Gringo_Chingon",
+    "url": "https://www.reddit.com/r/Starlink/comments/1k3suxq/dishy_theft/",
+    "created_utc": 1745172977,
+    "created": "2025-04-20",
+    "upvotes": 0,
+    "num_comments": 11,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Anyone heard of dishy\u2019s being stolen in any significant numbers? We\u2019ve got ours mounted on the roof of our RV, and it honestly takes a fair amount of effort and tools to remove it from the mount. I\u2019m considering leaving it up there instead of removing it every single trip. If someone were to steal it, is it any use to them, or do these get locked down like a smartphone if marked stolen?",
+    "sources": [
+      "cache"
+    ],
+    "score": 12.29,
     "raw_score": 17.0,
     "bucket": "shopping_for_prevention",
-    "age_days": 544.1,
+    "age_days": 489.6,
     "hits": {
       "theft_event": [
         "stolen",
@@ -134,8 +254,104 @@
       "prevention_intent": [
         "lock"
       ],
-      "recovery_intent": [
-        "track"
+      "prevention_ask": [
+        "being stolen"
+      ]
+    }
+  },
+  {
+    "id": "1fal201",
+    "title": "Anti-Theft or Lock for Mini",
+    "subreddit": "Starlink",
+    "author": "LowBarometer",
+    "url": "https://www.reddit.com/r/Starlink/comments/1fal201/antitheft_or_lock_for_mini/",
+    "created_utc": 1725644174,
+    "created": "2024-09-06",
+    "upvotes": 1,
+    "num_comments": 6,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Is there any way to secure the Starlink Mini? Does it have one of those nifty laptop cutouts so I can use a laptop lock? I want to be able to leave it outside without it walking away. Thanks in advance.",
+    "sources": [
+      "cache"
+    ],
+    "score": 11.98,
+    "raw_score": 18.0,
+    "bucket": "shopping_for_prevention",
+    "age_days": 715.6,
+    "hits": {
+      "theft_event": [
+        "theft"
+      ],
+      "prevention_intent": [
+        "secure",
+        "lock"
+      ],
+      "prevention_ask": [
+        "anti-theft"
+      ]
+    }
+  },
+  {
+    "id": "1lsj2tz",
+    "title": "Mobility mount anti theft screws?",
+    "subreddit": "Starlink",
+    "author": "mromberg",
+    "url": "https://www.reddit.com/r/Starlink/comments/1lsj2tz/mobility_mount_anti_theft_screws/",
+    "created_utc": 1751746765,
+    "created": "2025-07-05",
+    "upvotes": 2,
+    "num_comments": 4,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Putting a Gen 3 dish on my motorhome roof and foresee occasionally having to take it down to put on my tripod mount. Are the \u2018anti theft\u2019 screws included with the mobility mount absolutely necessary?",
+    "sources": [
+      "cache"
+    ],
+    "score": 11.66,
+    "raw_score": 17.0,
+    "bucket": "shopping_for_prevention",
+    "age_days": 413.5,
+    "hits": {
+      "theft_event": [
+        "theft"
+      ],
+      "prevention_ask": [
+        "anti theft"
+      ]
+    }
+  },
+  {
+    "id": "1ttamsr",
+    "title": "Best way to secure a starlink mini",
+    "subreddit": "Starlink",
+    "author": "bostonfan148",
+    "url": "https://www.reddit.com/r/Starlink/comments/1ttamsr/best_way_to_secure_a_starlink_mini/",
+    "created_utc": 1780269325,
+    "created": "2026-05-31",
+    "upvotes": 0,
+    "num_comments": 10,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Got the mini & roam plan for a trip we are taking to a timeshare. I wanted to somehow put it on the deck (should be fine) but have a way to lock it down just in case someone wanted to take it or to prevent anyone from doing so? I saw some locks for boats or the top of cars, and things more permanent, but does anyone have a strategy on how to lock down the mini starlink on a deck?",
+    "sources": [
+      "cache"
+    ],
+    "score": 11.51,
+    "raw_score": 11.0,
+    "bucket": "shopping_for_prevention",
+    "age_days": 83.4,
+    "hits": {
+      "prevention_intent": [
+        "prevent",
+        "secure",
+        "lock"
+      ],
+      "prevention_ask": [
+        "lock it down"
       ]
     }
   },
@@ -171,33 +387,139 @@
     }
   },
   {
-    "id": "1hq42d8",
-    "title": "Anyone else having a starlink in a though neighborhood? I built this cage.",
+    "id": "1lxm9dk",
+    "title": "Best way to EXTRA secure MINI on car roof?",
     "subreddit": "Starlink",
-    "author": "hrc893",
-    "url": "https://www.reddit.com/r/Starlink/comments/1hq42d8/anyone_else_having_a_starlink_in_a_though/",
-    "created_utc": 1735610779,
-    "created": "2024-12-31",
-    "upvotes": 0,
-    "num_comments": 51,
+    "author": "Inevitable_Raccoon_9",
+    "url": "https://www.reddit.com/r/Starlink/comments/1lxm9dk/best_way_to_extra_secure_mini_on_car_roof/",
+    "created_utc": 1752278094,
+    "created": "2025-07-11",
+    "upvotes": 5,
+    "num_comments": 5,
     "over_18": false,
     "locked": false,
     "archived": false,
-    "excerpt": "At the end this cage is not totally safe, but it will definitely make it harder. Any stories of stolen starlinks and cutting the cable?",
+    "excerpt": "Got my mini now with official roof rack mount. Now I wonder if there's any way to add extra safety to the mini with an additional cable hooked onto it to prevent accidental falling off or theft. Why didn't starlink supply like an extra latch on the mini caseing to hook something on? Do you guys have ideas? Would it be suitable to glue on a small hook with eg loctite?",
     "sources": [
       "cache"
     ],
     "score": 11.28,
-    "raw_score": 13.0,
+    "raw_score": 16.0,
     "bucket": "shopping_for_prevention",
-    "age_days": 600.3,
+    "age_days": 407.4,
+    "hits": {
+      "theft_event": [
+        "theft"
+      ],
+      "prevention_intent": [
+        "prevent",
+        "secure"
+      ],
+      "prevention_ask_weak": [
+        "secure mini",
+        "extra secure"
+      ]
+    }
+  },
+  {
+    "id": "1o4d5ap",
+    "title": "Any issues with theft of starlink in an RV Park",
+    "subreddit": "RVLiving",
+    "author": "Technical_Match7686",
+    "url": "https://www.reddit.com/r/RVLiving/comments/1o4d5ap/any_issues_with_theft_of_starlink_in_an_rv_park/",
+    "created_utc": 1760234560,
+    "created": "2025-10-12",
+    "upvotes": 23,
+    "num_comments": 38,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "I have just moved in to my RV after selling my house and am changing coasts. I have a starlink mini on a tripod. Has anyone had an issue with the starlink being stolen? About 18 years ago, I lived in an RV and had a satillite dish on the pole. Never an issue but times have changed. Also, I plan to bring it in at night.",
+    "sources": [
+      "cache"
+    ],
+    "score": 11.14,
+    "raw_score": 12.0,
+    "bucket": "shopping_for_prevention",
+    "age_days": 315.3,
+    "hits": {
+      "theft_event": [
+        "stolen",
+        "stole",
+        "theft"
+      ],
+      "prevention_ask": [
+        "being stolen"
+      ]
+    }
+  },
+  {
+    "id": "1ixn5ja",
+    "title": "Theft? What to do?",
+    "subreddit": "Starlink",
+    "author": "Mindless_Paper",
+    "url": "https://www.reddit.com/r/Starlink/comments/1ixn5ja/theft_what_to_do/",
+    "created_utc": 1740459659,
+    "created": "2025-02-25",
+    "upvotes": 0,
+    "num_comments": 17,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "So we had our starlink for about 2 months now but couldn't set it up on the roof bc it was slippery from ice so we set it up on the porch (we have a large porch that wraps around the house so it's not a small one) and so far it's good. Recently tho we had weird circumstances like the dish being moved/tilted but we chalked it up to it being due to the wind, The screw being loose from the mount, ect",
+    "sources": [
+      "cache"
+    ],
+    "score": 10.86,
+    "raw_score": 14.0,
+    "bucket": "tracking_discussion",
+    "age_days": 544.2,
+    "hits": {
+      "theft_event": [
+        "stolen",
+        "stole",
+        "theft"
+      ],
+      "prevention_intent": [
+        "lock"
+      ],
+      "recovery_intent": [
+        "track"
+      ]
+    }
+  },
+  {
+    "id": "1plpws8",
+    "title": "Travel internet advice",
+    "subreddit": "HomeNetworking",
+    "author": "ELECTROEMERALD2",
+    "url": "https://www.reddit.com/r/HomeNetworking/comments/1plpws8/travel_internet_advice/",
+    "created_utc": 1765644500,
+    "created": "2025-12-13",
+    "upvotes": 3,
+    "num_comments": 19,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Hi all, I\u2019ve been doing some research and can\u2019t really come to a conclusion on what to do. For context/backstory: I travel for work, weeks at a time, often to remote areas and stay in hotels that are\u2026 less than great. Needless to say the WiFi is garbage, average around 0.5-3mbps. Not to mention whatever spyware, trackers, tracers, etc they may have installed in their network. My phone plan is thro",
+    "sources": [
+      "cache"
+    ],
+    "score": 10.85,
+    "raw_score": 12.0,
+    "bucket": "tracking_discussion",
+    "age_days": 252.7,
     "hits": {
       "theft_event": [
         "stolen",
         "stole"
       ],
       "prevention_intent": [
-        "cage"
+        "lock"
+      ],
+      "recovery_intent": [
+        "track",
+        "tracker"
       ]
     }
   },
@@ -234,137 +556,98 @@
     }
   },
   {
-    "id": "1lsj2tz",
-    "title": "Mobility mount anti theft screws?",
+    "id": "1murkop",
+    "title": "Starlink in Yemen.",
     "subreddit": "Starlink",
-    "author": "mromberg",
-    "url": "https://www.reddit.com/r/Starlink/comments/1lsj2tz/mobility_mount_anti_theft_screws/",
-    "created_utc": 1751746765,
-    "created": "2025-07-05",
+    "author": "momoshaef",
+    "url": "https://www.reddit.com/r/Starlink/comments/1murkop/starlink_in_yemen/",
+    "created_utc": 1755629930,
+    "created": "2025-08-19",
     "upvotes": 2,
-    "num_comments": 4,
+    "num_comments": 9,
     "over_18": false,
     "locked": false,
     "archived": false,
-    "excerpt": "Putting a Gen 3 dish on my motorhome roof and foresee occasionally having to take it down to put on my tripod mount. Are the \u2018anti theft\u2019 screws included with the mobility mount absolutely necessary?",
+    "excerpt": "Just bought a star link standard in Canada which I plan to setup for my families home in Yemen, I understand that the PTC in Yemen is overcharging absorbent amounts for both subscription and hardware so it\u2019s cheaper to buy hardware in Canada and wait until I\u2019m in Yemen to set everything up. My main concern is now setting it up in my families apartment, if I decide to put it on the roof I have to d",
     "sources": [
       "cache"
     ],
-    "score": 10.48,
-    "raw_score": 15.0,
+    "score": 10.75,
+    "raw_score": 14.0,
     "bucket": "shopping_for_prevention",
-    "age_days": 413.5,
+    "age_days": 368.6,
     "hits": {
       "theft_event": [
+        "stolen",
+        "stole",
         "theft"
       ],
-      "prevention_intent": [
-        "anti theft"
+      "prevention_ask": [
+        "being stolen"
+      ],
+      "prevention_ask_weak": [
+        "cage"
       ]
     }
   },
   {
-    "id": "1u399e5",
-    "title": "Protectly gps trackers, which one do you use?",
-    "subreddit": "vandwellers",
-    "author": "snakevdd",
-    "url": "https://www.reddit.com/r/vandwellers/comments/1u399e5/protectly_gps_trackers_which_one_do_you_use/",
-    "created_utc": 1781206938,
-    "created": "2026-06-11",
+    "id": "1hq42d8",
+    "title": "Anyone else having a starlink in a though neighborhood? I built this cage.",
+    "subreddit": "Starlink",
+    "author": "hrc893",
+    "url": "https://www.reddit.com/r/Starlink/comments/1hq42d8/anyone_else_having_a_starlink_in_a_though/",
+    "created_utc": 1735610779,
+    "created": "2024-12-31",
     "upvotes": 0,
-    "num_comments": 0,
+    "num_comments": 51,
     "over_18": false,
     "locked": false,
     "archived": false,
-    "excerpt": "Heyho! Is anybody using a gps tracker for their vans and campers? Recently a van got stolen from a friend and it's always been inside my brain that this could easily happen to me. In so many groups I follow in facebook you see it pass by so often, always with the comment 'I did not have a tracker'.. Why don't people use it? Privacy reasons? Cost? Most have them have phones and/or starlink so priva",
+    "excerpt": "At the end this cage is not totally safe, but it will definitely make it harder. Any stories of stolen starlinks and cutting the cable?",
     "sources": [
       "cache"
     ],
-    "score": 10.15,
+    "score": 10.72,
     "raw_score": 12.0,
-    "bucket": "victim_seeking_answers",
-    "age_days": 72.5,
+    "bucket": "shopping_for_prevention",
+    "age_days": 600.3,
     "hits": {
       "theft_event": [
         "stolen",
         "stole"
       ],
-      "prevention_intent": [
-        "protect"
-      ],
-      "recovery_intent": [
-        "track",
-        "tracker",
-        "gps"
+      "prevention_ask_weak": [
+        "cage"
       ]
     }
   },
   {
-    "id": "1gd8g9y",
-    "title": "Used unit locked to old owner ",
+    "id": "1pno0n0",
+    "title": "Vehicle roof mount: Waterproofing?",
     "subreddit": "Starlink",
-    "author": "FaithlessnessFar5710",
-    "url": "https://www.reddit.com/r/Starlink/comments/1gd8g9y/used_unit_locked_to_old_owner/",
-    "created_utc": 1730026853,
-    "created": "2024-10-27",
-    "upvotes": 0,
-    "num_comments": 9,
+    "author": "oguruma87",
+    "url": "https://www.reddit.com/r/Starlink/comments/1pno0n0/vehicle_roof_mount_waterproofing/",
+    "created_utc": 1765845375,
+    "created": "2025-12-16",
+    "upvotes": 5,
+    "num_comments": 4,
     "over_18": false,
     "locked": false,
     "archived": false,
-    "excerpt": "I bought one today and I asked the seller if he transferred it out of his name and he said he had already done that. I have the messages that show he clearly said he completed the transfer from his account. I bought it on Facebook marketplace so I know the guys personal information and I went to his house so I know where he lives. So I had no reason to doubt him. But it turns out the dish is still",
+    "excerpt": "I'd like to mount a starlink on my roof of my van. I currently have an overland rack type of thing and I use a Ram Mounts mounting arm thingey, but I don't keep it permanently mounted (it's not theft proof or designed to get and stay wet). I'd like to mount it more permanently on the roof, but I am concerned about putting a hole in the roof of the van. I imagine that wouldn't end up waterproof wit",
     "sources": [
       "cache"
     ],
     "score": 10.14,
-    "raw_score": 14.0,
-    "bucket": "shopping_for_prevention",
-    "age_days": 664.9,
-    "hits": {
-      "theft_event": [
-        "stolen",
-        "stole",
-        "thief"
-      ],
-      "prevention_intent": [
-        "protect",
-        "security",
-        "lock"
-      ],
-      "recovery_intent": [
-        "track"
-      ]
-    }
-  },
-  {
-    "id": "1k3suxq",
-    "title": "Dishy theft?",
-    "subreddit": "Starlink",
-    "author": "El_Gringo_Chingon",
-    "url": "https://www.reddit.com/r/Starlink/comments/1k3suxq/dishy_theft/",
-    "created_utc": 1745172977,
-    "created": "2025-04-20",
-    "upvotes": 0,
-    "num_comments": 11,
-    "over_18": false,
-    "locked": false,
-    "archived": false,
-    "excerpt": "Anyone heard of dishy\u2019s being stolen in any significant numbers? We\u2019ve got ours mounted on the roof of our RV, and it honestly takes a fair amount of effort and tools to remove it from the mount. I\u2019m considering leaving it up there instead of removing it every single trip. If someone were to steal it, is it any use to them, or do these get locked down like a smartphone if marked stolen?",
-    "sources": [
-      "cache"
-    ],
-    "score": 9.98,
     "raw_score": 13.0,
     "bucket": "shopping_for_prevention",
-    "age_days": 489.6,
+    "age_days": 250.3,
     "hits": {
       "theft_event": [
-        "stolen",
-        "stole",
         "theft"
       ],
-      "prevention_intent": [
-        "lock"
+      "prevention_ask": [
+        "theft proof"
       ]
     }
   },
@@ -432,73 +715,6 @@
     }
   },
   {
-    "id": "1jf8vte",
-    "title": "Need theft-proof mounting options for rural farm",
-    "subreddit": "Starlink",
-    "author": "nuusain",
-    "url": "https://www.reddit.com/r/Starlink/comments/1jf8vte/need_theftproof_mounting_options_for_rural_farm/",
-    "created_utc": 1742421087,
-    "created": "2025-03-19",
-    "upvotes": 0,
-    "num_comments": 52,
-    "over_18": false,
-    "locked": false,
-    "archived": false,
-    "excerpt": "Hey r/Starlink! I've just ordered a standard Starlink kit for my farm and I'm concerned about theft. Rural security is a real issue here, and I've heard of Starlink dishes being stolen in similar areas. My main question: **Are Starlink's standard wall mounts secure enough, or should I invest in custom hardware for theft prevention?** I'll already have security cameras installed, but I need advice ",
-    "sources": [
-      "cache"
-    ],
-    "score": 9.69,
-    "raw_score": 10.0,
-    "bucket": "shopping_for_prevention",
-    "age_days": 521.4,
-    "hits": {
-      "theft_event": [
-        "stolen",
-        "stole",
-        "theft"
-      ],
-      "prevention_intent": [
-        "prevent",
-        "secure",
-        "security",
-        "bolt",
-        "tamper"
-      ]
-    }
-  },
-  {
-    "id": "1n450bd",
-    "title": "Starlink mini stolen",
-    "subreddit": "Starlink",
-    "author": "rrr22777",
-    "url": "https://www.reddit.com/r/Starlink/comments/1n450bd/starlink_mini_stolen/",
-    "created_utc": 1756569027,
-    "created": "2025-08-30",
-    "upvotes": 35,
-    "num_comments": 36,
-    "over_18": false,
-    "locked": false,
-    "archived": false,
-    "excerpt": "Mini was stolen in 92630 this week. What are some steps to prevent this? Seems like this can occur since it\u2019s outside. I do not want to mount it permanently.",
-    "sources": [
-      "cache"
-    ],
-    "score": 9.68,
-    "raw_score": 10.0,
-    "bucket": "victim_seeking_answers",
-    "age_days": 357.7,
-    "hits": {
-      "theft_event": [
-        "stolen",
-        "stole"
-      ],
-      "prevention_intent": [
-        "prevent"
-      ]
-    }
-  },
-  {
     "id": "1ltbo5n",
     "title": "Stolen Return?",
     "subreddit": "Starlink",
@@ -531,94 +747,62 @@
     }
   },
   {
-    "id": "1lxm9dk",
-    "title": "Best way to EXTRA secure MINI on car roof?",
+    "id": "1t7ds15",
+    "title": "Mobility Mount and Standard Dish",
     "subreddit": "Starlink",
-    "author": "Inevitable_Raccoon_9",
-    "url": "https://www.reddit.com/r/Starlink/comments/1lxm9dk/best_way_to_extra_secure_mini_on_car_roof/",
-    "created_utc": 1752278094,
-    "created": "2025-07-11",
-    "upvotes": 5,
-    "num_comments": 5,
-    "over_18": false,
-    "locked": false,
-    "archived": false,
-    "excerpt": "Got my mini now with official roof rack mount. Now I wonder if there's any way to add extra safety to the mini with an additional cable hooked onto it to prevent accidental falling off or theft. Why didn't starlink supply like an extra latch on the mini caseing to hook something on? Do you guys have ideas? Would it be suitable to glue on a small hook with eg loctite?",
-    "sources": [
-      "cache"
-    ],
-    "score": 9.5,
-    "raw_score": 13.0,
-    "bucket": "shopping_for_prevention",
-    "age_days": 407.3,
-    "hits": {
-      "theft_event": [
-        "theft"
-      ],
-      "prevention_intent": [
-        "prevent",
-        "secure"
-      ]
-    }
-  },
-  {
-    "id": "1cya5gv",
-    "title": "How to secure the 'dishy' so it doesn't go walkies?",
-    "subreddit": "Starlink",
-    "author": "Captain_Of_Trouble",
-    "url": "https://www.reddit.com/r/Starlink/comments/1cya5gv/how_to_secure_the_dishy_so_it_doesnt_go_walkies/",
-    "created_utc": 1716408967,
-    "created": "2024-05-22",
+    "author": "Big_Sin1970",
+    "url": "https://www.reddit.com/r/Starlink/comments/1t7ds15/mobility_mount_and_standard_dish/",
+    "created_utc": 1778259498,
+    "created": "2026-05-08",
     "upvotes": 1,
-    "num_comments": 8,
+    "num_comments": 4,
     "over_18": false,
     "locked": false,
     "archived": false,
-    "excerpt": "Is there a way to secure the dishy so that it doesn't get stolen? I have it on the roof of my canal boat and so far have been taking it inside when I leave but would like to secure it somehow so I don't have to faff about with that. Any ideas?",
+    "excerpt": "Just installed Mobility mount on my RV, finally figured out how to get kickstand out, then put the dish on the mount, it clicked in, realized I did not put the Cat cable in. I can't for the life of me figure out how to get the dish back off the mount, I haven't tightened the anti theft screws yes, so its not that. Hoping someone can help before I screw this install up completely.",
     "sources": [
       "cache"
     ],
-    "score": 9.4,
-    "raw_score": 13.0,
+    "score": 9.54,
+    "raw_score": 10.0,
     "bucket": "shopping_for_prevention",
-    "age_days": 822.5,
-    "hits": {
-      "theft_event": [
-        "stolen",
-        "stole"
-      ],
-      "prevention_intent": [
-        "secure"
-      ]
-    }
-  },
-  {
-    "id": "1jmgbu3",
-    "title": "Account banned for \"Fraud\"",
-    "subreddit": "Starlink",
-    "author": "AdministrationOne621",
-    "url": "https://www.reddit.com/r/Starlink/comments/1jmgbu3/account_banned_for_fraud/",
-    "created_utc": 1743230117,
-    "created": "2025-03-29",
-    "upvotes": 76,
-    "num_comments": 114,
-    "over_18": false,
-    "locked": false,
-    "archived": false,
-    "excerpt": "I'm going to visit my wife's village in Colombia next month. There is no internet there, so I decided to buy a Starlink. I made the purchase and put my brother in law's Colombian address and contact information. I paid with my US credit card. The purchase went through, I was charged for the Starlink, and I've received emails claiming the starlink has shipped. However, my Starlink account is disabl",
-    "sources": [
-      "cache"
-    ],
-    "score": 9.33,
-    "raw_score": 8.0,
-    "bucket": "shopping_for_prevention",
-    "age_days": 512.1,
+    "age_days": 106.7,
     "hits": {
       "theft_event": [
         "theft"
       ],
-      "prevention_intent": [
-        "deter"
+      "prevention_ask": [
+        "anti theft"
+      ]
+    }
+  },
+  {
+    "id": "1gzcfz6",
+    "title": "Concealing dish from prying neighbours.",
+    "subreddit": "Starlink",
+    "author": "Strider_dnb",
+    "url": "https://www.reddit.com/r/Starlink/comments/1gzcfz6/concealing_dish_from_prying_neighbours/",
+    "created_utc": 1732515589,
+    "created": "2024-11-25",
+    "upvotes": 250,
+    "num_comments": 72,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "As the title says. I want to conceal the dish as best as I can as I live in an area prone to theft. I'm in a temporary rental and I'm not able to mount anything to the structure of the house. My only choice is to have the dish on the ground. Would the fabric used in the picture above cause any loss in performance? And also would there be any risk in the device overheating?",
+    "sources": [
+      "cache"
+    ],
+    "score": 9.34,
+    "raw_score": 9.0,
+    "bucket": "shopping_for_prevention",
+    "age_days": 636.1,
+    "hits": {
+      "theft_event": [
+        "theft"
+      ],
+      "prevention_ask_weak": [
+        "conceal"
       ]
     }
   },
@@ -683,98 +867,66 @@
     }
   },
   {
-    "id": "1fal201",
-    "title": "Anti-Theft or Lock for Mini",
+    "id": "1usghx4",
+    "title": "Starlink Geo Location lock anyone with a solution?",
     "subreddit": "Starlink",
-    "author": "LowBarometer",
-    "url": "https://www.reddit.com/r/Starlink/comments/1fal201/antitheft_or_lock_for_mini/",
-    "created_utc": 1725644174,
-    "created": "2024-09-06",
-    "upvotes": 1,
-    "num_comments": 6,
+    "author": "Additional-Issue-551",
+    "url": "https://www.reddit.com/r/Starlink/comments/1usghx4/starlink_geo_location_lock_anyone_with_a_solution/",
+    "created_utc": 1783668074,
+    "created": "2026-07-10",
+    "upvotes": 0,
+    "num_comments": 8,
     "over_18": false,
     "locked": false,
     "archived": false,
-    "excerpt": "Is there any way to secure the Starlink Mini? Does it have one of those nifty laptop cutouts so I can use a laptop lock? I want to be able to leave it outside without it walking away. Thanks in advance.",
+    "excerpt": "",
     "sources": [
       "cache"
     ],
-    "score": 8.63,
-    "raw_score": 12.0,
-    "bucket": "shopping_for_prevention",
-    "age_days": 715.6,
+    "score": 8.49,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 44.1,
     "hits": {
-      "theft_event": [
-        "theft"
-      ],
       "prevention_intent": [
-        "anti-theft",
-        "secure",
         "lock"
       ]
     }
   },
   {
-    "id": "1esp6rf",
-    "title": "Starlink anti theft",
+    "id": "1gd8g9y",
+    "title": "Used unit locked to old owner ",
     "subreddit": "Starlink",
-    "author": "Terrible_Fix_2873",
-    "url": "https://www.reddit.com/r/Starlink/comments/1esp6rf/starlink_anti_theft/",
-    "created_utc": 1723707200,
-    "created": "2024-08-15",
-    "upvotes": 3,
-    "num_comments": 5,
+    "author": "FaithlessnessFar5710",
+    "url": "https://www.reddit.com/r/Starlink/comments/1gd8g9y/used_unit_locked_to_old_owner/",
+    "created_utc": 1730026853,
+    "created": "2024-10-27",
+    "upvotes": 0,
+    "num_comments": 9,
     "over_18": false,
     "locked": false,
     "archived": false,
-    "excerpt": "I\u2019m taking my starlink on an international trip in my truck and i want to know what the best solution for concealing it is. would it be better to leave it on top of the truck and cover it with a removable case, bolt it on or leave it in the cab and take it out when i need it. It seems to me that a motivated thief could cause extensive damage trying to remove the starlink if it\u2019s bolted in. would c",
-    "sources": [
-      "cache"
-    ],
-    "score": 8.47,
-    "raw_score": 12.0,
-    "bucket": "shopping_for_prevention",
-    "age_days": 738.0,
-    "hits": {
-      "theft_event": [
-        "theft",
-        "thief"
-      ],
-      "prevention_intent": [
-        "anti theft",
-        "bolt"
-      ]
-    }
-  },
-  {
-    "id": "1nbz18c",
-    "title": "Starlink mini camo scrim",
-    "subreddit": "Starlink",
-    "author": "minutemenapparel",
-    "url": "https://www.reddit.com/r/Starlink/comments/1nbz18c/starlink_mini_camo_scrim/",
-    "created_utc": 1757363625,
-    "created": "2025-09-08",
-    "upvotes": 159,
-    "num_comments": 35,
-    "over_18": false,
-    "locked": false,
-    "archived": false,
-    "excerpt": "This isn\u2019t for everyone, more for the tacticool Starlink mini users or campers. I made a camouflage covering for my mini. It\u2019s non-permanent and attaches using a shock cord wrapped around the dish. It has two layers to it: a breathable mesh fabric layer and a 3D camo scrim layer. Although Starlink owners know the dish basically becomes a brick when it\u2019s stolen, I see it as sort of an anti-theft de",
+    "excerpt": "I bought one today and I asked the seller if he transferred it out of his name and he said he had already done that. I have the messages that show he clearly said he completed the transfer from his account. I bought it on Facebook marketplace so I know the guys personal information and I went to his house so I know where he lives. So I had no reason to doubt him. But it turns out the dish is still",
     "sources": [
       "cache"
     ],
     "score": 8.46,
-    "raw_score": 8.0,
-    "bucket": "shopping_for_prevention",
-    "age_days": 348.5,
+    "raw_score": 11.0,
+    "bucket": "tracking_discussion",
+    "age_days": 664.9,
     "hits": {
       "theft_event": [
         "stolen",
         "stole",
-        "theft"
+        "thief"
       ],
       "prevention_intent": [
-        "anti-theft"
+        "protect",
+        "security",
+        "lock"
+      ],
+      "recovery_intent": [
+        "track"
       ]
     }
   },
@@ -842,127 +994,60 @@
     }
   },
   {
-    "id": "1t7ds15",
-    "title": "Mobility Mount and Standard Dish",
+    "id": "1qjzg7w",
+    "title": "How do we protect Dishy during an extended freezing rain event?",
     "subreddit": "Starlink",
-    "author": "Big_Sin1970",
-    "url": "https://www.reddit.com/r/Starlink/comments/1t7ds15/mobility_mount_and_standard_dish/",
-    "created_utc": 1778259498,
-    "created": "2026-05-08",
-    "upvotes": 1,
-    "num_comments": 4,
+    "author": "smoosh13",
+    "url": "https://www.reddit.com/r/Starlink/comments/1qjzg7w/how_do_we_protect_dishy_during_an_extended/",
+    "created_utc": 1769100029,
+    "created": "2026-01-22",
+    "upvotes": 0,
+    "num_comments": 22,
     "over_18": false,
     "locked": false,
     "archived": false,
-    "excerpt": "Just installed Mobility mount on my RV, finally figured out how to get kickstand out, then put the dish on the mount, it clicked in, realized I did not put the Cat cable in. I can't for the life of me figure out how to get the dish back off the mount, I haven't tightened the anti theft screws yes, so its not that. Hoping someone can help before I screw this install up completely.",
+    "excerpt": "As of right now, we will be using our fiber during this ice storm and we have SL as our backup. Is there a way to keep 3/4\u201d of ice from building up on the dish? I\u2019m not sure that stowing will help like it normally would with snow. We have easy physical access to the dish, as it is right out on our deck. Any suggestions on how to keep it from freezing up? I\u2019ve used a temp gun on the dish in the pas",
     "sources": [
       "cache"
     ],
-    "score": 7.95,
-    "raw_score": 8.0,
-    "bucket": "shopping_for_prevention",
-    "age_days": 106.6,
+    "score": 7.91,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 212.7,
     "hits": {
-      "theft_event": [
-        "theft"
-      ],
       "prevention_intent": [
-        "anti theft"
+        "protect"
       ]
     }
   },
   {
-    "id": "1rpdvot",
-    "title": "Starlink on an Eriba caravan",
-    "subreddit": "StarlinkMini",
-    "author": "copydeskcat",
-    "url": "https://www.reddit.com/r/StarlinkMini/comments/1rpdvot/starlink_on_an_eriba_caravan/",
-    "created_utc": 1773092845,
-    "created": "2026-03-09",
-    "upvotes": 1,
-    "num_comments": 7,
+    "id": "1n450bd",
+    "title": "Starlink mini stolen",
+    "subreddit": "Starlink",
+    "author": "rrr22777",
+    "url": "https://www.reddit.com/r/Starlink/comments/1n450bd/starlink_mini_stolen/",
+    "created_utc": 1756569027,
+    "created": "2025-08-30",
+    "upvotes": 35,
+    "num_comments": 36,
     "over_18": false,
     "locked": false,
     "archived": false,
-    "excerpt": "I\u2019m based in the UK and travel regularly with an Eriba caravan (example here of the model I have). It has an aluminium frame, so it\u2019s basically faraday cage - and 4G/5G signals often struggle to get through. Campsite WiFi is usually dreadful - so I\u2019m considering getting a Starlink mini on Roam. However, the main issue I foresee is being able to mount it safely on the roof (and remove it for travel",
+    "excerpt": "Mini was stolen in 92630 this week. What are some steps to prevent this? Seems like this can occur since it\u2019s outside. I do not want to mount it permanently.",
     "sources": [
       "cache"
     ],
     "score": 7.86,
-    "raw_score": 8.0,
-    "bucket": "shopping_for_prevention",
-    "age_days": 166.4,
-    "hits": {
-      "theft_event": [
-        "theft"
-      ],
-      "prevention_intent": [
-        "secure",
-        "cage"
-      ]
-    }
-  },
-  {
-    "id": "1n8i3d5",
-    "title": "Admin privileges stolen",
-    "subreddit": "Starlink",
-    "author": "Friendly-Duck-251",
-    "url": "https://www.reddit.com/r/Starlink/comments/1n8i3d5/admin_privileges_stolen/",
-    "created_utc": 1757010468,
-    "created": "2025-09-04",
-    "upvotes": 0,
-    "num_comments": 18,
-    "over_18": false,
-    "locked": false,
-    "archived": false,
-    "excerpt": "So someone I gave access to the server changed The admin to his self and locked me out. How do I get it back?",
-    "sources": [
-      "cache"
-    ],
-    "score": 7.81,
-    "raw_score": 8.0,
-    "bucket": "shopping_for_prevention",
-    "age_days": 352.6,
+    "raw_score": 7.0,
+    "bucket": "victim_seeking_answers",
+    "age_days": 357.7,
     "hits": {
       "theft_event": [
         "stolen",
         "stole"
       ],
       "prevention_intent": [
-        "lock"
-      ],
-      "recovery_intent": [
-        "get it back"
-      ]
-    }
-  },
-  {
-    "id": "1ipazni",
-    "title": "Starlink please help",
-    "subreddit": "Starlink",
-    "author": "Due-Bus-8292",
-    "url": "https://www.reddit.com/r/Starlink/comments/1ipazni/starlink_please_help/",
-    "created_utc": 1739541036,
-    "created": "2025-02-14",
-    "upvotes": 0,
-    "num_comments": 21,
-    "over_18": false,
-    "locked": false,
-    "archived": false,
-    "excerpt": "Hello, I am a Lebanese citizen suffering from theft by the telecommunications companies in Lebanon. I tried to purchase a Starlink device, but my corrupt government had requested that Starlink block any connections from Lebanon, so I was unable to benefit from the device. Recently, in Syria, they have been able to use Starlink Internet despite there being no agreement with Starlink. Additionally, ",
-    "sources": [
-      "cache"
-    ],
-    "score": 7.64,
-    "raw_score": 8.0,
-    "bucket": "shopping_for_prevention",
-    "age_days": 554.8,
-    "hits": {
-      "theft_event": [
-        "theft"
-      ],
-      "prevention_intent": [
-        "lock"
+        "prevent"
       ]
     }
   },
@@ -983,8 +1068,8 @@
     "sources": [
       "cache"
     ],
-    "score": 7.17,
-    "raw_score": 10.0,
+    "score": 7.73,
+    "raw_score": 11.0,
     "bucket": "shopping_for_prevention",
     "age_days": 747.5,
     "hits": {
@@ -996,38 +1081,129 @@
         "secure",
         "security",
         "lock"
+      ],
+      "prevention_ask_weak": [
+        "secure it"
       ]
     }
   },
   {
-    "id": "1murkop",
-    "title": "Starlink in Yemen.",
-    "subreddit": "Starlink",
-    "author": "momoshaef",
-    "url": "https://www.reddit.com/r/Starlink/comments/1murkop/starlink_in_yemen/",
-    "created_utc": 1755629930,
-    "created": "2025-08-19",
-    "upvotes": 2,
-    "num_comments": 9,
+    "id": "1u399e5",
+    "title": "Protectly gps trackers, which one do you use?",
+    "subreddit": "vandwellers",
+    "author": "snakevdd",
+    "url": "https://www.reddit.com/r/vandwellers/comments/1u399e5/protectly_gps_trackers_which_one_do_you_use/",
+    "created_utc": 1781206938,
+    "created": "2026-06-11",
+    "upvotes": 0,
+    "num_comments": 0,
     "over_18": false,
     "locked": false,
     "archived": false,
-    "excerpt": "Just bought a star link standard in Canada which I plan to setup for my families home in Yemen, I understand that the PTC in Yemen is overcharging absorbent amounts for both subscription and hardware so it\u2019s cheaper to buy hardware in Canada and wait until I\u2019m in Yemen to set everything up. My main concern is now setting it up in my families apartment, if I decide to put it on the roof I have to d",
+    "excerpt": "Heyho! Is anybody using a gps tracker for their vans and campers? Recently a van got stolen from a friend and it's always been inside my brain that this could easily happen to me. In so many groups I follow in facebook you see it pass by so often, always with the comment 'I did not have a tracker'.. Why don't people use it? Privacy reasons? Cost? Most have them have phones and/or starlink so priva",
     "sources": [
       "cache"
     ],
-    "score": 7.13,
-    "raw_score": 8.0,
-    "bucket": "shopping_for_prevention",
-    "age_days": 368.6,
+    "score": 7.61,
+    "raw_score": 9.0,
+    "bucket": "victim_seeking_answers",
+    "age_days": 72.5,
     "hits": {
       "theft_event": [
         "stolen",
-        "stole",
+        "stole"
+      ],
+      "prevention_intent": [
+        "protect"
+      ],
+      "recovery_intent": [
+        "track",
+        "tracker",
+        "gps"
+      ]
+    }
+  },
+  {
+    "id": "1jmgbu3",
+    "title": "Account banned for \"Fraud\"",
+    "subreddit": "Starlink",
+    "author": "AdministrationOne621",
+    "url": "https://www.reddit.com/r/Starlink/comments/1jmgbu3/account_banned_for_fraud/",
+    "created_utc": 1743230117,
+    "created": "2025-03-29",
+    "upvotes": 76,
+    "num_comments": 114,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "I'm going to visit my wife's village in Colombia next month. There is no internet there, so I decided to buy a Starlink. I made the purchase and put my brother in law's Colombian address and contact information. I paid with my US credit card. The purchase went through, I was charged for the Starlink, and I've received emails claiming the starlink has shipped. However, my Starlink account is disabl",
+    "sources": [
+      "cache"
+    ],
+    "score": 7.61,
+    "raw_score": 5.0,
+    "bucket": "theft_report",
+    "age_days": 512.1,
+    "hits": {
+      "theft_event": [
         "theft"
       ],
       "prevention_intent": [
-        "cage"
+        "deter"
+      ]
+    }
+  },
+  {
+    "id": "1m6es1n",
+    "title": "Is Screwing Down the Gen 3 Starlink Plastic Base Secure Enough Against Strong Winds?",
+    "subreddit": "Starlink",
+    "author": "Salem-Aidroos",
+    "url": "https://www.reddit.com/r/Starlink/comments/1m6es1n/is_screwing_down_the_gen_3_starlink_plastic_base/",
+    "created_utc": 1753192608,
+    "created": "2025-07-22",
+    "upvotes": 6,
+    "num_comments": 21,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Hi everyone, I'm using the Gen 3 Starlink dish with the default plastic base (pictured). I live in an area that is generally calm, but during the rainy season, we occasionally get strong winds. My question is: If I screw the plastic base into a solid surface (like concrete or a flat roof), will that be enough to keep it stable during those windy periods? Or is it better to replace the plastic base",
+    "sources": [
+      "cache"
+    ],
+    "score": 7.26,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 396.8,
+    "hits": {
+      "prevention_intent": [
+        "secure"
+      ]
+    }
+  },
+  {
+    "id": "1qe05we",
+    "title": "Bracket to secure dish to pole?",
+    "subreddit": "Starlink",
+    "author": "BeenAToughOne",
+    "url": "https://www.reddit.com/r/Starlink/comments/1qe05we/bracket_to_secure_dish_to_pole/",
+    "created_utc": 1768521330,
+    "created": "2026-01-15",
+    "upvotes": 1,
+    "num_comments": 11,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Hi - any Starlink users who are from windy areas having problems with your dish swinging out of place and out of range? This has happened to me twice in the past month. Despite me using the Starlink extenders, screws, extender and pole, when there is a solid strength windy day, the dish seems to rotate out of position. Anyone live in an area where you experience the same thing? If yes, anything in",
+    "sources": [
+      "cache"
+    ],
+    "score": 7.22,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 219.4,
+    "hits": {
+      "prevention_intent": [
+        "secure"
       ]
     }
   },
@@ -1051,40 +1227,11 @@
     "score": 6.93,
     "raw_score": 5.0,
     "bucket": "theft_report",
-    "age_days": 507.4,
+    "age_days": 507.5,
     "hits": {
       "theft_event": [
         "stolen",
         "stole"
-      ]
-    }
-  },
-  {
-    "id": "1o4d5ap",
-    "title": "Any issues with theft of starlink in an RV Park",
-    "subreddit": "RVLiving",
-    "author": "Technical_Match7686",
-    "url": "https://www.reddit.com/r/RVLiving/comments/1o4d5ap/any_issues_with_theft_of_starlink_in_an_rv_park/",
-    "created_utc": 1760234560,
-    "created": "2025-10-12",
-    "upvotes": 23,
-    "num_comments": 38,
-    "over_18": false,
-    "locked": false,
-    "archived": false,
-    "excerpt": "I have just moved in to my RV after selling my house and am changing coasts. I have a starlink mini on a tripod. Has anyone had an issue with the starlink being stolen? About 18 years ago, I lived in an RV and had a satillite dish on the pole. Never an issue but times have changed. Also, I plan to bring it in at night.",
-    "sources": [
-      "cache"
-    ],
-    "score": 6.78,
-    "raw_score": 5.0,
-    "bucket": "theft_report",
-    "age_days": 315.3,
-    "hits": {
-      "theft_event": [
-        "stolen",
-        "stole",
-        "theft"
       ]
     }
   },
@@ -1108,7 +1255,7 @@
     "score": 6.77,
     "raw_score": 11.0,
     "bucket": "tracking_discussion",
-    "age_days": 894.9,
+    "age_days": 895.0,
     "hits": {
       "theft_event": [
         "stolen",
@@ -1116,37 +1263,6 @@
       ],
       "recovery_intent": [
         "recover"
-      ]
-    }
-  },
-  {
-    "id": "1n2g11j",
-    "title": "Safe to buy on marketplace?",
-    "subreddit": "Starlink",
-    "author": "_unknown_388",
-    "url": "https://www.reddit.com/r/Starlink/comments/1n2g11j/safe_to_buy_on_marketplace/",
-    "created_utc": 1756396372,
-    "created": "2025-08-28",
-    "upvotes": 0,
-    "num_comments": 41,
-    "over_18": false,
-    "locked": false,
-    "archived": false,
-    "excerpt": "It\u2019s sealed but I\u2019m wondering if they are stolen or locked and won\u2019t be able to register or activate it? If it\u2019s okay to buy and can be accessed then I\u2019ll return mine that I just bought last week for $200 Please let me know thank you!",
-    "sources": [
-      "cache"
-    ],
-    "score": 6.77,
-    "raw_score": 5.0,
-    "bucket": "shopping_for_prevention",
-    "age_days": 359.7,
-    "hits": {
-      "theft_event": [
-        "stolen",
-        "stole"
-      ],
-      "prevention_intent": [
-        "lock"
       ]
     }
   },
@@ -1206,6 +1322,87 @@
     }
   },
   {
+    "id": "1pf86yg",
+    "title": "Using UK-Purchased Starlink in Sri Lanka \u2014 Any Activation or Region Lock Issues?",
+    "subreddit": "Starlink",
+    "author": "Muzny_1996",
+    "url": "https://www.reddit.com/r/Starlink/comments/1pf86yg/using_ukpurchased_starlink_in_sri_lanka_any/",
+    "created_utc": 1764972409,
+    "created": "2025-12-05",
+    "upvotes": 1,
+    "num_comments": 7,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Hi Everyone, I just bought a starlink device in the UK from an authorised retailer (Curry\u2019s). I am planning to go to Sri Lanka next week and have to work remotely. Was wondering if I would face any issues as in relocation charges / regional change fee, I have not activated the device here in the UK and will be activated once I am there. Appreciate if anyone could let me know if would face any issu",
+    "sources": [
+      "cache"
+    ],
+    "score": 6.63,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 260.4,
+    "hits": {
+      "prevention_intent": [
+        "lock"
+      ]
+    }
+  },
+  {
+    "id": "1dzmq3k",
+    "title": "Is there any good solution to secure the Starlink Mini?",
+    "subreddit": "Starlink",
+    "author": "Final_Video_1860",
+    "url": "https://www.reddit.com/r/Starlink/comments/1dzmq3k/is_there_any_good_solution_to_secure_the_starlink/",
+    "created_utc": 1720585063,
+    "created": "2024-07-10",
+    "upvotes": 4,
+    "num_comments": 14,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "",
+    "sources": [
+      "cache"
+    ],
+    "score": 6.59,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 774.2,
+    "hits": {
+      "prevention_intent": [
+        "secure"
+      ]
+    }
+  },
+  {
+    "id": "1obnynp",
+    "title": "Is Starlink app putting ads on my phone lock screen?",
+    "subreddit": "Starlink",
+    "author": "JudyinTexas",
+    "url": "https://www.reddit.com/r/Starlink/comments/1obnynp/is_starlink_app_putting_ads_on_my_phone_lock/",
+    "created_utc": 1760980490,
+    "created": "2025-10-20",
+    "upvotes": 0,
+    "num_comments": 7,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "I recently added the Starlink app to my Samsung phone, along with our new Starlink service. It is the only app I have added in a very long time. I do not have flashlight or QR code apps. Even more recently I started receiving an infinitely scrollable ad on my lock screen. The ad has a symbol for a name. Samsung tells me that if I start getting lock screen ads, to check my newest apps and see if th",
+    "sources": [
+      "cache"
+    ],
+    "score": 6.47,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 306.6,
+    "hits": {
+      "prevention_intent": [
+        "lock"
+      ]
+    }
+  },
+  {
     "id": "1hz0mpn",
     "title": "Mini stolen, cancel service",
     "subreddit": "Starlink",
@@ -1234,31 +1431,136 @@
     }
   },
   {
-    "id": "1nhg682",
-    "title": "Find when device was assigned",
+    "id": "1p465xy",
+    "title": "Advice on how to protect the Starlink Mini cable while it\u2019s mounted in the Model 3 using the center console to provide 12V power?",
     "subreddit": "Starlink",
-    "author": "Amazing-Arm2229",
-    "url": "https://www.reddit.com/r/Starlink/comments/1nhg682/find_when_device_was_assigned/",
-    "created_utc": 1757924529,
-    "created": "2025-09-15",
-    "upvotes": 1,
-    "num_comments": 3,
+    "author": "BrilliantBig12",
+    "url": "https://www.reddit.com/r/Starlink/comments/1p465xy/advice_on_how_to_protect_the_starlink_mini_cable/",
+    "created_utc": 1763850647,
+    "created": "2025-11-22",
+    "upvotes": 0,
+    "num_comments": 6,
     "over_18": false,
     "locked": false,
     "archived": false,
-    "excerpt": "Let me summarize: Bought starlink standard to donate to a remote primary school from a reseller. Looked brand new and sealed (visual check only). Date of purchase: 21 Aug 2025. Sent to remote school. Local installer connected to it for initial setup. Here the details get hazy but they say they never activated. One week later they want to activate. Kit says device already assigned. Installer calls ",
+    "excerpt": "I\u2019m planning to mount my Starlink Mini in the rear of my 2021 Model 3 SR+ and power it using the 12V outlet in the center console with the car kit. I\u2019m concerned about the cable being damaged by the center console being closed on the power cord. How do other Starlink Mini users route the cable into the center console?",
+    "sources": [
+      "cache"
+    ],
+    "score": 6.45,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 273.4,
+    "hits": {
+      "prevention_intent": [
+        "protect"
+      ]
+    }
+  },
+  {
+    "id": "1pb0pj9",
+    "title": "Is mounting using the savage utv mount on F-150 secure at highway speeds?",
+    "subreddit": "Starlink",
+    "author": "rrands1",
+    "url": "https://www.reddit.com/r/Starlink/comments/1pb0pj9/is_mounting_using_the_savage_utv_mount_on_f150/",
+    "created_utc": 1764555715,
+    "created": "2025-12-01",
+    "upvotes": 1,
+    "num_comments": 5,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "I got the roof mount Starlink mini mount for the F-150 from Savage UTV. The mount looks great, but my question is on the Starlink Mini\u2019s kickstand mount. Basically it bolts to the Savage mount (no worries there), but since it does not take a lot of effort to release it (just pushing on the center of the kickstand), my concern is that a rough road or something will cause it to come loose. does anyo",
+    "sources": [
+      "cache"
+    ],
+    "score": 6.32,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 265.3,
+    "hits": {
+      "prevention_intent": [
+        "secure",
+        "bolt"
+      ]
+    }
+  },
+  {
+    "id": "1g4cecq",
+    "title": "Starlink App not secure?",
+    "subreddit": "Starlink",
+    "author": "thatguyin75",
+    "url": "https://www.reddit.com/r/Starlink/comments/1g4cecq/starlink_app_not_secure/",
+    "created_utc": 1729011108,
+    "created": "2024-10-15",
+    "upvotes": 5,
+    "num_comments": 10,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "I have gen3 my neighbor has gen2. when i go to his place i can access his settings by using the app. It would seem then, and i have not tested this yet but will later today, that i can access everyone's settings. anyone else seen this?",
+    "sources": [
+      "cache"
+    ],
+    "score": 6.31,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 676.7,
+    "hits": {
+      "prevention_intent": [
+        "secure"
+      ]
+    }
+  },
+  {
+    "id": "1fsjf7i",
+    "title": "How can I bypass the region lock on my Starlink?",
+    "subreddit": "Starlink",
+    "author": "MrWorldWideThrowOway",
+    "url": "https://www.reddit.com/r/Starlink/comments/1fsjf7i/how_can_i_bypass_the_region_lock_on_my_starlink/",
+    "created_utc": 1727657492,
+    "created": "2024-09-30",
+    "upvotes": 0,
+    "num_comments": 10,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Hello, I'll just start with my problem, and if you care, I'll also include the story at the end. Problem: In short, Starlink is not allowing people in my country (Bolivia) to pay for and use the service. I already have all the hardware, I just need to know how to make it work. We have already tried paying as outsiders. People used to pay for the service pretending to be from Chile/Brazil, but that",
+    "sources": [
+      "cache"
+    ],
+    "score": 6.31,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 692.3,
+    "hits": {
+      "prevention_intent": [
+        "lock"
+      ]
+    }
+  },
+  {
+    "id": "1usgigf",
+    "title": "Starlink Geo Location lock anyone with a solution?",
+    "subreddit": "Starlink_Support",
+    "author": "Additional-Issue-551",
+    "url": "https://www.reddit.com/r/Starlink_Support/comments/1usgigf/starlink_geo_location_lock_anyone_with_a_solution/",
+    "created_utc": 1783668124,
+    "created": "2026-07-10",
+    "upvotes": 1,
+    "num_comments": 0,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "",
     "sources": [
       "cache"
     ],
     "score": 6.29,
-    "raw_score": 8.0,
-    "bucket": "shopping_for_prevention",
-    "age_days": 342.0,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 44.1,
     "hits": {
-      "theft_event": [
-        "stolen",
-        "stole"
-      ],
       "prevention_intent": [
         "lock"
       ]
@@ -1284,7 +1586,7 @@
     "score": 6.22,
     "raw_score": 8.0,
     "bucket": "theft_report",
-    "age_days": 834.4,
+    "age_days": 834.5,
     "hits": {
       "theft_event": [
         "stolen",
@@ -1322,29 +1624,93 @@
     }
   },
   {
-    "id": "1gzcfz6",
-    "title": "Concealing dish from prying neighbours.",
+    "id": "1j99x00",
+    "title": "Banned from a FB Starlink Mini group for posting the following text and images. No reason, just removed from group. I'm not salty, just confused. \n\n3D printed mount using PETG filament. \n\nWas secure for 300km rough off-road and 200km on the blacktop. \n\nGreat in-motion speeds and amazing when static.",
     "subreddit": "Starlink",
-    "author": "Strider_dnb",
-    "url": "https://www.reddit.com/r/Starlink/comments/1gzcfz6/concealing_dish_from_prying_neighbours/",
-    "created_utc": 1732515589,
-    "created": "2024-11-25",
-    "upvotes": 250,
-    "num_comments": 72,
+    "author": "the_man_downunder",
+    "url": "https://www.reddit.com/r/Starlink/comments/1j99x00/banned_from_a_fb_starlink_mini_group_for_posting/",
+    "created_utc": 1741749968,
+    "created": "2025-03-12",
+    "upvotes": 68,
+    "num_comments": 46,
     "over_18": false,
     "locked": false,
     "archived": false,
-    "excerpt": "As the title says. I want to conceal the dish as best as I can as I live in an area prone to theft. I'm in a temporary rental and I'm not able to mount anything to the structure of the house. My only choice is to have the dish on the ground. Would the fabric used in the picture above cause any loss in performance? And also would there be any risk in the device overheating?",
+    "excerpt": "",
     "sources": [
       "cache"
     ],
-    "score": 5.97,
-    "raw_score": 3.0,
+    "score": 6.13,
+    "raw_score": 4.0,
+    "bucket": "peripheral",
+    "age_days": 529.2,
+    "hits": {
+      "prevention_intent": [
+        "secure"
+      ]
+    }
+  },
+  {
+    "id": "1n8i3d5",
+    "title": "Admin privileges stolen",
+    "subreddit": "Starlink",
+    "author": "Friendly-Duck-251",
+    "url": "https://www.reddit.com/r/Starlink/comments/1n8i3d5/admin_privileges_stolen/",
+    "created_utc": 1757010468,
+    "created": "2025-09-04",
+    "upvotes": 0,
+    "num_comments": 18,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "So someone I gave access to the server changed The admin to his self and locked me out. How do I get it back?",
+    "sources": [
+      "cache"
+    ],
+    "score": 5.99,
+    "raw_score": 5.0,
+    "bucket": "tracking_discussion",
+    "age_days": 352.6,
+    "hits": {
+      "theft_event": [
+        "stolen",
+        "stole"
+      ],
+      "prevention_intent": [
+        "lock"
+      ],
+      "recovery_intent": [
+        "get it back"
+      ]
+    }
+  },
+  {
+    "id": "1ipazni",
+    "title": "Starlink please help",
+    "subreddit": "Starlink",
+    "author": "Due-Bus-8292",
+    "url": "https://www.reddit.com/r/Starlink/comments/1ipazni/starlink_please_help/",
+    "created_utc": 1739541036,
+    "created": "2025-02-14",
+    "upvotes": 0,
+    "num_comments": 21,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Hello, I am a Lebanese citizen suffering from theft by the telecommunications companies in Lebanon. I tried to purchase a Starlink device, but my corrupt government had requested that Starlink block any connections from Lebanon, so I was unable to benefit from the device. Recently, in Syria, they have been able to use Starlink Internet despite there being no agreement with Starlink. Additionally, ",
+    "sources": [
+      "cache"
+    ],
+    "score": 5.93,
+    "raw_score": 5.0,
     "bucket": "theft_report",
-    "age_days": 636.1,
+    "age_days": 554.8,
     "hits": {
       "theft_event": [
         "theft"
+      ],
+      "prevention_intent": [
+        "lock"
       ]
     }
   },
@@ -1368,7 +1734,7 @@
     "score": 5.89,
     "raw_score": 7.0,
     "bucket": "tracking_discussion",
-    "age_days": 609.2,
+    "age_days": 609.3,
     "hits": {
       "theft_event": [
         "stolen",
@@ -1409,6 +1775,33 @@
     }
   },
   {
+    "id": "1jz7sd4",
+    "title": "Has anyone successfully installed a gen 3 starlink dish unto an existing gen 2 pipe adapter using the gen 3's 'standard to standard actuated mount adapter' before? Does it pop in and lock into place just like the gen 2's mast does with the gen 2 pipe adapter?",
+    "subreddit": "Starlink",
+    "author": "UsedOpinion7624",
+    "url": "https://www.reddit.com/r/Starlink/comments/1jz7sd4/has_anyone_successfully_installed_a_gen_3/",
+    "created_utc": 1744659278,
+    "created": "2025-04-14",
+    "upvotes": 1,
+    "num_comments": 5,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "",
+    "sources": [
+      "cache"
+    ],
+    "score": 5.82,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 495.5,
+    "hits": {
+      "prevention_intent": [
+        "lock"
+      ]
+    }
+  },
+  {
     "id": "1kvkj7h",
     "title": "I think I bought a stolen starlink new in box.",
     "subreddit": "Starlink",
@@ -1437,60 +1830,29 @@
     }
   },
   {
-    "id": "1nhg4iu",
-    "title": "Find when device was assigned",
-    "subreddit": "Starlink_Support",
-    "author": "Amazing-Arm2229",
-    "url": "https://www.reddit.com/r/Starlink_Support/comments/1nhg4iu/find_when_device_was_assigned/",
-    "created_utc": 1757924333,
-    "created": "2025-09-15",
-    "upvotes": 2,
-    "num_comments": 1,
-    "over_18": false,
-    "locked": false,
-    "archived": false,
-    "excerpt": "Let me summarize: Bought starlink standard to donate to a remote primary school from a reseller. Looked brand new and sealed (visual check only). Date of purchase: 21 Aug 2025. Sent to remote school. Local installer connected to it for initial setup. Here the details get hazy but they say they never activated. One week later they want to activate. Kit says device already assigned. Installer calls ",
-    "sources": [
-      "cache"
-    ],
-    "score": 5.59,
-    "raw_score": 8.0,
-    "bucket": "shopping_for_prevention",
-    "age_days": 342.0,
-    "hits": {
-      "theft_event": [
-        "stolen",
-        "stole"
-      ],
-      "prevention_intent": [
-        "lock"
-      ]
-    }
-  },
-  {
-    "id": "1pno0n0",
-    "title": "Vehicle roof mount: Waterproofing?",
+    "id": "1imzwzc",
+    "title": "Kickstand Mount on Rooftop \u2013 Is It Secure?",
     "subreddit": "Starlink",
-    "author": "oguruma87",
-    "url": "https://www.reddit.com/r/Starlink/comments/1pno0n0/vehicle_roof_mount_waterproofing/",
-    "created_utc": 1765845375,
-    "created": "2025-12-16",
-    "upvotes": 5,
+    "author": "ITPCR",
+    "url": "https://www.reddit.com/r/Starlink/comments/1imzwzc/kickstand_mount_on_rooftop_is_it_secure/",
+    "created_utc": 1739284446,
+    "created": "2025-02-11",
+    "upvotes": 1,
     "num_comments": 4,
     "over_18": false,
     "locked": false,
     "archived": false,
-    "excerpt": "I'd like to mount a starlink on my roof of my van. I currently have an overland rack type of thing and I use a Ram Mounts mounting arm thingey, but I don't keep it permanently mounted (it's not theft proof or designed to get and stay wet). I'd like to mount it more permanently on the roof, but I am concerned about putting a hole in the roof of the van. I imagine that wouldn't end up waterproof wit",
+    "excerpt": "Would securing the v4 (Gen 3) dish\u2019s kickstand mount to a rooftop using strong screws through its existing holes be stable enough for a permanent setup, or would an extra base be necessary for better stability? The location is high and exposed to strong winds, but there might be some wall coverage around the edges\u2014could this help reduce wind impact?",
     "sources": [
       "cache"
     ],
-    "score": 5.55,
-    "raw_score": 6.0,
-    "bucket": "theft_report",
-    "age_days": 250.3,
+    "score": 5.59,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 557.8,
     "hits": {
-      "theft_event": [
-        "theft"
+      "prevention_intent": [
+        "secure"
       ]
     }
   },
@@ -1518,6 +1880,34 @@
     "hits": {
       "theft_event": [
         "theft"
+      ]
+    }
+  },
+  {
+    "id": "1c0spd1",
+    "title": "How to secure dish to flat roof",
+    "subreddit": "Starlink",
+    "author": "B-Batch",
+    "url": "https://www.reddit.com/r/Starlink/comments/1c0spd1/how_to_secure_dish_to_flat_roof/",
+    "created_utc": 1712773743,
+    "created": "2024-04-10",
+    "upvotes": 1,
+    "num_comments": 3,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Just got my gen 3 with just the kickstand and was hoping to put it up on this thin metal roof of this overhang we have next to the house. My question is, is it possible to screw down the kickstand with a bracket or something and that would provide enough protection from the wind? Or should I invest a few hundred dollars into trying to pole mount it and go that route? Any advice is appreciated seei",
+    "sources": [
+      "cache"
+    ],
+    "score": 5.26,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 864.6,
+    "hits": {
+      "prevention_intent": [
+        "protect",
+        "secure"
       ]
     }
   },
@@ -1550,6 +1940,64 @@
     }
   },
   {
+    "id": "1g9hcqt",
+    "title": "Is this S-5 mount secure?",
+    "subreddit": "Starlink",
+    "author": "combateer3",
+    "url": "https://www.reddit.com/r/Starlink/comments/1g9hcqt/is_this_s5_mount_secure/",
+    "created_utc": 1729601441,
+    "created": "2024-10-22",
+    "upvotes": 1,
+    "num_comments": 2,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "I have a metal roof I'm installing my Starlink on. I've read good things here about the S-5 products and I'm interested in this one: [https://buys-5.com/products/satellite-dish-mounting-kit-for-ag-panel-residential-metal-roofs](https://buys-5.com/products/satellite-dish-mounting-kit-for-ag-panel-residential-metal-roofs) The only thing I'm confused on is that the struts just seem to slide in to the",
+    "sources": [
+      "cache"
+    ],
+    "score": 5.01,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 669.8,
+    "hits": {
+      "prevention_intent": [
+        "secure"
+      ]
+    }
+  },
+  {
+    "id": "1n2g11j",
+    "title": "Safe to buy on marketplace?",
+    "subreddit": "Starlink",
+    "author": "_unknown_388",
+    "url": "https://www.reddit.com/r/Starlink/comments/1n2g11j/safe_to_buy_on_marketplace/",
+    "created_utc": 1756396372,
+    "created": "2025-08-28",
+    "upvotes": 0,
+    "num_comments": 41,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "It\u2019s sealed but I\u2019m wondering if they are stolen or locked and won\u2019t be able to register or activate it? If it\u2019s okay to buy and can be accessed then I\u2019ll return mine that I just bought last week for $200 Please let me know thank you!",
+    "sources": [
+      "cache"
+    ],
+    "score": 4.95,
+    "raw_score": 2.0,
+    "bucket": "theft_report",
+    "age_days": 359.7,
+    "hits": {
+      "theft_event": [
+        "stolen",
+        "stole"
+      ],
+      "prevention_intent": [
+        "lock"
+      ]
+    }
+  },
+  {
     "id": "1uhgboz",
     "title": "Starlink Mini install",
     "subreddit": "Starlink",
@@ -1573,6 +2021,33 @@
     "hits": {
       "theft_event": [
         "theft"
+      ]
+    }
+  },
+  {
+    "id": "1flxefa",
+    "title": "Secure Starlink from hail damage",
+    "subreddit": "Starlink",
+    "author": "Fabrizio_Monaldi",
+    "url": "https://www.reddit.com/r/Starlink/comments/1flxefa/secure_starlink_from_hail_damage/",
+    "created_utc": 1726902904,
+    "created": "2024-09-21",
+    "upvotes": 0,
+    "num_comments": 12,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Starlink antennas are quite vulnerable to dents, chips and scratches. The size of a golf ball hail can easily dent or break the surface of any Starlink plate, putting it out of service",
+    "sources": [
+      "cache"
+    ],
+    "score": 4.8,
+    "raw_score": 4.0,
+    "bucket": "peripheral",
+    "age_days": 701.1,
+    "hits": {
+      "prevention_intent": [
+        "secure"
       ]
     }
   },
@@ -1632,6 +2107,33 @@
     }
   },
   {
+    "id": "1ii3qrr",
+    "title": "How to protect the cable from the cold?",
+    "subreddit": "Starlink",
+    "author": "Nigel_Hunter",
+    "url": "https://www.reddit.com/r/Starlink/comments/1ii3qrr/how_to_protect_the_cable_from_the_cold/",
+    "created_utc": 1738736307,
+    "created": "2025-02-05",
+    "upvotes": 1,
+    "num_comments": 1,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "I have the starlink mounted to my vehicle roof. Driving around in -30 degrees celsius (-22 F) means the cable is extremely stiff and possibly brittle. Is there a solution for insulating the cable against the extreme cold, to maintain its flexibility a bit?",
+    "sources": [
+      "cache"
+    ],
+    "score": 4.66,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 564.1,
+    "hits": {
+      "prevention_intent": [
+        "protect"
+      ]
+    }
+  },
+  {
     "id": "1c6kb44",
     "title": "Internet Connection is trash hooked up directly to Ethernet",
     "subreddit": "Starlink",
@@ -1660,6 +2162,290 @@
     }
   },
   {
+    "id": "1iqqejw",
+    "title": "to protect the  gen 3 starlink",
+    "subreddit": "Starlink",
+    "author": "Amigo84z",
+    "url": "https://www.reddit.com/r/Starlink/comments/1iqqejw/to_protect_the_gen_3_starlink/",
+    "created_utc": 1739705686,
+    "created": "2025-02-16",
+    "upvotes": 2,
+    "num_comments": 8,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "My power company ya all is shutting off the power next wenseday for 4 hrs of matience to the electrical lines i think i will take starlink offline my self before the utilities shut off for the mateience to protect the dishy and my router and poe think it a smart idea to protect the investment right to protect the net work at all cost prevenitive measures",
+    "sources": [
+      "cache"
+    ],
+    "score": 4.47,
+    "raw_score": 4.0,
+    "bucket": "peripheral",
+    "age_days": 552.9,
+    "hits": {
+      "prevention_intent": [
+        "protect"
+      ]
+    }
+  },
+  {
+    "id": "1nhg682",
+    "title": "Find when device was assigned",
+    "subreddit": "Starlink",
+    "author": "Amazing-Arm2229",
+    "url": "https://www.reddit.com/r/Starlink/comments/1nhg682/find_when_device_was_assigned/",
+    "created_utc": 1757924529,
+    "created": "2025-09-15",
+    "upvotes": 1,
+    "num_comments": 3,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Let me summarize: Bought starlink standard to donate to a remote primary school from a reseller. Looked brand new and sealed (visual check only). Date of purchase: 21 Aug 2025. Sent to remote school. Local installer connected to it for initial setup. Here the details get hazy but they say they never activated. One week later they want to activate. Kit says device already assigned. Installer calls ",
+    "sources": [
+      "cache"
+    ],
+    "score": 4.45,
+    "raw_score": 5.0,
+    "bucket": "theft_report",
+    "age_days": 342.0,
+    "hits": {
+      "theft_event": [
+        "stolen",
+        "stole"
+      ],
+      "prevention_intent": [
+        "lock"
+      ]
+    }
+  },
+  {
+    "id": "1j0gnn5",
+    "title": "Understanding Starlink country lock",
+    "subreddit": "Starlink",
+    "author": "Holograph_Pussy",
+    "url": "https://www.reddit.com/r/Starlink/comments/1j0gnn5/understanding_starlink_country_lock/",
+    "created_utc": 1740772497,
+    "created": "2025-02-28",
+    "upvotes": 2,
+    "num_comments": 7,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Apparently starlink roam needs to return to its \"home\" country occasionally or loses service. And I can't ship it directly to a military APO box. Can I purchase one at Best Buy here in the US, carry it to another country myself, and then activate it there? Or will it still be \"home countried\" to the US?",
+    "sources": [
+      "cache"
+    ],
+    "score": 4.36,
+    "raw_score": 4.0,
+    "bucket": "peripheral",
+    "age_days": 540.5,
+    "hits": {
+      "prevention_intent": [
+        "lock"
+      ]
+    }
+  },
+  {
+    "id": "1ht2qkd",
+    "title": "Router unreachable, can't secure network in an RV park.",
+    "subreddit": "Starlink",
+    "author": "Bright_Confusion_",
+    "url": "https://www.reddit.com/r/Starlink/comments/1ht2qkd/router_unreachable_cant_secure_network_in_an_rv/",
+    "created_utc": 1735953516,
+    "created": "2025-01-04",
+    "upvotes": 2,
+    "num_comments": 6,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "I just setup my new starlink hardware, same account old hardware got cooked. The internet is working fine but I'm unable to change router settings. I tried resetting the router I made sure starlink app has local network access I tried [192.168.1.1/setup](http://192.168.1.1/setup) I verified that was my gateway address with ipconfig. Thanks for your help",
+    "sources": [
+      "cache"
+    ],
+    "score": 4.2,
+    "raw_score": 4.0,
+    "bucket": "peripheral",
+    "age_days": 596.3,
+    "hits": {
+      "prevention_intent": [
+        "secure"
+      ]
+    }
+  },
+  {
+    "id": "1gzr6hk",
+    "title": "Starlink with Global Protect and Ivanti VPNs",
+    "subreddit": "Starlink",
+    "author": "markewallace1966",
+    "url": "https://www.reddit.com/r/Starlink/comments/1gzr6hk/starlink_with_global_protect_and_ivanti_vpns/",
+    "created_utc": 1732562266,
+    "created": "2024-11-25",
+    "upvotes": 0,
+    "num_comments": 6,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Hello. My partner and I are considering purchase of a home and evaluating Starlink for home internet service. Our employers both require us to through a VPN for some of our work. Mine uses Palo Alto Global Protect, and hers uses Ivanti. We are trying to learn ahead of time - before purchasing the house - if Starlink will successfully support both of us working from home, both in a Teams (and occas",
+    "sources": [
+      "cache"
+    ],
+    "score": 4.19,
+    "raw_score": 4.0,
+    "bucket": "peripheral",
+    "age_days": 635.6,
+    "hits": {
+      "prevention_intent": [
+        "protect"
+      ]
+    }
+  },
+  {
+    "id": "1fyfo6m",
+    "title": "Does anyone have experience with using a Starlink mini indoors?",
+    "subreddit": "Starlink",
+    "author": "Ready_Hamster6515",
+    "url": "https://www.reddit.com/r/Starlink/comments/1fyfo6m/does_anyone_have_experience_with_using_a_starlink/",
+    "created_utc": 1728327814,
+    "created": "2024-10-07",
+    "upvotes": 1,
+    "num_comments": 1,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "I'm a coffee roaster who just found out about the Starlink mini. I have no wifi service in the building, and the cellular data is pretty bad. I don't need nor expect any fast speeds, but I was wondering if I could get at least something workable with the mini. I also wouldn't want to place it outside because of the possibility of it being stolen.",
+    "sources": [
+      "cache"
+    ],
+    "score": 4.04,
+    "raw_score": 6.0,
+    "bucket": "shopping_for_prevention",
+    "age_days": 684.6,
+    "hits": {
+      "theft_event": [
+        "stolen",
+        "stole"
+      ],
+      "prevention_ask": [
+        "being stolen"
+      ]
+    }
+  },
+  {
+    "id": "1j6tc6c",
+    "title": "Starlink CGNAT Blocking UniFi Protect Camera Access - Any Workarounds?  (S2S VPN: UDM-Pro <-> UMR-Industrial)",
+    "subreddit": "Starlink_Support",
+    "author": "SubmarinerAirman",
+    "url": "https://www.reddit.com/r/Starlink_Support/comments/1j6tc6c/starlink_cgnat_blocking_unifi_protect_camera/",
+    "created_utc": 1741474513,
+    "created": "2025-03-08",
+    "upvotes": 1,
+    "num_comments": 0,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "",
+    "sources": [
+      "cache"
+    ],
+    "score": 4.0,
+    "raw_score": 7.0,
+    "bucket": "peripheral",
+    "age_days": 532.4,
+    "hits": {
+      "prevention_intent": [
+        "protect",
+        "lock",
+        "locking"
+      ]
+    }
+  },
+  {
+    "id": "1i3w3xu",
+    "title": "Neighbor\u2019s Starlink - defying wildfire evacuation orders to protect our neighborhood",
+    "subreddit": "Starlink",
+    "author": "danman_d",
+    "url": "https://www.reddit.com/r/Starlink/comments/1i3w3xu/neighbors_starlink_defying_wildfire_evacuation/",
+    "created_utc": 1737162955,
+    "created": "2025-01-18",
+    "upvotes": 79,
+    "num_comments": 4,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "",
+    "sources": [
+      "cache"
+    ],
+    "score": 3.87,
+    "raw_score": 4.0,
+    "bucket": "peripheral",
+    "age_days": 582.3,
+    "hits": {
+      "prevention_intent": [
+        "protect"
+      ]
+    }
+  },
+  {
+    "id": "1ihi34j",
+    "title": "Camping, and the Mini -- how to keep a ground mount solution secure ?",
+    "subreddit": "Starlink",
+    "author": "BabylonF1VE",
+    "url": "https://www.reddit.com/r/Starlink/comments/1ihi34j/camping_and_the_mini_how_to_keep_a_ground_mount/",
+    "created_utc": 1738677079,
+    "created": "2025-02-04",
+    "upvotes": 5,
+    "num_comments": 24,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "",
+    "sources": [
+      "cache"
+    ],
+    "score": 3.79,
+    "raw_score": 1.0,
+    "bucket": "peripheral",
+    "age_days": 564.8,
+    "hits": {
+      "prevention_intent": [
+        "secure"
+      ]
+    }
+  },
+  {
+    "id": "1nhg4iu",
+    "title": "Find when device was assigned",
+    "subreddit": "Starlink_Support",
+    "author": "Amazing-Arm2229",
+    "url": "https://www.reddit.com/r/Starlink_Support/comments/1nhg4iu/find_when_device_was_assigned/",
+    "created_utc": 1757924333,
+    "created": "2025-09-15",
+    "upvotes": 2,
+    "num_comments": 1,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Let me summarize: Bought starlink standard to donate to a remote primary school from a reseller. Looked brand new and sealed (visual check only). Date of purchase: 21 Aug 2025. Sent to remote school. Local installer connected to it for initial setup. Here the details get hazy but they say they never activated. One week later they want to activate. Kit says device already assigned. Installer calls ",
+    "sources": [
+      "cache"
+    ],
+    "score": 3.76,
+    "raw_score": 5.0,
+    "bucket": "theft_report",
+    "age_days": 342.0,
+    "hits": {
+      "theft_event": [
+        "stolen",
+        "stole"
+      ],
+      "prevention_intent": [
+        "lock"
+      ]
+    }
+  },
+  {
     "id": "1kra10w",
     "title": "Second hand starlink transfer issue",
     "subreddit": "Starlink",
@@ -1679,7 +2465,7 @@
     "score": 3.69,
     "raw_score": 3.0,
     "bucket": "theft_report",
-    "age_days": 459.6,
+    "age_days": 459.7,
     "hits": {
       "theft_event": [
         "stolen",
@@ -1707,7 +2493,7 @@
     "score": 3.64,
     "raw_score": 3.0,
     "bucket": "theft_report",
-    "age_days": 590.6,
+    "age_days": 590.7,
     "hits": {
       "theft_event": [
         "theft"
@@ -1743,38 +2529,95 @@
     }
   },
   {
-    "id": "1rgb2k8",
-    "title": "Looking for Caretaker in Maine",
-    "subreddit": "homestead",
-    "author": "Bengrundy_mu",
-    "url": "https://www.reddit.com/r/homestead/comments/1rgb2k8/looking_for_caretaker_in_maine/",
-    "created_utc": 1772209112,
-    "created": "2026-02-27",
-    "upvotes": 0,
-    "num_comments": 16,
+    "id": "1f6q108",
+    "title": "Does this cable have too much deflection or is it good to secure as it is?",
+    "subreddit": "Starlink_Support",
+    "author": "ActualfknChaos",
+    "url": "https://www.reddit.com/r/Starlink_Support/comments/1f6q108/does_this_cable_have_too_much_deflection_or_is_it/",
+    "created_utc": 1725226999,
+    "created": "2024-09-01",
+    "upvotes": 4,
+    "num_comments": 19,
     "over_18": false,
     "locked": false,
     "archived": false,
-    "excerpt": "Here\u2019s the deal, For now, I\u2019m just putting out feelers on how this would work, and if we could even find someone that would fit what we need. My wife and I have 40+ acres in a remote spot in Maine. It has a cabin on it, and it had a 4kW solar power system , a well that is pressurized and plumbed, and a toilet with a septic tank. We will be moving there full time in about a year or two after the la",
+    "excerpt": "",
     "sources": [
       "cache"
     ],
     "score": 3.55,
     "raw_score": 1.0,
-    "bucket": "victim_seeking_answers",
-    "age_days": 176.7,
+    "bucket": "peripheral",
+    "age_days": 720.5,
+    "hits": {
+      "prevention_intent": [
+        "secure"
+      ]
+    }
+  },
+  {
+    "id": "1ihhzj2",
+    "title": "Camping, and the Mini -- how to keep a ground mount solution secure ?",
+    "subreddit": "StarlinkMini",
+    "author": "BabylonF1VE",
+    "url": "https://www.reddit.com/r/StarlinkMini/comments/1ihhzj2/camping_and_the_mini_how_to_keep_a_ground_mount/",
+    "created_utc": 1738676775,
+    "created": "2025-02-04",
+    "upvotes": 1,
+    "num_comments": 1,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Anyone with any ideas on how to keep my mini setup safe, when I go glamping in my motorhome? I decided from the beginning that I liked the mini in a protective case, since we don't motorhoming that often, and I wanted to avoid putting it permanently on the roof. Many situations would entail positioning the mini away from the MH to allow visibility of the sky, so I assumed portability for those rea",
+    "sources": [
+      "cache"
+    ],
+    "score": 3.53,
+    "raw_score": 5.0,
+    "bucket": "tracking_discussion",
+    "age_days": 564.8,
+    "hits": {
+      "prevention_intent": [
+        "protect",
+        "secure",
+        "lock"
+      ],
+      "recovery_intent": [
+        "track",
+        "tracking"
+      ]
+    }
+  },
+  {
+    "id": "1rpdvot",
+    "title": "Starlink on an Eriba caravan",
+    "subreddit": "StarlinkMini",
+    "author": "copydeskcat",
+    "url": "https://www.reddit.com/r/StarlinkMini/comments/1rpdvot/starlink_on_an_eriba_caravan/",
+    "created_utc": 1773092845,
+    "created": "2026-03-09",
+    "upvotes": 1,
+    "num_comments": 7,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "I\u2019m based in the UK and travel regularly with an Eriba caravan (example here of the model I have). It has an aluminium frame, so it\u2019s basically faraday cage - and 4G/5G signals often struggle to get through. Campsite WiFi is usually dreadful - so I\u2019m considering getting a Starlink mini on Roam. However, the main issue I foresee is being able to mount it safely on the roof (and remove it for travel",
+    "sources": [
+      "cache"
+    ],
+    "score": 3.52,
+    "raw_score": 2.0,
+    "bucket": "shopping_for_prevention",
+    "age_days": 166.5,
     "hits": {
       "theft_event": [
-        "stolen",
-        "stole",
-        "broke in"
+        "theft"
       ],
       "prevention_intent": [
-        "prevent",
-        "protect",
-        "security",
-        "lock",
-        "peace of mind"
+        "secure"
+      ],
+      "prevention_ask_weak": [
+        "cage"
       ]
     }
   },
@@ -1807,6 +2650,116 @@
     }
   },
   {
+    "id": "1q1p1gl",
+    "title": "How to secure?",
+    "subreddit": "Starlink",
+    "author": "whocaresanymore11",
+    "url": "https://www.reddit.com/r/Starlink/comments/1q1p1gl/how_to_secure/",
+    "created_utc": 1767328040,
+    "created": "2026-01-02",
+    "upvotes": 5,
+    "num_comments": 14,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "I\u2019d like to place this on my flat portion of the roof with minimal obstructions. Obviously don\u2019t want to screw into the flat roof. Is a sandbag sufficient? Thoughts?",
+    "sources": [
+      "cache"
+    ],
+    "score": 3.38,
+    "raw_score": 1.0,
+    "bucket": "peripheral",
+    "age_days": 233.2,
+    "hits": {
+      "prevention_intent": [
+        "secure"
+      ]
+    }
+  },
+  {
+    "id": "1fnymvp",
+    "title": "Starlink Mini roof rack mount not secure",
+    "subreddit": "Starlink",
+    "author": "BigSandwich6",
+    "url": "https://www.reddit.com/r/Starlink/comments/1fnymvp/starlink_mini_roof_rack_mount_not_secure/",
+    "created_utc": 1727134290,
+    "created": "2024-09-23",
+    "upvotes": 3,
+    "num_comments": 2,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Finally got my Starlink Mini Roof Rack mount. After mounting it to my rack and then clipping the mini into place, it\u2019s extremely wobbly. The mount to the rack seems secure. The instructions say to make sure it\u2019s clipped into place and it seems that way. I don\u2019t feel comfortable driving with it. Is this normal?",
+    "sources": [
+      "cache"
+    ],
+    "score": 3.33,
+    "raw_score": 4.0,
+    "bucket": "peripheral",
+    "age_days": 698.4,
+    "hits": {
+      "prevention_intent": [
+        "secure"
+      ]
+    }
+  },
+  {
+    "id": "1bmhuvf",
+    "title": "Hide / secure web-interface",
+    "subreddit": "Starlink",
+    "author": "zntr_reddit",
+    "url": "https://www.reddit.com/r/Starlink/comments/1bmhuvf/hide_secure_webinterface/",
+    "created_utc": 1711276927,
+    "created": "2024-03-24",
+    "upvotes": 1,
+    "num_comments": 2,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Is there a way to password protect or hide or just disable the web-interface? The network and stats are disabled since I put it in bypass mode which is nice, but still everyone on my network (even on the guest wifi, weirdly) can access [dishy.starlink.net](https://dishy.starlink.net) and reboot or stow the dish. It's not a real security issue since reboot and stow is the only things you can do. th",
+    "sources": [
+      "cache"
+    ],
+    "score": 3.31,
+    "raw_score": 4.0,
+    "bucket": "peripheral",
+    "age_days": 881.9,
+    "hits": {
+      "prevention_intent": [
+        "protect",
+        "secure",
+        "security"
+      ]
+    }
+  },
+  {
+    "id": "1tpl99d",
+    "title": "TTake a look at this solution for secure remote access when using Starlink.",
+    "subreddit": "Starlink_Support",
+    "author": "SinIP_vpn_mikrotik",
+    "url": "https://www.reddit.com/r/Starlink_Support/comments/1tpl99d/ttake_a_look_at_this_solution_for_secure_remote/",
+    "created_utc": 1779921927,
+    "created": "2026-05-27",
+    "upvotes": 1,
+    "num_comments": 0,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "",
+    "sources": [
+      "cache"
+    ],
+    "score": 3.29,
+    "raw_score": 4.0,
+    "bucket": "peripheral",
+    "age_days": 87.4,
+    "hits": {
+      "prevention_intent": [
+        "secure"
+      ]
+    }
+  },
+  {
     "id": "1om3jut",
     "title": "Installing starlink mini",
     "subreddit": "Starlink",
@@ -1831,6 +2784,33 @@
       "theft_event": [
         "stolen",
         "stole"
+      ]
+    }
+  },
+  {
+    "id": "1u4fqic",
+    "title": "How many shares did you get at IPO lock?",
+    "subreddit": "Starlink",
+    "author": "Ok_Transition7785",
+    "url": "https://www.reddit.com/r/Starlink/comments/1u4fqic/how_many_shares_did_you_get_at_ipo_lock/",
+    "created_utc": 1781320310,
+    "created": "2026-06-13",
+    "upvotes": 0,
+    "num_comments": 6,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "I got 25 shares, requested 770. But hey its something. Fidelity was good to me.",
+    "sources": [
+      "cache"
+    ],
+    "score": 2.79,
+    "raw_score": 1.0,
+    "bucket": "peripheral",
+    "age_days": 71.2,
+    "hits": {
+      "prevention_intent": [
+        "lock"
       ]
     }
   },
@@ -1974,38 +2954,29 @@
     }
   },
   {
-    "id": "1rgba63",
-    "title": "Putting out feelers for Caretaker in Maine",
-    "subreddit": "OffGrid",
-    "author": "Bengrundy_mu",
-    "url": "https://www.reddit.com/r/OffGrid/comments/1rgba63/putting_out_feelers_for_caretaker_in_maine/",
-    "created_utc": 1772209571,
-    "created": "2026-02-27",
-    "upvotes": 1,
+    "id": "1mbept2",
+    "title": "WiFi connection is 'connected / not secure', but I don't see any settings on the app to fix that, unless I'm missing something?",
+    "subreddit": "Starlink",
+    "author": "HappySilveon",
+    "url": "https://www.reddit.com/r/Starlink/comments/1mbept2/wifi_connection_is_connected_not_secure_but_i/",
+    "created_utc": 1753705371,
+    "created": "2025-07-28",
+    "upvotes": 0,
     "num_comments": 4,
     "over_18": false,
     "locked": false,
     "archived": false,
-    "excerpt": "Here\u2019s the deal, For now, I\u2019m just putting out feelers on how this would work, and if we could even find someone that would fit what we need. My wife and I have 40+ acres in a remote spot in Maine. It has a cabin on it, and it had a 4kW solar power system , a well that is pressurized and plumbed, and a toilet with a septic tank. We will be moving there full time in about a year or two after the la",
+    "excerpt": ".",
     "sources": [
       "cache"
     ],
-    "score": 2.32,
+    "score": 2.21,
     "raw_score": 1.0,
-    "bucket": "victim_seeking_answers",
-    "age_days": 176.7,
+    "bucket": "peripheral",
+    "age_days": 390.8,
     "hits": {
-      "theft_event": [
-        "stolen",
-        "stole",
-        "broke in"
-      ],
       "prevention_intent": [
-        "prevent",
-        "protect",
-        "security",
-        "lock",
-        "peace of mind"
+        "secure"
       ]
     }
   },
@@ -2029,7 +3000,7 @@
     "score": 1.93,
     "raw_score": -1.0,
     "bucket": "theft_report",
-    "age_days": 668.7,
+    "age_days": 668.8,
     "hits": {
       "theft_event": [
         "stolen",
@@ -2057,7 +3028,7 @@
     "score": 1.84,
     "raw_score": 3.0,
     "bucket": "theft_report",
-    "age_days": 338.5,
+    "age_days": 338.6,
     "hits": {
       "theft_event": [
         "stolen",
@@ -2122,6 +3093,69 @@
     }
   },
   {
+    "id": "1ijxmgb",
+    "title": "Not secure",
+    "subreddit": "Starlink",
+    "author": "Forbidden_321",
+    "url": "https://www.reddit.com/r/Starlink/comments/1ijxmgb/not_secure/",
+    "created_utc": 1738942263,
+    "created": "2025-02-07",
+    "upvotes": 5,
+    "num_comments": 13,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "This morning my wifi was marked as not secure, it no longer has a password, and im unable to create a name or password for my wifi even after factory resetting my wifi 3 times physically and by using the app Any idea of whats happening?",
+    "sources": [
+      "cache"
+    ],
+    "score": 1.5,
+    "raw_score": -2.0,
+    "bucket": "peripheral",
+    "age_days": 561.7,
+    "hits": {
+      "prevention_intent": [
+        "secure"
+      ]
+    }
+  },
+  {
+    "id": "1rgb2k8",
+    "title": "Looking for Caretaker in Maine",
+    "subreddit": "homestead",
+    "author": "Bengrundy_mu",
+    "url": "https://www.reddit.com/r/homestead/comments/1rgb2k8/looking_for_caretaker_in_maine/",
+    "created_utc": 1772209112,
+    "created": "2026-02-27",
+    "upvotes": 0,
+    "num_comments": 16,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Here\u2019s the deal, For now, I\u2019m just putting out feelers on how this would work, and if we could even find someone that would fit what we need. My wife and I have 40+ acres in a remote spot in Maine. It has a cabin on it, and it had a 4kW solar power system , a well that is pressurized and plumbed, and a toilet with a septic tank. We will be moving there full time in about a year or two after the la",
+    "sources": [
+      "cache"
+    ],
+    "score": 1.41,
+    "raw_score": -2.0,
+    "bucket": "victim_seeking_answers",
+    "age_days": 176.7,
+    "hits": {
+      "theft_event": [
+        "stolen",
+        "stole",
+        "broke in"
+      ],
+      "prevention_intent": [
+        "prevent",
+        "protect",
+        "security",
+        "lock",
+        "peace of mind"
+      ]
+    }
+  },
+  {
     "id": "1le3957",
     "title": "Using a mini on a van/RV",
     "subreddit": "Starlink",
@@ -2141,11 +3175,39 @@
     "score": 1.33,
     "raw_score": -3.0,
     "bucket": "theft_report",
-    "age_days": 431.3,
+    "age_days": 431.4,
     "hits": {
       "theft_event": [
         "stolen",
         "stole"
+      ]
+    }
+  },
+  {
+    "id": "1ijj42j",
+    "title": "Pivot mount lock not adequate",
+    "subreddit": "Starlink",
+    "author": "rapedbyawookiee",
+    "url": "https://www.reddit.com/r/Starlink/comments/1ijj42j/pivot_mount_lock_not_adequate/",
+    "created_utc": 1738891091,
+    "created": "2025-02-07",
+    "upvotes": 12,
+    "num_comments": 10,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "The roof pivot mount doesn\u2019t seem to be exactly \u201clocking\u201d. I\u2019ve tightened the dial lock with a pair of adjustable pliers and the wind will still push the damn thing over. Is there a better way to lock this thing in place or maybe support it better?",
+    "sources": [
+      "cache"
+    ],
+    "score": 1.26,
+    "raw_score": -2.0,
+    "bucket": "peripheral",
+    "age_days": 562.3,
+    "hits": {
+      "prevention_intent": [
+        "lock",
+        "locking"
       ]
     }
   },
@@ -2174,6 +3236,33 @@
       "theft_event": [
         "stolen",
         "stole"
+      ]
+    }
+  },
+  {
+    "id": "1n831qq",
+    "title": "Issues with account total lock out",
+    "subreddit": "Starlink",
+    "author": "Late-Commission8085",
+    "url": "https://www.reddit.com/r/Starlink/comments/1n831qq/issues_with_account_total_lock_out/",
+    "created_utc": 1756968561,
+    "created": "2025-09-04",
+    "upvotes": 1,
+    "num_comments": 9,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Hi everyone - I have what seems to be a total lock out of my account. Can\u2019t even look at the shop or subscriptions. Have tried reinstalling, logging out, can\u2019t even raise a ticket as it says error on that page too. Please do help if you can",
+    "sources": [
+      "cache"
+    ],
+    "score": 1.09,
+    "raw_score": -2.0,
+    "bucket": "peripheral",
+    "age_days": 353.1,
+    "hits": {
+      "prevention_intent": [
+        "lock"
       ]
     }
   },
@@ -2289,6 +3378,33 @@
     }
   },
   {
+    "id": "1dzmhn7",
+    "title": "Is there any good way to secure the Mini?",
+    "subreddit": "Starlink",
+    "author": "LogExpensive7094",
+    "url": "https://www.reddit.com/r/Starlink/comments/1dzmhn7/is_there_any_good_way_to_secure_the_mini/",
+    "created_utc": 1720584260,
+    "created": "2024-07-10",
+    "upvotes": 1,
+    "num_comments": 0,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "[removed]",
+    "sources": [
+      "cache"
+    ],
+    "score": 0.56,
+    "raw_score": 1.0,
+    "bucket": "peripheral",
+    "age_days": 774.2,
+    "hits": {
+      "prevention_intent": [
+        "secure"
+      ]
+    }
+  },
+  {
     "id": "1o6h6wi",
     "title": "just bought the mini but three weeks ago I bought the standard model.",
     "subreddit": "Starlink",
@@ -2308,7 +3424,7 @@
     "score": 0.43,
     "raw_score": -3.0,
     "bucket": "theft_report",
-    "age_days": 312.7,
+    "age_days": 312.8,
     "hits": {
       "theft_event": [
         "theft"
@@ -2344,6 +3460,42 @@
     }
   },
   {
+    "id": "1rgba63",
+    "title": "Putting out feelers for Caretaker in Maine",
+    "subreddit": "OffGrid",
+    "author": "Bengrundy_mu",
+    "url": "https://www.reddit.com/r/OffGrid/comments/1rgba63/putting_out_feelers_for_caretaker_in_maine/",
+    "created_utc": 1772209571,
+    "created": "2026-02-27",
+    "upvotes": 1,
+    "num_comments": 4,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "Here\u2019s the deal, For now, I\u2019m just putting out feelers on how this would work, and if we could even find someone that would fit what we need. My wife and I have 40+ acres in a remote spot in Maine. It has a cabin on it, and it had a 4kW solar power system , a well that is pressurized and plumbed, and a toilet with a septic tank. We will be moving there full time in about a year or two after the la",
+    "sources": [
+      "cache"
+    ],
+    "score": 0.19,
+    "raw_score": -2.0,
+    "bucket": "victim_seeking_answers",
+    "age_days": 176.7,
+    "hits": {
+      "theft_event": [
+        "stolen",
+        "stole",
+        "broke in"
+      ],
+      "prevention_intent": [
+        "prevent",
+        "protect",
+        "security",
+        "lock",
+        "peace of mind"
+      ]
+    }
+  },
+  {
     "id": "1l99lvp",
     "title": "Just bought a mini",
     "subreddit": "Starlink",
@@ -2367,34 +3519,6 @@
     "hits": {
       "theft_event": [
         "theft"
-      ]
-    }
-  },
-  {
-    "id": "1fyfo6m",
-    "title": "Does anyone have experience with using a Starlink mini indoors?",
-    "subreddit": "Starlink",
-    "author": "Ready_Hamster6515",
-    "url": "https://www.reddit.com/r/Starlink/comments/1fyfo6m/does_anyone_have_experience_with_using_a_starlink/",
-    "created_utc": 1728327814,
-    "created": "2024-10-07",
-    "upvotes": 1,
-    "num_comments": 1,
-    "over_18": false,
-    "locked": false,
-    "archived": false,
-    "excerpt": "I'm a coffee roaster who just found out about the Starlink mini. I have no wifi service in the building, and the cellular data is pretty bad. I don't need nor expect any fast speeds, but I was wondering if I could get at least something workable with the mini. I also wouldn't want to place it outside because of the possibility of it being stolen.",
-    "sources": [
-      "cache"
-    ],
-    "score": 0.13,
-    "raw_score": -1.0,
-    "bucket": "theft_report",
-    "age_days": 684.5,
-    "hits": {
-      "theft_event": [
-        "stolen",
-        "stole"
       ]
     }
   },
@@ -2502,10 +3626,37 @@
     "score": -0.47,
     "raw_score": -4.0,
     "bucket": "theft_report",
-    "age_days": 585.2,
+    "age_days": 585.3,
     "hits": {
       "theft_event": [
         "theft"
+      ]
+    }
+  },
+  {
+    "id": "1mvcu20",
+    "title": "SpaceX partners with astronomers to protect radio astronomy from satellite interference",
+    "subreddit": "Starlink",
+    "author": "spacedotc0m",
+    "url": "https://www.reddit.com/r/Starlink/comments/1mvcu20/spacex_partners_with_astronomers_to_protect_radio/",
+    "created_utc": 1755691327,
+    "created": "2025-08-20",
+    "upvotes": 12,
+    "num_comments": 1,
+    "over_18": false,
+    "locked": false,
+    "archived": false,
+    "excerpt": "",
+    "sources": [
+      "cache"
+    ],
+    "score": -0.51,
+    "raw_score": -2.0,
+    "bucket": "peripheral",
+    "age_days": 367.9,
+    "hits": {
+      "prevention_intent": [
+        "protect"
       ]
     }
   },

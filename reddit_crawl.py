@@ -280,7 +280,12 @@ def score_post(post: dict, cfg: dict) -> dict:
     hits = {name: matched(blob, phrases) for name, phrases in signals.items()}
 
     score = 0.0
-    for bucket in ("theft_event", "prevention_ask", "prevention_intent", "recovery_intent"):
+    # The weak asks only count when the post is actually about theft.
+    if not hits["theft_event"]:
+        hits["prevention_ask_weak"] = []
+
+    for bucket in ("theft_event", "prevention_ask", "prevention_ask_weak",
+                   "prevention_intent", "recovery_intent"):
         if hits[bucket]:
             score += weights[bucket]
             # A signal in the title is a far stronger indicator than one buried
@@ -332,7 +337,7 @@ def score_post(post: dict, cfg: dict) -> dict:
         bucket = "victim_seeking_answers"
     elif victim:
         bucket = "theft_report"
-    elif hits["prevention_ask"]:
+    elif hits["prevention_ask"] or hits["prevention_ask_weak"]:
         # An explicit anti-theft ask, or generic security words in a post that is
         # at least about theft. Generic words alone are how "safe to buy on
         # marketplace?" and "account banned for fraud" got in here.

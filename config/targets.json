@@ -209,10 +209,11 @@
       "preventing theft",
       "deter theft",
       "theft deterrent",
-      "deterrent",
       "from being stolen",
       "being stolen",
       "getting stolen",
+      "stop someone stealing",
+      "keep it from being taken",
       "from walking off",
       "go walkies",
       "security screws",
@@ -223,17 +224,13 @@
       "lock it down",
       "bolt it down",
       "chain it",
-      "cage",
-      "camo",
-      "conceal",
-      "hide the dish",
       "worried about theft",
       "risk of theft",
       "theft risk",
-      "stop someone stealing",
-      "keep it from being taken",
       "secure mount",
-      "security mount",
+      "security mount"
+    ],
+    "prevention_ask_weak": [
       "secure it",
       "secure my",
       "secure the dish",
@@ -244,9 +241,13 @@
       "extra secure",
       "how to secure",
       "keep it secure",
-      "locking bracket",
       "bolt down",
-      "bolt it"
+      "bolt it",
+      "cage",
+      "camo",
+      "conceal",
+      "hide the dish",
+      "deterrent"
     ]
   },
   "scoring": {
@@ -259,7 +260,8 @@
     "noise_penalty": -8,
     "min_score_to_report": 6,
     "recency_half_life_days": 120,
-    "prevention_ask": 7
+    "prevention_ask": 7,
+    "prevention_ask_weak": 4
   },
   "arctic_shift": {
     "_comment": "Tuned for prevention intent: people asking how to secure a dish, not people reporting one gone. Retrieval stays broad - a prevention question often says 'keep it from being stolen' - and the bucket filter narrows it afterwards.",
