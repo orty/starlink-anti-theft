@@ -239,6 +239,10 @@ class ArcticShift:
 # --------------------------------------------------------------------------- #
 # Scoring
 # --------------------------------------------------------------------------- #
+# How close a theft signal must be to a Starlink mention to count as on-topic.
+PROXIMITY_CHARS = 220
+SUBJECT_RE = re.compile(r"\b(starlink|dishy|dish)\b")
+
 VICTIM_RE = re.compile(
     r"(stole (my|our)|someone stole|thieves took|"
     r"\b(was|were|got|has been|have been|had been)\s+(stolen|taken|ripped off)\b|"
@@ -287,9 +291,21 @@ def score_post(post: dict, cfg: dict) -> dict:
     if hits["noise"]:
         score += weights["noise_penalty"]
 
-    # Starlink has to actually be the subject, not an aside.
-    if "starlink" not in blob and "dishy" not in blob:
+    # Starlink has to actually be the subject, not an aside. A caretaker-wanted
+    # post that mentions a break-in in one paragraph and Starlink in another
+    # matches every keyword while being of no use at all, so the theft signal
+    # has to sit near a Starlink mention, not merely in the same post.
+    subject_at = [m.start() for m in SUBJECT_RE.finditer(blob)]
+    if not subject_at:
         score -= 6
+    else:
+        signal_at = [blob.find(p) for bucket in ("theft_event", "prevention_intent",
+                                                 "recovery_intent")
+                     for p in hits[bucket]]
+        signal_at = [i for i in signal_at if i >= 0]
+        if signal_at and not any(abs(si - mi) <= PROXIMITY_CHARS
+                                 for si in signal_at for mi in subject_at):
+            score -= 7
 
     if "?" in title or re.search(r"\b(how|what|anyone|any way|advice|recommend|suggestions)\b", title):
         score += weights["question_bonus"]
@@ -520,12 +536,31 @@ def main() -> int:
                     help="seconds between Arctic Shift requests")
     ap.add_argument("--attempts", type=int, default=10,
                     help="retries per Arctic Shift query; ~2 of 3 time out server-side")
+    ap.add_argument("--from-raw", type=pathlib.Path, default=None,
+                    help="re-score a cached raw-YYYY-MM-DD.json instead of crawling")
     ap.add_argument("--verbose", action="store_true")
     args = ap.parse_args()
 
     cfg = json.loads(args.config.read_text())
     if args.min_score is None:
         args.min_score = cfg["scoring"]["min_score_to_report"]
+
+    if args.from_raw:
+        posts = json.loads(args.from_raw.read_text())
+        seen: dict[str, dict] = {}
+        absorb(seen, posts, "cache", cfg, time.time() - args.since_days * 86400)
+        rows = finalize(seen)
+        print(f"[rescore] {len(rows)} cached posts re-scored", file=sys.stderr)
+        args.out.mkdir(parents=True, exist_ok=True)
+        day = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        for r in rows:
+            r.pop("_raw", None)
+        (args.out / f"threads-{day}.json").write_text(json.dumps(rows, indent=2))
+        report = args.out / f"threads-{day}.md"
+        report.write_text(render_markdown(rows, cfg, args))
+        above = sum(1 for r in rows if r["score"] >= args.min_score)
+        print(f"[done] {above} above threshold -> {report}", file=sys.stderr)
+        return 0
 
     backend = args.backend
     if backend == "auto":

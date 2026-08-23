@@ -28,6 +28,25 @@ export REDDIT_PASSWORD=...
 export REDDIT_USER_AGENT="starlink-anti-theft-lead-finder/1.0 (by /u/yourname)"
 ```
 
+## Data sources
+
+Reddit blocks datacenter IPs: from a cloud VM every reddit.com path returns a
+block page, `oauth.reddit.com` included, so credentials don't help there. The
+crawler therefore has two backends and `--backend auto` probes Reddit first.
+
+| Backend | When it works | Trade-off |
+| --- | --- | --- |
+| `reddit` | Residential IP, ideally with OAuth credentials | Live scores, site-wide search |
+| `arcticshift` | Anywhere, no credentials | No site-wide search, archived metrics |
+
+[Arctic Shift](https://arctic-shift.photon-reddit.com) is a public Reddit
+archive. Two consequences worth knowing: every query must name a subreddit, so
+recall is capped by the subreddit list being right; and posts are stored as
+first captured, so upvotes and comment counts are lower bounds. Its 422 is a
+server-side query timeout rather than a quota - roughly one request in three
+succeeds regardless of spacing, so the client retries steadily instead of
+backing off. Budget ~15s per query.
+
 ## Usage
 
 ```bash
@@ -42,7 +61,17 @@ python reddit_crawl.py --scan-new
 
 # Weekly cron: report only threads never seen before
 python reddit_crawl.py --since-days 14 --state .state/seen.json
+
+# Force the archive backend, and pace it
+python reddit_crawl.py --backend arcticshift --pause 4 --attempts 12
+
+# Re-score cached posts after changing the scorer - no re-crawl
+python reddit_crawl.py --from-raw reports/raw-2026-08-23.json --since-days 900
 ```
+
+Each run also writes `raw-YYYY-MM-DD.json`, the unscored posts as fetched.
+Tuning the scorer is then a second-long `--from-raw` re-score rather than
+another 20-minute sweep.
 
 Output lands in `reports/threads-YYYY-MM-DD.{md,json}` — the Markdown is the
 one to read, the JSON is there for anything downstream.
@@ -79,6 +108,11 @@ Each thread is then bucketed by what kind of reply it needs:
 | `tracking_discussion` | GPS / AirTag / serial threads | On-topic, the app belongs in the answer |
 | `theft_report` | Venting, not asking | Sympathy and one useful fact; no pitch |
 | `peripheral` | Weak match | Skim before spending a comment |
+
+A proximity gate keeps the subject honest: the theft signal has to appear
+within ~220 characters of a Starlink mention. Without it a "caretaker wanted"
+post that mentions a break-in in one paragraph and Starlink in another matches
+every keyword while being useless.
 
 Victim classification keys off first-person phrasing (`someone stole my…`,
 `my dish was taken`) rather than the word "stolen" alone — otherwise every
