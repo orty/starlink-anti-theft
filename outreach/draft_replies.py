@@ -23,7 +23,7 @@ import textwrap
 import time
 
 APP_NAME = "Starlink Guard"
-APP_PLACEHOLDER = "YOUR.PACKAGE.ID"
+APP_URL = "https://play.google.com/store/apps/details?id=orty.starlink_guard"
 
 # Subreddits that ban or tightly restrict self-promotion. Not exhaustive, and
 # rules change - it flags what to check, it does not clear anything. Being free
@@ -161,8 +161,9 @@ def main() -> int:
         "near-identical comments across threads is precisely what spam detection "
         "looks for, and it costs the account and the link domain, not one comment.",
         "",
-        f"Replace `{APP_PLACEHOLDER}` with the real Play Store link before sending "
-        "anything.",
+        f"App: {APP_URL} - confirm the listing is public before linking it. "
+        "See app-facts.md for what the app does and, more importantly, the limits "
+        "that belong in the reply.",
         "",
         "---",
         "",

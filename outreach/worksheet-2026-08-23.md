@@ -4,7 +4,7 @@
 
 Two rules decide whether this works. Answer the question first and disclose that you built it - free or not, most of these subs remove anything that reads as promotion. And write each reply from scratch: near-identical comments across threads is precisely what spam detection looks for, and it costs the account and the link domain, not one comment.
 
-Replace `YOUR.PACKAGE.ID` with the real Play Store link before sending anything.
+App: https://play.google.com/store/apps/details?id=orty.starlink_guard - confirm the listing is public before linking it. See app-facts.md for what the app does and, more importantly, the limits that belong in the reply.
 
 ---
 ## [Starlink antenna anti-theft protection for the patio?](https://www.reddit.com/r/Starlink/comments/1vtf4pg/starlink_antenna_antitheft_protection_for_the/)
