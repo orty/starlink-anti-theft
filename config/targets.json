@@ -157,8 +157,6 @@
       "cut my cable"
     ],
     "prevention_intent": [
-      "anti theft",
-      "anti-theft",
       "prevent",
       "protect",
       "secure",
@@ -167,14 +165,10 @@
       "lock",
       "locking",
       "bolt",
-      "cage",
       "tamper",
-      "how do i stop",
-      "keep it from being stolen",
-      "worried about theft",
-      "peace of mind",
+      "unattended",
       "leaving it unattended",
-      "unattended"
+      "peace of mind"
     ],
     "recovery_intent": [
       "recover",
@@ -203,41 +197,83 @@
       "stole the show",
       "stolen base",
       "megathread"
+    ],
+    "prevention_ask": [
+      "anti theft",
+      "anti-theft",
+      "antitheft",
+      "theft proof",
+      "theft-proof",
+      "theftproof",
+      "prevent theft",
+      "preventing theft",
+      "deter theft",
+      "theft deterrent",
+      "deterrent",
+      "from being stolen",
+      "being stolen",
+      "getting stolen",
+      "from walking off",
+      "go walkies",
+      "security screws",
+      "tamper proof",
+      "tamper-proof",
+      "tamper resistant",
+      "locking mount",
+      "lock it down",
+      "bolt it down",
+      "chain it",
+      "cage",
+      "camo",
+      "conceal",
+      "hide the dish",
+      "worried about theft",
+      "risk of theft",
+      "theft risk",
+      "stop someone stealing",
+      "keep it from being taken",
+      "secure mount",
+      "security mount"
     ]
   },
   "scoring": {
     "theft_event": 3,
-    "prevention_intent": 5,
+    "prevention_intent": 2,
     "recovery_intent": 4,
     "title_bonus": 2,
     "question_bonus": 3,
     "self_post_bonus": 2,
     "noise_penalty": -8,
     "min_score_to_report": 6,
-    "recency_half_life_days": 120
+    "recency_half_life_days": 120,
+    "prevention_ask": 7
   },
   "arctic_shift": {
-    "_comment": "Arctic Shift has no site-wide search - every query names a subreddit and one field. Terms are AND-matched. Kept tight because ~2 of 3 requests time out server-side, so each query costs ~15s.",
+    "_comment": "Tuned for prevention intent: people asking how to secure a dish, not people reporting one gone. Retrieval stays broad - a prevention question often says 'keep it from being stolen' - and the bucket filter narrows it afterwards.",
     "starlink_native_subs": [
       "Starlink",
       "StarlinkMini",
       "Starlink_Support"
     ],
     "title_terms_native": [
-      "stolen",
+      "secure",
+      "anti-theft",
       "theft",
-      "steal"
+      "lock",
+      "protect",
+      "stolen"
     ],
     "body_terms_native": [
-      "stolen",
-      "theft"
+      "anti-theft",
+      "prevent theft",
+      "from being stolen"
     ],
     "title_terms_general": [
-      "starlink stolen",
+      "starlink secure",
       "starlink theft"
     ],
     "body_terms_general": [
-      "starlink stolen"
+      "starlink anti-theft"
     ]
   }
 }

@@ -280,7 +280,7 @@ def score_post(post: dict, cfg: dict) -> dict:
     hits = {name: matched(blob, phrases) for name, phrases in signals.items()}
 
     score = 0.0
-    for bucket in ("theft_event", "prevention_intent", "recovery_intent"):
+    for bucket in ("theft_event", "prevention_ask", "prevention_intent", "recovery_intent"):
         if hits[bucket]:
             score += weights[bucket]
             # A signal in the title is a far stronger indicator than one buried
@@ -332,7 +332,10 @@ def score_post(post: dict, cfg: dict) -> dict:
         bucket = "victim_seeking_answers"
     elif victim:
         bucket = "theft_report"
-    elif hits["prevention_intent"]:
+    elif hits["prevention_ask"] or (hits["prevention_intent"] and hits["theft_event"]):
+        # An explicit anti-theft ask, or generic security words in a post that is
+        # at least about theft. Generic words alone are how "safe to buy on
+        # marketplace?" and "account banned for fraud" got in here.
         bucket = "shopping_for_prevention"
     elif hits["recovery_intent"]:
         bucket = "tracking_discussion"
@@ -467,12 +470,15 @@ def render_markdown(rows: list[dict], cfg: dict, args) -> str:
     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     keep = [r for r in rows if r["score"] >= args.min_score
             and not r["locked"] and not r["archived"]]
+    if args.buckets:
+        keep = [r for r in keep if r["bucket"] in args.buckets]
 
     lines = [
         "# Starlink theft threads - promotion targets",
         "",
         f"Generated {stamp} | window: last {args.since_days} days | "
-        f"{len(keep)} of {len(rows)} hits above threshold {args.min_score}",
+        f"{len(keep)} of {len(rows)} hits above threshold {args.min_score}"
+        + (f", filtered to {', '.join(args.buckets)}" if args.buckets else ""),
         "",
         "Read each subreddit's rules before commenting. Most ban unsolicited "
         "promotion; the ones that allow it expect you to disclose that you built "
@@ -536,7 +542,9 @@ def main() -> int:
                     help="seconds between Arctic Shift requests")
     ap.add_argument("--attempts", type=int, default=10,
                     help="retries per Arctic Shift query; ~2 of 3 time out server-side")
-    ap.add_argument("--from-raw", type=pathlib.Path, default=None,
+    ap.add_argument("--buckets", nargs="*", default=None,
+                    help="only report these buckets, e.g. --buckets shopping_for_prevention")
+    ap.add_argument("--from-raw", type=pathlib.Path, nargs="+", default=None,
                     help="re-score a cached raw-YYYY-MM-DD.json instead of crawling")
     ap.add_argument("--verbose", action="store_true")
     args = ap.parse_args()
@@ -546,7 +554,11 @@ def main() -> int:
         args.min_score = cfg["scoring"]["min_score_to_report"]
 
     if args.from_raw:
-        posts = json.loads(args.from_raw.read_text())
+        posts = []
+        for path in args.from_raw:
+            batch = json.loads(path.read_text())
+            posts.extend(batch)
+            print(f"[rescore] {len(batch)} posts from {path.name}", file=sys.stderr)
         seen: dict[str, dict] = {}
         absorb(seen, posts, "cache", cfg, time.time() - args.since_days * 86400)
         rows = finalize(seen)

@@ -109,6 +109,15 @@ Each thread is then bucketed by what kind of reply it needs:
 | `theft_report` | Venting, not asking | Sympathy and one useful fact; no pitch |
 | `peripheral` | Weak match | Skim before spending a comment |
 
+Prevention vocabulary is split in two. An explicit anti-theft ask (`anti-theft`,
+`theft-proof`, `security screws`, `from being stolen`, `cage`, `conceal`) scores
+7; generic security words (`secure`, `lock`, `safe`, `protect`) score 2 and only
+imply prevention alongside an actual theft signal. Without that split, "safe to
+buy on marketplace?" and "account banned for fraud" rank as prevention leads.
+
+Use `--buckets shopping_for_prevention` to report only the people shopping for
+a solution, rather than everyone discussing theft.
+
 A proximity gate keeps the subject honest: the theft signal has to appear
 within ~220 characters of a Starlink mention. Without it a "caretaker wanted"
 post that mentions a break-in in one paragraph and Starlink in another matches
