@@ -179,12 +179,14 @@ class ArcticShift:
 
     BASE = "https://arctic-shift.photon-reddit.com/api/posts/search"
 
-    def __init__(self, pause: float = 2.0, verbose: bool = False):
+    def __init__(self, pause: float = 4.0, attempts: int = 10, verbose: bool = False):
         self.session = requests.Session()
         self.session.headers["User-Agent"] = UA
         self.pause = pause
+        self.attempts = attempts
         self.verbose = verbose
         self.ok_requests = 0
+        self.timeouts = 0
         self.empty_subs: set[str] = set()
 
     def search_sub(self, subreddit: str, field: str, term: str,
@@ -193,7 +195,7 @@ class ArcticShift:
         if after:
             params["after"] = int(after)
 
-        for attempt in range(6):
+        for attempt in range(self.attempts):
             try:
                 resp = self.session.get(self.BASE, params=params, timeout=90)
             except requests.RequestException as exc:
@@ -209,12 +211,22 @@ class ArcticShift:
                     self.empty_subs.add(subreddit)
                 return data
 
-            # 422 is Arctic Shift's "slow down" - back off hard, it recovers.
-            if resp.status_code in (422, 429, 500, 502, 503):
-                wait = self.pause * (2 ** attempt)
+            # 422 is a server-side query timeout, not a quota: roughly one
+            # request in three succeeds no matter how long you wait, so retry
+            # steadily rather than backing off into a stall. A real 429 does
+            # want exponential backoff.
+            if resp.status_code == 422:
+                self.timeouts += 1
                 if self.verbose:
-                    print(f"[warn] {subreddit}/{field}={term}: HTTP {resp.status_code}, "
-                          f"waiting {wait:.0f}s", file=sys.stderr)
+                    print(f"[warn] {subreddit}/{field}={term}: 422 timeout, retrying",
+                          file=sys.stderr)
+                time.sleep(self.pause)
+                continue
+
+            if resp.status_code in (429, 500, 502, 503):
+                wait = self.pause * (2 ** attempt)
+                print(f"[warn] {subreddit}/{field}={term}: HTTP {resp.status_code}, "
+                      f"waiting {wait:.0f}s", file=sys.stderr)
                 time.sleep(wait)
                 continue
 
@@ -485,8 +497,10 @@ def main() -> int:
                     help="JSON file of already-seen post ids; new hits only")
     ap.add_argument("--backend", default="auto", choices=["auto", "reddit", "arcticshift"],
                     help="auto probes Reddit first and falls back to the archive")
-    ap.add_argument("--pause", type=float, default=2.0,
-                    help="seconds between Arctic Shift requests; it rate-limits hard")
+    ap.add_argument("--pause", type=float, default=4.0,
+                    help="seconds between Arctic Shift requests")
+    ap.add_argument("--attempts", type=int, default=10,
+                    help="retries per Arctic Shift query; ~2 of 3 time out server-side")
     ap.add_argument("--verbose", action="store_true")
     args = ap.parse_args()
 
@@ -504,7 +518,7 @@ def main() -> int:
         client = Reddit(verbose=args.verbose)
         rows = crawl_reddit(client, cfg, args)
     else:
-        client = ArcticShift(pause=args.pause, verbose=args.verbose)
+        client = ArcticShift(pause=args.pause, attempts=args.attempts, verbose=args.verbose)
         rows = crawl_arctic(client, cfg, args)
         if client.empty_subs:
             print(f"[note] no results from: {', '.join(sorted(client.empty_subs))} "

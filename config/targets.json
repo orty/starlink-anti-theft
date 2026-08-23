@@ -217,7 +217,7 @@
     "recency_half_life_days": 120
   },
   "arctic_shift": {
-    "_comment": "Arctic Shift has no site-wide search - every query names a subreddit. Terms are AND-matched within the chosen field.",
+    "_comment": "Arctic Shift has no site-wide search - every query names a subreddit and one field. Terms are AND-matched. Kept tight because ~2 of 3 requests time out server-side, so each query costs ~15s.",
     "starlink_native_subs": [
       "Starlink",
       "StarlinkMini",
@@ -226,10 +226,7 @@
     "title_terms_native": [
       "stolen",
       "theft",
-      "stole",
-      "steal",
-      "anti-theft",
-      "security"
+      "steal"
     ],
     "body_terms_native": [
       "stolen",
@@ -237,13 +234,10 @@
     ],
     "title_terms_general": [
       "starlink stolen",
-      "starlink theft",
-      "starlink stole",
-      "starlink security"
+      "starlink theft"
     ],
     "body_terms_general": [
-      "starlink stolen",
-      "starlink theft"
+      "starlink stolen"
     ]
   }
 }
