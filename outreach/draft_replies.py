@@ -19,17 +19,18 @@ import argparse
 import json
 import pathlib
 import sys
+import textwrap
 import time
 
 APP_NAME = "Starlink Guard"
 APP_PLACEHOLDER = "YOUR.PACKAGE.ID"
-APP_URL = f"https://play.google.com/store/apps/details?id={APP_PLACEHOLDER}"
 
 # Subreddits that ban or tightly restrict self-promotion. Not exhaustive, and
-# rules change - it flags what to check, it does not clear anything.
+# rules change - it flags what to check, it does not clear anything. Being free
+# does not exempt a comment from these: the rules are about who is promoting.
 STRICT_SUBS = {
-    "Starlink": "Rule on self-promotion and referral spam; be useful, disclose, no bare links.",
-    "homesecurity": "Bans vendor promotion outright. Answer without the link.",
+    "Starlink": "Self-promotion and referral spam rule; be useful, disclose, no bare links.",
+    "homesecurity": "Bans vendor promotion outright, free or not. Answer without the link.",
     "preppers": "Self-promotion needs mod approval.",
     "RVLiving": "No advertising; a disclosed mention inside a real answer is the most that fits.",
     "vandwellers": "Strict on commercial posts.",
@@ -37,42 +38,34 @@ STRICT_SUBS = {
     "HomeNetworking": "No vendor spam; technical answers only.",
 }
 
-OPENERS = {
-    "shopping_for_prevention": (
-        "The three things that actually cut dish theft, in order of value per dollar:\n"
-        "1. Make it boring to look at - a dish at ground level in the open is the "
-        "advertisement. Roofline or behind a screen beats any lock.\n"
-        "2. Security-bolt the mount so it needs a tool and two minutes, not a yank.\n"
-        "3. Record the serial (base of the unit, also in your account) and photograph "
-        "the install - without it the police report and the Starlink stolen-unit "
-        "report both go nowhere."
-    ),
-    "victim_seeking_answers": (
-        "Sorry - rotten thing to come home to. Worth doing today, in order:\n"
-        "- Report it to Starlink support with the serial and your account, so the unit "
-        "can't be re-registered to someone else. That's what kills its resale value.\n"
-        "- File a police report with that serial in it.\n"
-        "- Set a saved search on local marketplace listings for \"Starlink\"."
-    ),
-    "tracking_discussion": (
-        "Worth knowing what each approach buys you: an AirTag tells you where it went "
-        "but not who has it, and thieves increasingly scan for them. The serial number "
-        "is what makes the unit useless to them, because Starlink won't re-register a "
-        "reported one."
-    ),
-    "theft_report": (
-        "That sucks. If you haven't yet - report the serial to Starlink support so it "
-        "can't be registered to another account. Won't get yours back, but it makes it "
-        "worthless to whoever took it."
-    ),
-}
+# What the thread is actually about, so the reply can open on their situation
+# rather than a script. Mechanical, but it is scaffolding, not a comment.
+CONTEXTS = [
+    ("boat", ["boat", "canal", "marina", "sailing", "yacht"]),
+    ("RV or motorhome", ["rv", "motorhome", "caravan", "camper", "trailer"]),
+    ("van", ["van", "vanlife", "van life"]),
+    ("vehicle roof", ["truck", "car roof", "roof of my", "vehicle", "overland"]),
+    ("farm or rural property", ["farm", "ranch", "rural", "acreage", "pasture"]),
+    ("home or garden", ["patio", "terrace", "garden", "yard", "balcony", "flat", "apartment"]),
+    ("travel or abroad", ["international", "abroad", "trip", "travel", "border"]),
+]
+CONCERNS = [
+    ("Do the standard mounts/bolts actually resist theft", ["bolt", "screw", "mount", "tamper"]),
+    ("Is a stolen dish usable to the thief (bricking, account lock)",
+     ["brick", "locked", "useless", "resale", "re-register", "registered", "serial"]),
+    ("Concealment vs. hardening", ["conceal", "camo", "hide", "cover", "visible", "obvious"]),
+    ("Having to take it in and out every time",
+     ["take it in", "taking it in", "every trip", "remove it every", "faff", "unattended"]),
+    ("Recovery after the fact", ["track", "gps", "airtag", "police", "recover", "insurance"]),
+]
 
-DISCLOSURE = (
-    f"\n\nFull disclosure, I built {APP_NAME} ({APP_URL}) for the serial-and-photos part "
-    f"of this, so weigh that accordingly - the physical steps above matter more than any app."
-)
 
-NO_PITCH = {"theft_report"}
+def contexts_for(blob: str) -> list[str]:
+    return [name for name, keys in CONTEXTS if any(k in blob for k in keys)]
+
+
+def concerns_for(blob: str) -> list[str]:
+    return [name for name, keys in CONCERNS if any(k in blob for k in keys)]
 
 
 def build_draft(row: dict) -> str:
@@ -86,6 +79,8 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--report", type=pathlib.Path, required=True)
+    ap.add_argument("--raw", type=pathlib.Path, default=None,
+                    help="raw-*.json from the same run, for full post bodies")
     ap.add_argument("--out", type=pathlib.Path, default=pathlib.Path("outreach/drafts.md"))
     ap.add_argument("--buckets", nargs="*", default=["shopping_for_prevention"])
     ap.add_argument("--min-score", type=float, default=8.0)
@@ -96,6 +91,7 @@ def main() -> int:
     args = ap.parse_args()
 
     rows = json.loads(args.report.read_text())
+    raw = {p["id"]: p for p in json.loads(args.raw.read_text())} if args.raw else {}
     picked = [r for r in rows
               if r["score"] >= args.min_score
               and r["bucket"] in args.buckets
@@ -125,23 +121,45 @@ def main() -> int:
         block += [f"- {w}" for w in warnings]
         if warnings:
             block.append("")
-        if row["excerpt"]:
-            block += ["**They asked:**", "", f"> {row['excerpt']}", ""]
-        block += ["**Draft** - rewrite this to answer their actual question before "
-                  "pasting it:", "", "```", build_draft(row), "```", ""]
+        full = raw.get(row["id"], {}).get("selftext") or row["excerpt"]
+        full = " ".join(full.split())
+        if full:
+            quoted = "\n".join(f"> {line}" for line in textwrap.wrap(full[:1200], 100))
+            block += ["**They asked:**", "", quoted, ""]
+        blob = f"{row['title']}\n{full}".lower()
+        ctx = contexts_for(blob)
+        con = concerns_for(blob)
+        block += ["**Their setup:** " + (", ".join(ctx) if ctx else "not stated"), ""]
+        if con:
+            block += ["**What they are actually asking:**", ""]
+            block += [f"- {c}" for c in con]
+            block.append("")
+        block += [
+            "**Write the reply here.** Open on their specific situation above, in "
+            "your own words. One or two sentences on what you would do, then the "
+            "app only where it genuinely answers the question they asked - "
+            f"disclosed as yours, and free. Do not reuse wording from another "
+            f"reply in this file.",
+            "",
+            "```",
+            "",
+            "```",
+            "",
+        ]
         sections.append("\n".join(block))
 
     header = [
         f"# Reply worksheet - {APP_NAME}",
         "",
-        f"{len(sections)} threads, {stale_count} of them stale. Posting is manual: "
-        "open the link, rewrite the draft to fit the thread, paste it yourself.",
+        f"{len(sections)} threads, {stale_count} of them stale. Posting is manual, "
+        "and the replies are yours to write - this file deliberately ships no "
+        "canned text.",
         "",
-        "Two rules that decide whether this works at all. Answer the question first "
-        "and disclose that you built the app - most of these subs remove anything "
-        "that reads as an advert. And never paste the same text twice: near-identical "
-        "comments across threads is the exact pattern that gets an account and its "
-        "links banned.",
+        "Two rules decide whether this works. Answer the question first and "
+        "disclose that you built it - free or not, most of these subs remove "
+        "anything that reads as promotion. And write each reply from scratch: "
+        "near-identical comments across threads is precisely what spam detection "
+        "looks for, and it costs the account and the link domain, not one comment.",
         "",
         f"Replace `{APP_PLACEHOLDER}` with the real Play Store link before sending "
         "anything.",
